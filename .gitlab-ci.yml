@@ -27,13 +27,10 @@ test:
   after_script:
     - docker-compose -f docker-compose.autotest.yml down -v
 
-deploy-prod:
+deploy:
   stage: deploy
   script:
     - docker pull ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
     - docker-compose -f docker-compose.yml  stop
     - docker-compose -f docker-compose.yml  rm -f
     - docker-compose -f docker-compose.yml  up -d
-  tags:
-    - docker
-    - gobotat
