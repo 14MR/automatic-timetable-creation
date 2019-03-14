@@ -26,6 +26,7 @@ test:
     - docker-compose -f docker-compose.autotest.yml run python
   after_script:
     - docker-compose -f docker-compose.autotest.yml down -v
+  coverage: '/TOTAL.*\d+%/'
 
 deploy:
   stage: deploy
