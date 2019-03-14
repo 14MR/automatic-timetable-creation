@@ -40,7 +40,6 @@ deploy:
     - docker-compose -f docker-compose.prod.yml -p $CI_PROJECT_NAME up -d
   only:
     - master
-    - feature/deploy
   tags:
     - docker
     - atc
