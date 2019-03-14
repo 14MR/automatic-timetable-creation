@@ -18,6 +18,8 @@ docker-build:
   script:
     - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest -f docker/Dockerfile .
     - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
+    - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:backendweb -f docker/nginx/Dockerfile docker/nginx/ --no-cache
+    - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:backendweb
 
 #test:
 #  stage: test
@@ -35,3 +37,10 @@ deploy:
     - docker-compose -f docker-compose.prod.yml $CI_PROJECT_NAME stop
     - docker-compose -f docker-compose.prod.yml $CI_PROJECT_NAME rm -f
     - docker-compose -f docker-compose.prod.yml $CI_PROJECT_NAME up -d
+  only:
+    - master
+    - feature/deploy
+  tags:
+    - docker
+    - atc
+
