@@ -6,9 +6,9 @@ class RoomType(models.Model):
 
 
 class Room(models.Model):
-    number = models.IntegerField()
+    number = models.PositiveSmallIntegerField()
     type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
-    capacity = models.IntegerField()
+    capacity = models.PositiveSmallIntegerField()
     is_yellow = models.BooleanField(default=False)
 
 
