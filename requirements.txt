@@ -1,0 +1,6 @@
+Django==2.1.5
+django-jet==1.0.8
+django-templated-email==2.3.0
+factory-boy==2.11.1
+psycopg2==2.7.7
+Sphinx==1.8.4
