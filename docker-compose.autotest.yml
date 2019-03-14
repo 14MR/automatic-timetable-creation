@@ -6,25 +6,9 @@ services:
               python3 manage.py test --settings=atc.settings_test"
     volumes:
       - .:/app
-    depends_on:
-      - postgres
     restart: always
     networks:
       - project
-
-  postgres:
-    restart: always
-    image: postgres:11.2-alpine
-    volumes:
-      - db_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
-    networks:
-      - project
-
-volumes:
- db_data:
 
 networks:
   project:
