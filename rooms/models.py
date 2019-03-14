@@ -5,7 +5,7 @@ class RoomType(models.Model):
     name = models.CharField(max_length=30)
 
 
-class Rooms(models.Model):
+class Room(models.Model):
     number = models.IntegerField()
     type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
     capacity = models.IntegerField()
