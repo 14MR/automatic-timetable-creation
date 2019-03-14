@@ -2,7 +2,7 @@ version: '3'
 services:
   python:
     image: registry.gitlab.com/automatic-timetable-creation/backend:latest
-    command: /bin/bash -c "python3 manage.py test --settings=atc.settings_test.py"
+    command: /bin/bash -c "python3 manage.py test --settings=settings_test.py"
     volumes:
       - .:/app
     depends_on:
