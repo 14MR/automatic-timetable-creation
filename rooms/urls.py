@@ -1,8 +1,11 @@
 from django.urls import path
 from django.conf.urls import url, include
-from rooms.models import Room
-from rest_framework import router, serializers, viewsets
+from rest_framework import routers
+from rooms.views import RoomViewSet
+
+router = routers.DefaultRouter()
+router.register(r'rooms', RoomViewSet)
 
 urlpatterns = [
-    path(r'', ),
+    url(r'^', include(router.urls)),
 ]
