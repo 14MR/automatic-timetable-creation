@@ -39,7 +39,7 @@ services:
       - project
 
 volumes:
-  db:
+  db_data:
 
 networks:
   project:
