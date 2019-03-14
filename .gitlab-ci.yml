@@ -19,19 +19,19 @@ docker-build:
     - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest -f docker/Dockerfile .
     - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
 
-#test:
-#  stage: test
-#  script:
-#    - docker pull ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
-#    - docker-compose -f docker-compose.autotest.yml run python
-#  after_script:
-#    - docker-compose -f docker-compose.autotest.yml down -v
-#  coverage: '/TOTAL.*\d+%/'
-#
-#deploy:
-#  stage: deploy
-#  script:
-#    - docker pull ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
-#    - docker-compose -f docker-compose.yml  stop
-#    - docker-compose -f docker-compose.yml  rm -f
-#    - docker-compose -f docker-compose.yml  up -d
+test:
+  stage: test
+  script:
+    - docker pull ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
+    - docker-compose -f docker-compose.autotest.yml run python
+  after_script:
+    - docker-compose -f docker-compose.autotest.yml down -v
+  coverage: '/TOTAL.*\d+%/'
+
+deploy:
+  stage: deploy
+  script:
+    - docker pull ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
+    - docker-compose -f docker-compose.yml  stop
+    - docker-compose -f docker-compose.yml  rm -f
+    - docker-compose -f docker-compose.yml  up -d
