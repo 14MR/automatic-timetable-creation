@@ -1,0 +1,15 @@
+version: '3'
+services:
+  python:
+    image: registry.gitlab.com/automatic-timetable-creation/backend:latest
+    command: /bin/bash -c "pip install -r ./requirements_test.txt &&
+              python3 manage.py test --settings=atc.settings_test"
+    volumes:
+      - .:/app
+    restart: always
+    networks:
+      - project
+
+networks:
+  project:
+
