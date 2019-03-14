@@ -16,4 +16,4 @@ COPY . .
 
 USER $MOD_WSGI_USER:$MOD_WSGI_GROUP
 
-CMD python manage.py migrate && python manage.py runserver 0.0.0.0:80
+CMD python manage.py migrate && uwsgi --ini docker/app/uwsgi.ini
