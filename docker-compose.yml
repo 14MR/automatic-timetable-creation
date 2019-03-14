@@ -4,6 +4,13 @@ services:
     image: registry.gitlab.com/automatic-timetable-creation/backend:latest
     ports:
       - 80:80
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+    restart: always
+    networks:
+      - project
 
   postgres:
     restart: always
@@ -11,10 +18,16 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./postgres/dump_init.sql:/docker-entrypoint-initdb.d/postgres_backup_all.sql
-
+      - db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "1"
-      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: "postgres"
+    networks:
+      - project
+
+volumes:
+ db_data:
+
+networks:
+  project:
 
