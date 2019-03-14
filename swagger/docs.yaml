@@ -1,0 +1,245 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: 'Automatic Timetable'
+paths:
+  /items/:
+    get:
+      summary: 'Returns items'
+      operationId: get_items
+      tags:
+        - "items"
+      responses:
+        '200':
+          description: 'Items successfully returned'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+    post:
+      summary: 'Creates item'
+      operationId: create_item
+      tags:
+        - "items"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Item was successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+
+  /items/{id}:
+    get:
+      summary: 'Returns item by id'
+      operationId: get_item_by_id
+      tags:
+        - "items"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Item was found and returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          description: 'Item with such id was not found'
+    post:
+      summary: 'Updates item by id'
+      operationId: update_item_by_id
+      tags:
+        - "items"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Item was updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          description: 'Item with such id was not found'
+    delete:
+      summary: 'Removes item by id'
+      operationId: delete_item_by_id
+      tags:
+        - "items"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Item was deleted'
+        '404':
+          description: 'Item with such id was not found'
+
+  /rooms/:
+    get:
+      summary: 'Returns rooms'
+      operationId: get_rooms
+      tags:
+        - "rooms"
+      responses:
+        '200':
+          description: 'Rooms successfully returned'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+    post:
+      summary: 'Creates or updates room'
+      operationId: create_room
+      tags:
+        - "rooms"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Room was found and successfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+
+  /rooms/{id}:
+    get:
+      summary: 'Returns room by id'
+      operationId: get_room_by_id
+      tags:
+        - "rooms"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Room was found and returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        '404':
+          description: 'Room with such id was not found'
+    post:
+      summary: 'Updates room by id'
+      operationId: update_room_by_id
+      tags:
+        - "rooms"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Room was successfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        '404':
+          description: 'Room with such id was not found'
+    delete:
+      summary: 'Deletes room by id'
+      operationId: delete_room_by_id
+      tags:
+        - "rooms"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Room was deleted'
+        '404':
+          description: 'Room with such id was not found'
+
+components:
+  schemas:
+    Item:
+      required:
+        - id
+        - name
+        - type
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/ItemType'
+
+    ItemType:
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+
+    Room:
+      required:
+        - id
+        - number
+      properties:
+        id:
+          type: integer
+        number:
+          type: integer
+        type:
+          $ref: '#/components/schemas/RoomType'
+        capacity:
+          type: integer
+        is_yellow:
+          type: boolean
+
+    RoomType:
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+        name:
+          type: integer
+
+  securitySchemes:
+    TokenAuth:
+      type: http
+      scheme: bearer
+      description: Token-based authentication
