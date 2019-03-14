@@ -34,9 +34,9 @@ deploy:
   stage: deploy
   script:
     - docker pull ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
-    - docker-compose -f docker-compose.prod.yml $CI_PROJECT_NAME stop
-    - docker-compose -f docker-compose.prod.yml $CI_PROJECT_NAME rm -f
-    - docker-compose -f docker-compose.prod.yml $CI_PROJECT_NAME up -d
+    - docker-compose -f docker-compose.prod.yml -p $CI_PROJECT_NAME stop || echo
+    - docker-compose -f docker-compose.prod.yml -p $CI_PROJECT_NAME rm -f || echo
+    - docker-compose -f docker-compose.prod.yml -p $CI_PROJECT_NAME up -d
   only:
     - master
     - feature/deploy
