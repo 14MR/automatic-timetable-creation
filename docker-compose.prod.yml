@@ -1,0 +1,48 @@
+version: '3.3'
+
+services:
+  backendweb:
+    image: registry.gitlab.com/automatic-timetable-creation/backend:backendweb
+    ports:
+      - 80
+    restart: always
+    depends_on:
+      - python
+    networks:
+      - project
+      - web
+    environment:
+      VIRTUAL_HOST: "atc.mustafin.dev"
+
+  postgres:
+    image: postgres:11.2-alpine
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    restart: always
+    networks:
+      - project
+    healthcheck:
+      test: ["CMD-SHELL", "su postgres pg_isready"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 3
+
+  python:
+    image: registry.gitlab.com/automatic-timetable-creation/backend:latest
+    restart: always
+    depends_on:
+      - postgres
+    networks:
+      - project
+
+volumes:
+  db:
+
+networks:
+  project:
+  web:
+    external:
+      name: web
