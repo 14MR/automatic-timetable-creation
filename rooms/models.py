@@ -19,4 +19,4 @@ class Room(models.Model):
     type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
     capacity = models.PositiveSmallIntegerField()
     is_yellow = models.BooleanField(default=False)
-    items = models.ManyToManyField(Item)
+    items = models.ManyToManyField(Item, blank=True)
