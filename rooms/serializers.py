@@ -16,11 +16,11 @@ class RoomTypeSerializer(serializers.ModelSerializer):
 
 class RoomSerializer(serializers.ModelSerializer):
     items = ItemSerializer(required=False, many=True)
-    type = RoomTypeSerializer()  # TODO : TYPE ID
+    type_id = serializers.PrimaryKeyRelatedField(source='type', queryset=RoomType.objects.all())
 
     class Meta:
         model = Room
-        fields = ('id', 'number', 'capacity', 'is_yellow', 'type', 'items')
+        fields = ('id', 'number', 'capacity', 'is_yellow', 'type_id', 'items')
 
 
 class CreateRoomSerializer(serializers.ModelSerializer):

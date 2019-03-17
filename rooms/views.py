@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, serializers
 from rest_framework.response import Response
 from rooms.serializers import RoomSerializer, Room, Item, ItemSerializer, CreateRoomSerializer
 from rest_framework.permissions import AllowAny
@@ -27,6 +27,13 @@ class RoomViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        data = RoomSerializer(instance).data
+        instance.delete()
+        self.perform_destroy(instance)
+        return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
 class ItemViewSet(viewsets.ModelViewSet):
