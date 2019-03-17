@@ -23,7 +23,8 @@ class RoomTypeSerializer(serializers.ModelSerializer):
 
 
 class RoomSerializer(serializers.ModelSerializer):
-    items = RoomTypeSerializer(required=False)
+    items = ItemTypeSerializer(required=False, many=True)
+    type = RoomTypeSerializer()
 
     class Meta:
         model = Room
