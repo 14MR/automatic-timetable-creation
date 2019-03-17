@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rooms.serializers import RoomSerializer, Room, Item, ItemSerializer
+from rooms.serializers import RoomSerializer, Room, Item, ItemSerializer, CreateRoomSerializer
 from rest_framework.permissions import AllowAny
 
 
@@ -19,7 +19,7 @@ class RoomViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        serializer = CreateRoomSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
