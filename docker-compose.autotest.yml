@@ -3,7 +3,7 @@ services:
   python:
     image: registry.gitlab.com/automatic-timetable-creation/backend:latest
     command: /bin/bash -c "pip install -r ./requirements_test.txt &&
-              pytest --cov=rooms ./rooms/tests.py::test &&
+              pytest --cov=rooms &&
               python3 manage.py test --settings=atc.settings_test"
     restart: always
     networks:
