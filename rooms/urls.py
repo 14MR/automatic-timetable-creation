@@ -11,4 +11,3 @@ item_router.register(r'items', ItemViewSet, basename='item')
 urlpatterns = [
     url(r'^', include(room_router.urls)),
     url(r'^', include(item_router.urls))
-]
