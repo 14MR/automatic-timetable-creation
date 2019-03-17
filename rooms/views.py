@@ -51,3 +51,19 @@ class ItemViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
+
+    def update(self, request, pk=None):
+        queryset = self.get_queryset()
+        model = get_object_or_404(queryset, pk=pk)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        instance = serializer.update(model, request.data)
+        serializer = ItemSerializer(instance)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        data = ItemSerializer(instance).data
+        instance.delete()
+        self.perform_destroy(instance)
+        return Response(data, status=status.HTTP_204_NO_CONTENT)
