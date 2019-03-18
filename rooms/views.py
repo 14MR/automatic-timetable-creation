@@ -44,7 +44,12 @@ class RoomViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'])
     def items(self, request, pk=None):
-        pass  # handle items
+        queryset_rooms = Room.objects.all()
+        queryset_items = Item.objects.all()
+        room = get_object_or_404(queryset_rooms, pk=pk)
+        item = get_object_or_404(queryset_items, pk=request.data['item_id'])
+        room.items.add(item)  # TODO: check this
+        return Response(ItemSerializer(item).data, status=status.HTTP_200_OK)
 
 
 class ItemViewSet(viewsets.ModelViewSet):
