@@ -12,7 +12,10 @@ services:
 
   python:
     image: registry.gitlab.com/automatic-timetable-creation/backend:latest
-    command: /bin/bash -c "pip install -r requirements.txt && python manage.py migrate && python manage.py runserver 0.0.0.0:80"
+    command: /bin/bash -c "pip install -r requirements.txt &&
+              pip install -r requirements_test.txt &&
+              python manage.py migrate &&
+              python manage.py runserver 0.0.0.0:80"
     ports:
       - 80:80
     volumes:

@@ -8,6 +8,99 @@ servers:
   - url: http://atc.mustafin.dev
     description: 'Production API server'
 paths:
+  "/users/signup/":
+    post:
+      summary: 'Register user in the system'
+      description: 'Returns created user with its new id'
+      operationId: user_sign_up
+      tags:
+        - "users"
+        - "auth"
+      requestBody:
+        description: 'User to sign up'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreation'
+      responses:
+        '201':
+          description: 'User was successfully signed up'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: 'Invalid data was provided'
+  "/users/login/":
+    post:
+      summary: 'Login user into the system'
+      description: 'Returns token for logging into the system'
+      operationId: user_sign_in
+      tags:
+        - "users"
+        - "auth"
+      requestBody:
+        description: 'User data to sign in'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: email
+                  example: b.doe@innopolis.ru
+                password:
+                  type: string
+      responses:
+        '200':
+          description: 'User was successfully signed in'
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                    example: '014c593818e4642621b77dcdfa4a99ac17878000'
+        '400':
+          description: 'Invalid data was provided'
+  "/users/profile/":
+    get:
+      summary: 'User profile'
+      description: 'Returns user profile'
+      operationId: user_profile
+      tags:
+        - "users"
+      responses:
+        '200':
+          description: 'User was successfully signed in'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      summary: 'User profile'
+      description: 'Returns user profile'
+      operationId: user_profile
+      tags:
+        - "users"
+      requestBody:
+        description: 'User to sign up'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreation'
+      responses:
+        '200':
+          description: 'User was successfully modified'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
   /items/:
     get:
       summary: 'Returns items'
@@ -301,6 +394,36 @@ paths:
 
 components:
   schemas:
+    UserCreation:
+      required:
+        - email
+        - first_name
+        - last_name
+        - password
+      properties:
+        email:
+          type: email
+          example: b.doe@innopolis.ru
+        first_name:
+          type: string
+          example: 'Bob'
+        last_name:
+          type: string
+          example: 'Doe'
+    User:
+      properties:
+        id:
+          type: integer
+          example: 12
+        email:
+          type: email
+          example: b.doe@innopolis.ru
+        first_name:
+          type: string
+          example: 'Bob'
+        last_name:
+          type: string
+          example: 'Doe'
     Item:
       required:
         - id
@@ -320,7 +443,7 @@ components:
         - $ref: '#/components/schemas/Item'
         - type: object
           required:
-          - count
+            - count
           properties:
             count:
               type: integer
