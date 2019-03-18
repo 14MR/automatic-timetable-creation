@@ -8,6 +8,44 @@ servers:
   - url: http://atc.mustafin.dev
     description: 'Production API server'
 paths:
+  "/users/signup/":
+    post:
+      summary: 'Register user in the system'
+      description: 'Returns created user with its new id'
+      operationId: user_sign_up
+      tags:
+        - "users"
+        - "auth"
+      requestBody:
+        description: 'User to sign up'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - first_name
+                - last_name
+                - password
+              properties:
+                email:
+                  type: email
+                  example: b.doe@innopolis.ru
+                first_name:
+                  type: string
+                  example: 'Bob'
+                last_name:
+                  type: string
+                  example: 'Doe'
+      responses:
+        '200':
+          description: 'User was successfully signed up'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: 'Invalid data was provided'
   /items/:
     get:
       summary: 'Returns items'
@@ -301,6 +339,20 @@ paths:
 
 components:
   schemas:
+    User:
+      properties:
+        id:
+          type: integer
+          example: 12
+        email:
+          type: email
+          example: b.doe@innopolis.ru
+        first_name:
+          type: string
+          example: 'Bob'
+        last_name:
+          type: string
+          example: 'Doe'
     Item:
       required:
         - id
@@ -320,7 +372,7 @@ components:
         - $ref: '#/components/schemas/Item'
         - type: object
           required:
-          - count
+            - count
           properties:
             count:
               type: integer
