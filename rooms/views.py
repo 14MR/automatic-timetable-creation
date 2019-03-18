@@ -33,7 +33,7 @@ class RoomViewSet(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
-        data = RoomSerializer(instance.copy()).data
+        data = RoomSerializer(instance).data
         instance.delete()
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
@@ -44,21 +44,21 @@ class RoomViewSet(viewsets.ModelViewSet):
         serializer.is_valid()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(detail=True, methods=['post'])
+    @action(detail=True, methods=['post', 'get'])
     def items(self, request, pk=None):
-        queryset_rooms = Room.objects.all()
-        queryset_items = Item.objects.all()
-        room = get_object_or_404(queryset_rooms, pk=pk)
-        item = get_object_or_404(queryset_items, pk=request.data['item_id'])
-        room.items.add(item)  # TODO: check this
-        return Response(ItemSerializer(item).data, status=status.HTTP_200_OK)
-
-    @action(detail=True, methods=['get'])
-    def items(self, request, pk=None):
-        queryset_rooms = Room.objects.all()
-        room = get_object_or_404(queryset_rooms, pk=pk)
-        items = room.items.all()
-        return Response(ItemSerializer(items, many=True).data, status=status.HTTP_200_OK)
+        if request.method == 'POST':
+            queryset_rooms = Room.objects.all()
+            room = get_object_or_404(queryset_rooms, pk=pk)
+            items = ItemSerializer(data=request.data, many=True)
+            items.is_valid(raise_exception=True)
+            print("Before loop\n!!!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!")
+            for item in items.data:
+                item['room'] = room
+                Item.objects.create(**item)
+            return Response(status=status.HTTP_200_OK)
+        elif request.method == 'GET':
+            queryset_items = Item.objects.filter(room=pk)
+            return Response(ItemSerializer(queryset_items, many=True).data, status=status.HTTP_200_OK)
 
 
 class ItemViewSet(viewsets.ModelViewSet):

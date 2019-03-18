@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 class ItemSerializer(serializers.ModelSerializer):
     type_id = serializers.PrimaryKeyRelatedField(source='type', queryset=ItemType.objects.all())
-    room_id = serializers.PrimaryKeyRelatedField(source='room', queryset=Room.objects.all())
+    room_id = serializers.PrimaryKeyRelatedField(source='room', queryset=Room.objects.all(), required=False)
 
     class Meta:
         model = Item
@@ -24,18 +24,8 @@ class ItemTypeSerializer(serializers.ModelSerializer):
 
 
 class RoomSerializer(serializers.ModelSerializer):
-    items = ItemSerializer(required=False, many=True)
     type_id = serializers.PrimaryKeyRelatedField(source='type', queryset=RoomType.objects.all())
 
     class Meta:
         model = Room
-        fields = ('id', 'number', 'capacity', 'is_yellow', 'type_id', 'items')
-
-    def create(self, validated_data):
-        items_data = validated_data.pop('items')
-        item_list = []
-        for item in items_data:
-            item_list.append(Item.objects.create(**item))
-        room = Room.objects.create(**validated_data)
-        room.items.set(item_list)
-        return room
+        fields = ('id', 'number', 'capacity', 'is_yellow', 'type_id',)
