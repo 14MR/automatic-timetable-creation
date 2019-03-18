@@ -1,7 +1,8 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status, serializers
+from rest_framework.decorators import action
 from rest_framework.response import Response
-from rooms.serializers import RoomSerializer, Room, Item, ItemSerializer
+from rooms.serializers import RoomSerializer, Room, Item, ItemSerializer, RoomType, RoomTypeSerializer
 from rest_framework.permissions import AllowAny
 
 
@@ -22,8 +23,7 @@ class RoomViewSet(viewsets.ModelViewSet):
         serializer = RoomSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def perform_create(self, serializer):
         serializer.save()
@@ -34,6 +34,17 @@ class RoomViewSet(viewsets.ModelViewSet):
         instance.delete()
         self.perform_destroy(instance)
         return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+    @action(detail=False, methods=['get'])
+    def types(self, request, pk=None):
+        queryset = RoomType.objects.all()
+        serializer = RoomTypeSerializer(data=queryset, many=True)
+        serializer.is_valid()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['post'])
+    def items(self, request, pk=None):
+        pass  # handle items
 
 
 class ItemViewSet(viewsets.ModelViewSet):

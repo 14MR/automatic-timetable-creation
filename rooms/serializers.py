@@ -3,9 +3,6 @@ from rest_framework import serializers
 
 
 class ItemSerializer(serializers.ModelSerializer):
-    # def __init__(self, *args, **kwargs):
-    #     many = kwargs.pop('many', True)
-    #     super(ItemSerializer, self).__init__(many=many, *args, **kwargs)
 
     class Meta:
         model = Item
