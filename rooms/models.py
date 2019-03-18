@@ -8,6 +8,7 @@ class ItemType(models.Model):
 class Item(models.Model):
     name = models.CharField(max_length=30)
     type = models.ForeignKey(ItemType, on_delete=models.CASCADE)
+    room = models.ForeignKey('Room', on_delete=models.CASCADE, blank=True, null=True, related_name="items")
 
 
 class RoomType(models.Model):
@@ -19,4 +20,3 @@ class Room(models.Model):
     type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
     capacity = models.PositiveSmallIntegerField()
     is_yellow = models.BooleanField(default=False)
-    items = models.ManyToManyField(Item)

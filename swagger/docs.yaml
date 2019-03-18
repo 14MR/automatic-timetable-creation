@@ -422,11 +422,9 @@ paths:
         content:
           application/json:
             schema:
-              oneOf:
-                - $ref: '#/components/schemas/Item'
-                - type: array
-                  items:
-                    $ref: '#/components/schemas/Item'
+              type: array
+              items:
+                $ref: '#/components/schemas/ItemNoRoom'
       responses:
         '200':
           description: 'Item(s) was/were successfully added to the room'
@@ -496,6 +494,24 @@ components:
           type: integer
           example: 128
           minimum: 0
+        type_id:
+          type: integer
+          example: 122
+          minimum: 0
+    ItemNoRoom:
+      required:
+        - id
+        - name
+        - type_id
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 64
+          minimum: 0
+        name:
+          type: string
+          example: 'Projector WD40'
         type_id:
           type: integer
           example: 122
