@@ -33,7 +33,6 @@ class Migration(migrations.Migration):
                 ('number', models.PositiveSmallIntegerField()),
                 ('capacity', models.PositiveSmallIntegerField()),
                 ('is_yellow', models.BooleanField(default=False)),
-                ('items', models.ManyToManyField(blank=True, to='rooms.Item')),
             ],
         ),
         migrations.CreateModel(
