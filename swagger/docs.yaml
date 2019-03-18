@@ -3,9 +3,9 @@ info:
   version: 1.0.0
   title: 'Automatic Timetable'
 servers:
-  - url: http://localhost:80
+  - url: http://localhost:80/api/v1
     description: 'Localhost API server'
-  - url: http://atc.mustafin.dev
+  - url: http://atc.mustafin.dev/api/v1
     description: 'Production API server'
 paths:
   "/users/signup/":
