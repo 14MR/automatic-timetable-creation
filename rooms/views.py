@@ -51,6 +51,13 @@ class RoomViewSet(viewsets.ModelViewSet):
         room.items.add(item)  # TODO: check this
         return Response(ItemSerializer(item).data, status=status.HTTP_200_OK)
 
+    @action(detail=True, methods=['get'])
+    def items(self, request, pk=None):
+        queryset_rooms = Room.objects.all()
+        room = get_object_or_404(queryset_rooms, pk=pk)
+        items = room.items.all()
+        return Response(ItemSerializer(items, many=True).data, status=status.HTTP_200_OK)
+
 
 class ItemViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
