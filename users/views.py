@@ -1,4 +1,5 @@
 from rest_framework.authtoken.models import Token
+from rest_framework.status import HTTP_201_CREATED
 from rest_framework.views import APIView
 
 from users.serializers import AuthTokenSerializer, SignupSerializer
@@ -26,5 +27,5 @@ class SignupApiView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = SignupSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        instance = serializer.save()
-        return Response({'id': instance.pk})
+        serializer.save()
+        return Response(serializer.data, status=HTTP_201_CREATED)

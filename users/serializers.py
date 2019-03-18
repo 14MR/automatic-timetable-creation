@@ -36,6 +36,8 @@ class AuthTokenSerializer(serializers.Serializer):
 
 
 class SignupSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    password = serializers.CharField(write_only=True)
 
     def create(self, validated_data):
         password = validated_data.pop('password')
@@ -46,4 +48,4 @@ class SignupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'password')
+        fields = ('id', 'email', 'first_name', 'last_name', 'password')
