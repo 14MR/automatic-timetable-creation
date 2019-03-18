@@ -49,14 +49,15 @@ class RoomViewSet(viewsets.ModelViewSet):
         if request.method == 'POST':
             queryset_rooms = Room.objects.all()
             room = get_object_or_404(queryset_rooms, pk=pk)
+
             items = ItemSerializer(data=request.data, many=True)
             items.is_valid(raise_exception=True)
-            print("Before loop\n!!!!!!!!!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!!!!")
             for item in items.data:
                 item['room'] = room
                 Item.objects.create(**item)
             return Response(status=status.HTTP_200_OK)
         elif request.method == 'GET':
+            get_object_or_404(Room.objects.all(), pk=pk)
             queryset_items = Item.objects.filter(room=pk)
             return Response(ItemSerializer(queryset_items, many=True).data, status=status.HTTP_200_OK)
 
