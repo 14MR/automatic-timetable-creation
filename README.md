@@ -19,3 +19,12 @@ __Rebuilding container:__
     docker build -t registry.gitlab.com/automatic-timetable-creation/backend:latest -f docker/app/Dockerfile .
 
 
+
+###Testing
+In order to benefit more gain in combining functional and unit testing we agreed to use [pytest-django](https://pytest-django.readthedocs.io/en/latest) plugin on top of [pytest](https://docs.pytest.org/en/latest/contents.html) framework. 
+
+
+We follow some conventions according to testing:
+1. Test files are named `test_*.py`
+2. Test classes are named `Test*`
+3. Test methods are named `test_*`
