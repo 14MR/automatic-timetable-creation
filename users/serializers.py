@@ -2,6 +2,8 @@ from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
+from users.models import User
+
 
 class AuthTokenSerializer(serializers.Serializer):
     email = serializers.EmailField(label=_("Email"))
@@ -31,3 +33,17 @@ class AuthTokenSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+
+
+class SignupSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        user = User.objects.create(**validated_data)
+        user.set_password(password)
+        user.save()
+        return user
+
+    class Meta:
+        model = User
+        fields = ('email', 'first_name', 'last_name', 'password')
