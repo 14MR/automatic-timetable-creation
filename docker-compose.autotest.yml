@@ -3,5 +3,5 @@ services:
   python:
     image: registry.gitlab.com/automatic-timetable-creation/backend:latest
     command: /bin/bash -c "pip install -r ./requirements_test.txt &&
-              pytest --cov=rooms" &&
+              pytest --cov=rooms &&
               python3 manage.py test --settings=atc.settings_test"
