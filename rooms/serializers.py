@@ -3,13 +3,21 @@ from rest_framework import serializers
 
 
 class ItemSerializer(serializers.ModelSerializer):
+    type_id = serializers.PrimaryKeyRelatedField(source='type', queryset=ItemType.objects.all())
+    room_id = serializers.PrimaryKeyRelatedField(source='room', queryset=Room.objects.all())
 
     class Meta:
         model = Item
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'type_id', 'room_id')
 
 
 class RoomTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RoomType
+        fields = ('id', 'name')
+
+
+class ItemTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = RoomType
         fields = ('id', 'name')
