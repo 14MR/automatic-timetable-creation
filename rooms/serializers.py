@@ -3,6 +3,10 @@ from rest_framework import serializers
 
 
 class ItemSerializer(serializers.ModelSerializer):
+    # def __init__(self, *args, **kwargs):
+    #     many = kwargs.pop('many', True)
+    #     super(ItemSerializer, self).__init__(many=many, *args, **kwargs)
+
     class Meta:
         model = Item
         fields = ('id', 'name')
@@ -22,8 +26,11 @@ class RoomSerializer(serializers.ModelSerializer):
         model = Room
         fields = ('id', 'number', 'capacity', 'is_yellow', 'type_id', 'items')
 
-
-class CreateRoomSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Room
-        fields = ('id', 'number', 'capacity', 'is_yellow', 'type')
+    def create(self, validated_data):
+        items_data = validated_data.pop('items')
+        item_list = []
+        for item in items_data:
+            item_list.append(Item.objects.create(**item))
+        room = Room.objects.create(**validated_data)
+        room.items.set(item_list)
+        return room
