@@ -5,10 +5,3 @@ services:
     command: /bin/bash -c "pip install -r ./requirements_test.txt &&
               pytest --cov=rooms" &&
               python3 manage.py test --settings=atc.settings_test"
-    restart: always
-    networks:
-      - project
-
-networks:
-  project:
-

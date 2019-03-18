@@ -2,7 +2,105 @@ openapi: "3.0.0"
 info:
   version: 1.0.0
   title: 'Automatic Timetable'
+servers:
+  - url: http://localhost:80
+    description: 'Localhost API server'
+  - url: http://atc.mustafin.dev
+    description: 'Production API server'
 paths:
+  "/users/signup/":
+    post:
+      summary: 'Register user in the system'
+      description: 'Returns created user with its new id'
+      operationId: user_sign_up
+      tags:
+        - "users"
+        - "auth"
+      requestBody:
+        description: 'User to sign up'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreation'
+      responses:
+        '201':
+          description: 'User was successfully signed up'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: 'Invalid data was provided'
+  "/users/login/":
+    post:
+      summary: 'Login user into the system'
+      description: 'Returns token for logging into the system'
+      operationId: user_sign_in
+      tags:
+        - "users"
+        - "auth"
+      requestBody:
+        description: 'User data to sign in'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: email
+                  example: b.doe@innopolis.ru
+                password:
+                  type: string
+      responses:
+        '200':
+          description: 'User was successfully signed in'
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                    example: '014c593818e4642621b77dcdfa4a99ac17878000'
+        '400':
+          description: 'Invalid data was provided'
+  "/users/profile/":
+    get:
+      summary: 'User profile'
+      description: 'Returns user profile'
+      operationId: user_profile
+      tags:
+        - "users"
+      responses:
+        '200':
+          description: 'User was successfully signed in'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      summary: 'User profile'
+      description: 'Returns user profile'
+      operationId: user_profile
+      tags:
+        - "users"
+      requestBody:
+        description: 'User to sign up'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreation'
+      responses:
+        '200':
+          description: 'User was successfully modified'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
   /items/:
     get:
       summary: 'Returns items'
@@ -20,11 +118,19 @@ paths:
                   $ref: '#/components/schemas/Item'
     post:
       summary: 'Creates item'
+      description: 'Returns created item with its new id'
       operationId: create_item
       tags:
         - "items"
       security:
         - TokenAuth: []
+      requestBody:
+        description: 'Item to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
       responses:
         '200':
           description: 'Item was successfully created'
@@ -32,6 +138,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Item'
+        '400':
+          description: 'Invalid item was provided'
 
   /items/{id}:
     get:
@@ -54,7 +162,7 @@ paths:
                 $ref: '#/components/schemas/Item'
         '404':
           description: 'Item with such id was not found'
-    post:
+    put:
       summary: 'Updates item by id'
       operationId: update_item_by_id
       tags:
@@ -67,6 +175,13 @@ paths:
             type: integer
       security:
         - TokenAuth: []
+      requestBody:
+        description: 'New item data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
       responses:
         '200':
           description: 'Item was updated'
@@ -74,6 +189,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Item'
+        '400':
+          description: 'Incorrect item data was provided'
         '404':
           description: 'Item with such id was not found'
     delete:
@@ -92,6 +209,10 @@ paths:
       responses:
         '200':
           description: 'Item was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
         '404':
           description: 'Item with such id was not found'
 
@@ -111,19 +232,29 @@ paths:
                 items:
                   $ref: '#/components/schemas/Room'
     post:
-      summary: 'Creates or updates room'
+      summary: 'Creates room'
+      description: 'Returns room with its new id'
       operationId: create_room
       tags:
         - "rooms"
       security:
         - TokenAuth: []
+      requestBody:
+        description: 'Room to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
       responses:
         '200':
-          description: 'Room was found and successfully updated'
+          description: 'Room successfully created'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Room'
+        '400':
+          description: 'Incorrect room data was provided'
 
   /rooms/{id}:
     get:
@@ -146,7 +277,7 @@ paths:
                 $ref: '#/components/schemas/Room'
         '404':
           description: 'Room with such id was not found'
-    post:
+    put:
       summary: 'Updates room by id'
       operationId: update_room_by_id
       tags:
@@ -159,6 +290,13 @@ paths:
             type: integer
       security:
         - TokenAuth: []
+      requestBody:
+        description: 'New room data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
       responses:
         '200':
           description: 'Room was successfully updated'
@@ -166,6 +304,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Room'
+        '400':
+          description: 'Incorrect room data'
         '404':
           description: 'Room with such id was not found'
     delete:
@@ -184,33 +324,130 @@ paths:
       responses:
         '200':
           description: 'Room was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
         '404':
           description: 'Room with such id was not found'
 
+  /rooms/types:
+    get:
+      summary: 'Lists room types'
+      operationId: get_room_types
+      tags:
+        - "rooms"
+      responses:
+        '200':
+          description: 'List was successfully retrieved'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoomType'
+
+  /rooms/{id}/items/:
+    post:
+      summary: 'Adds item in the room'
+      operationId: add_item_to_room_by_id
+      tags:
+        - "rooms"
+      description: |
+        Room in which to add these items is selected by room id
+
+        Only id and count are required fields of item
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - item_id
+                - count
+              properties:
+                item_id:
+                  description: 'Item id to add'
+                  type: integer
+                count:
+                  description: 'Quantity of items'
+                  type: integer
+      responses:
+        '200':
+          description: 'Item was successfully added to the room'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountableItem'
+        '400':
+          description: 'Incorrect item data was provided'
+        '404':
+          description: 'Room or item with such id does not exist'
+
 components:
   schemas:
+    UserCreation:
+      required:
+        - email
+        - first_name
+        - last_name
+        - password
+      properties:
+        email:
+          type: email
+          example: b.doe@innopolis.ru
+        first_name:
+          type: string
+          example: 'Bob'
+        last_name:
+          type: string
+          example: 'Doe'
+    User:
+      properties:
+        id:
+          type: integer
+          example: 12
+        email:
+          type: email
+          example: b.doe@innopolis.ru
+        first_name:
+          type: string
+          example: 'Bob'
+        last_name:
+          type: string
+          example: 'Doe'
     Item:
       required:
         - id
         - name
-        - type
       properties:
         id:
           type: integer
+          readOnly: true
+          example: 64
+          minimum: 0
         name:
           type: string
-        type:
-          $ref: '#/components/schemas/ItemType'
+          example: 'Projector'
 
-    ItemType:
-      required:
-        - id
-        - name
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
+    CountableItem:
+      allOf:
+        - $ref: '#/components/schemas/Item'
+        - type: object
+          required:
+            - count
+          properties:
+            count:
+              type: integer
+              example: 1
 
     Room:
       required:
@@ -219,14 +456,25 @@ components:
       properties:
         id:
           type: integer
+          readOnly: true
+          example: 128
+          minimum: 0
         number:
           type: integer
-        type:
-          $ref: '#/components/schemas/RoomType'
+          example: 403
+        type_id:
+          type: integer
+          example: 12
         capacity:
           type: integer
+          example: 60
         is_yellow:
           type: boolean
+          example: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
 
     RoomType:
       required:
@@ -235,8 +483,10 @@ components:
       properties:
         id:
           type: integer
+          example: 12
         name:
           type: integer
+          example: 'Lecture hall'
 
   securitySchemes:
     TokenAuth:
