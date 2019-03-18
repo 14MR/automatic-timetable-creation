@@ -46,6 +46,41 @@ paths:
                 $ref: '#/components/schemas/User'
         '400':
           description: 'Invalid data was provided'
+  "/users/login/":
+    post:
+      summary: 'Login user into the system'
+      description: 'Returns token for logging into the system'
+      operationId: user_sign_in
+      tags:
+        - "users"
+        - "auth"
+      requestBody:
+        description: 'User data to sign in'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: email
+                  example: b.doe@innopolis.ru
+                password:
+                  type: string
+      responses:
+        '200':
+          description: 'User was successfully signed in'
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                    example: '014c593818e4642621b77dcdfa4a99ac17878000'
+        '400':
+          description: 'Invalid data was provided'
   /items/:
     get:
       summary: 'Returns items'
