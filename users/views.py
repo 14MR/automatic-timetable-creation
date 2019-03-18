@@ -2,7 +2,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.views import APIView
 
-from users.serializers import AuthTokenSerializer, SignupSerializer
+from users.models import User
+from users.serializers import AuthTokenSerializer, UserSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 
@@ -25,7 +26,15 @@ class SignupApiView(APIView):
     permission_classes = ()
 
     def post(self, request, *args, **kwargs):
-        serializer = SignupSerializer(data=request.data)
+        serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=HTTP_201_CREATED)
+
+
+class ProfileApiView(APIView):
+
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(id=request.user.id)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)

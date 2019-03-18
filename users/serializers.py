@@ -35,7 +35,7 @@ class AuthTokenSerializer(serializers.Serializer):
         return attrs
 
 
-class SignupSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     password = serializers.CharField(write_only=True)
 
