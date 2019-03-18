@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: 'Automatic Timetable'
 servers:
-  - url: http://localhost:80
+  - url: http://localhost:80/api/v1
     description: 'Localhost API server'
   - url: http://atc.mustafin.dev
     description: 'Production API server'
@@ -74,6 +74,8 @@ paths:
       operationId: user_profile
       tags:
         - "users"
+      security:
+        - TokenAuth: []
       responses:
         '200':
           description: 'User was successfully signed in'
@@ -81,12 +83,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
     put:
       summary: 'User profile'
       description: 'Returns user profile'
       operationId: user_profile
       tags:
         - "users"
+      security:
+        - TokenAuth: []
       requestBody:
         description: 'User to sign up'
         required: true
@@ -101,6 +107,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+
   /items/:
     get:
       summary: 'Returns items'
@@ -140,8 +149,10 @@ paths:
                 $ref: '#/components/schemas/Item'
         '400':
           description: 'Invalid item was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
 
-  /items/{id}:
+  /items/{id}/:
     get:
       summary: 'Returns item by id'
       operationId: get_item_by_id
@@ -191,6 +202,8 @@ paths:
                 $ref: '#/components/schemas/Item'
         '400':
           description: 'Incorrect item data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
         '404':
           description: 'Item with such id was not found'
     delete:
@@ -215,6 +228,22 @@ paths:
                 $ref: '#/components/schemas/Item'
         '404':
           description: 'Item with such id was not found'
+
+  /item/types/:
+    get:
+      summary: 'Returns item types'
+      operationId: get_item_types
+      tags:
+        - "items"
+      responses:
+        '200':
+          description: 'Item types were successfully retrieved'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemType'
 
   /rooms/:
     get:
@@ -255,8 +284,10 @@ paths:
                 $ref: '#/components/schemas/Room'
         '400':
           description: 'Incorrect room data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
 
-  /rooms/{id}:
+  /rooms/{id}/:
     get:
       summary: 'Returns room by id'
       operationId: get_room_by_id
@@ -306,6 +337,8 @@ paths:
                 $ref: '#/components/schemas/Room'
         '400':
           description: 'Incorrect room data'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
         '404':
           description: 'Room with such id was not found'
     delete:
@@ -331,7 +364,7 @@ paths:
         '404':
           description: 'Room with such id was not found'
 
-  /rooms/types:
+  /rooms/types/:
     get:
       summary: 'Lists room types'
       operationId: get_room_types
@@ -348,15 +381,34 @@ paths:
                   $ref: '#/components/schemas/RoomType'
 
   /rooms/{id}/items/:
+    get:
+      summary: 'Returns all items in room'
+      operationId: get_items_in_room_by_id
+      tags:
+        - "rooms"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Items were successfully retrieved'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+        '404':
+          description: 'Room or item with such id does not exist'
     post:
-      summary: 'Adds item in the room'
+      summary: 'Adds item(s) in the room'
       operationId: add_item_to_room_by_id
       tags:
         - "rooms"
-      description: |
-        Room in which to add these items is selected by room id
-
-        Only id and count are required fields of item
+      description: 'Room in which to add these item(s) is selected by room id'
       parameters:
         - name: id
           in: path
@@ -370,25 +422,26 @@ paths:
         content:
           application/json:
             schema:
-              required:
-                - item_id
-                - count
-              properties:
-                item_id:
-                  description: 'Item id to add'
-                  type: integer
-                count:
-                  description: 'Quantity of items'
-                  type: integer
+              oneOf:
+                - $ref: '#/components/schemas/Item'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/Item'
       responses:
         '200':
-          description: 'Item was successfully added to the room'
+          description: 'Item(s) was/were successfully added to the room'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CountableItem'
+                oneOf:
+                  - $ref: '#/components/schemas/Item'
+                  - type: array
+                    items:
+                      $ref: '#/components/schemas/Item'
         '400':
           description: 'Incorrect item data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
         '404':
           description: 'Room or item with such id does not exist'
 
@@ -424,10 +477,12 @@ components:
         last_name:
           type: string
           example: 'Doe'
+
     Item:
       required:
         - id
         - name
+        - type_id
       properties:
         id:
           type: integer
@@ -436,18 +491,28 @@ components:
           minimum: 0
         name:
           type: string
+          example: 'Projector WD40'
+        room_id:
+          type: integer
+          example: 128
+          minimum: 0
+        type_id:
+          type: integer
+          example: 122
+          minimum: 0
+    ItemType:
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 122
+          minimum: 0
+        name:
+          type: string
           example: 'Projector'
-
-    CountableItem:
-      allOf:
-        - $ref: '#/components/schemas/Item'
-        - type: object
-          required:
-            - count
-          properties:
-            count:
-              type: integer
-              example: 1
 
     Room:
       required:
@@ -471,11 +536,6 @@ components:
         is_yellow:
           type: boolean
           example: true
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-
     RoomType:
       required:
         - id
@@ -488,8 +548,13 @@ components:
           type: integer
           example: 'Lecture hall'
 
+  responses:
+    UnauthorizedResponse:
+      description: 'Invalid access token was provided for this operation'
+
   securitySchemes:
     TokenAuth:
       type: http
       scheme: bearer
       description: Token-based authentication
+      bearerFormat: Token
