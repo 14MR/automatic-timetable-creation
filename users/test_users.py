@@ -1,3 +1,6 @@
+"""PyTest tests for 'users' application """
+
+
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -12,7 +15,7 @@ user_data = {
 }
 
 
-class AuthTests(APITestCase):
+class TestAuth(APITestCase):
     def setUp(self):
         self.user = User.objects.create(**user_data)
         self.user.set_password(user_data['password'])
