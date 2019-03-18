@@ -35,7 +35,7 @@ class AuthTokenSerializer(serializers.Serializer):
         return attrs
 
 
-class SignupSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     password = serializers.CharField(write_only=True)
 
@@ -45,6 +45,12 @@ class SignupSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+    def update(self, instance, validated_data):
+        for i in validated_data:
+            setattr(instance, i, validated_data[i])
+        instance.save()
+        return instance
 
     class Meta:
         model = User

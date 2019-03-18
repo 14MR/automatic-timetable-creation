@@ -1,8 +1,12 @@
+from rest_framework import generics, mixins, permissions
 from rest_framework.authtoken.models import Token
+from rest_framework.generics import get_object_or_404
+from rest_framework.mixins import UpdateModelMixin
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.views import APIView
 
-from users.serializers import AuthTokenSerializer, SignupSerializer
+from users.models import User
+from users.serializers import AuthTokenSerializer, UserSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 
@@ -25,7 +29,22 @@ class SignupApiView(APIView):
     permission_classes = ()
 
     def post(self, request, *args, **kwargs):
-        serializer = SignupSerializer(data=request.data)
+        serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=HTTP_201_CREATED)
+
+
+class ProfileApiView(APIView):
+    def put(self, request, *args, **kwargs):
+        request.data['id'] = request.user.id
+        user = User.objects.get(id=request.user.id)
+        serializer = UserSerializer(user, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.update(user, serializer.validated_data)
+        return Response(serializer.data)
+
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(id=request.user.id)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
