@@ -1,7 +1,7 @@
 version: '3'
 services:
   python:
-    image: registry.gitlab.com/automatic-timetable-creation/backend:${CI_COMMIT_REF_SLUG}
+    image: registry.gitlab.com/automatic-timetable-creation/backend:${CI_COMMIT_REF_SLUG}_python
     command: /bin/bash -c "pip install -r ./requirements_test.txt &&
               pytest --cov='.' --cov-config .coveragerc --ds atc.settings_test &&
               python3 manage.py test --settings=atc.settings_test"
