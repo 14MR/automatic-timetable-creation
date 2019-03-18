@@ -17,7 +17,7 @@ before_script:
 docker-build:
   stage: build
   script:
-    - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest -f docker/Dockerfile .
+    - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest -f docker/app/Dockerfile .
     - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
     - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:backendweb -f docker/nginx/Dockerfile docker/nginx/ --no-cache
     - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:backendweb
