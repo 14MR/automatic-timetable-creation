@@ -15,4 +15,6 @@ pytz
 six==1.12.0
 text-unidecode==1.2
 uWSGI==2.0.17
+djangorestframework==3.9.2
+pytest-django==3.4.8
 django-cors-headers==2.5.2
