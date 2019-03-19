@@ -1,9 +1,30 @@
 version: '3'
 services:
+  swagger:
+    image: swaggerapi/swagger-ui
+    ports:
+      - 8080:8080
+    volumes:
+      - ./swagger:/swagger
+    environment:
+      SWAGGER_JSON: "/swagger/docs.yaml"
+    restart: always
+
   python:
     image: registry.gitlab.com/automatic-timetable-creation/backend:latest
+    command: /bin/bash -c "pip install -r requirements.txt &&
+              pip install -r requirements_test.txt &&
+              python manage.py migrate &&
+              python manage.py runserver 0.0.0.0:80"
     ports:
       - 80:80
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+    restart: always
+    networks:
+      - project
 
   postgres:
     restart: always
@@ -11,10 +32,25 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./postgres/dump_init.sql:/docker-entrypoint-initdb.d/postgres_backup_all.sql
-
+      - db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "1"
-      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: "postgres"
+    networks:
+      - project
+
+  frontend:
+    image: registry.gitlab.com/automatic-timetable-creation/frontend:latest
+    ports:
+      - 5000:80
+    depends_on:
+      - python
+    networks:
+      - project
+
+volumes:
+  db_data:
+
+networks:
+  project:
 

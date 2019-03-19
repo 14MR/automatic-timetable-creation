@@ -1,0 +1,5 @@
+[run]
+omit =
+    atc/*
+    */migrations/*
+    manage.py
