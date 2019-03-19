@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'wf^vae66rwu*nal%wixj@l#m4h23f&xq^z@5)r^i(c$05#sg-0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -58,6 +58,7 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST = [
     'localhost:3000',
+    'atc.mustafin.dev',
 ]
 
 ROOT_URLCONF = 'atc.urls'
