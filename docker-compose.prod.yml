@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   backendweb:
-    image: registry.gitlab.com/automatic-timetable-creation/backend:backendweb
+    image: registry.gitlab.com/automatic-timetable-creation/backend:${CI_COMMIT_REF_SLUG}_web
     ports:
       - 80
     restart: always
@@ -12,7 +12,7 @@ services:
       - project
       - web
     environment:
-      VIRTUAL_HOST: "atc.mustafin.dev"
+      VIRTUAL_HOST: "api.atc.mustafin.dev"
 
   postgres:
     image: postgres:11.2-alpine
@@ -31,7 +31,7 @@ services:
       retries: 3
 
   python:
-    image: registry.gitlab.com/automatic-timetable-creation/backend:latest
+    image: registry.gitlab.com/automatic-timetable-creation/backend:${CI_COMMIT_REF_SLUG}_python
     restart: always
     depends_on:
       - postgres
