@@ -18,8 +18,7 @@ from django.urls import path
 from django.conf.urls import include, url
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    url(r'^api/v1/users/', include('users.urls')),
-    url(r'^api/v1/', include('rooms.urls'))
-
+    path("admin/", admin.site.urls),
+    url(r"^api/v1/users/", include("users.urls")),
+    url(r"^api/v1/", include("rooms.urls")),
 ]

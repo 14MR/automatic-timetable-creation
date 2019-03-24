@@ -8,7 +8,9 @@ class ItemType(models.Model):
 class Item(models.Model):
     name = models.CharField(max_length=30)
     type = models.ForeignKey(ItemType, on_delete=models.CASCADE)
-    room = models.ForeignKey('Room', on_delete=models.CASCADE, blank=True, null=True, related_name="items")
+    room = models.ForeignKey(
+        "Room", on_delete=models.CASCADE, blank=True, null=True, related_name="items"
+    )
 
 
 class RoomType(models.Model):

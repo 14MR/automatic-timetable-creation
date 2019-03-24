@@ -17,11 +17,11 @@ class ObtainAuthTokenEmail(ObtainAuthToken):
     def post(self, request, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        token, created = Token.objects.get_or_create(user=serializer.validated_data['user'])
+        token, created = Token.objects.get_or_create(
+            user=serializer.validated_data["user"]
+        )
 
-        return Response({
-            'token': token.key
-        })
+        return Response({"token": token.key})
 
 
 class SignupApiView(APIView):
@@ -37,7 +37,7 @@ class SignupApiView(APIView):
 
 class ProfileApiView(APIView):
     def put(self, request, *args, **kwargs):
-        request.data['id'] = request.user.id
+        request.data["id"] = request.user.id
         user = User.objects.get(id=request.user.id)
         serializer = UserSerializer(user, data=request.data)
         serializer.is_valid(raise_exception=True)
