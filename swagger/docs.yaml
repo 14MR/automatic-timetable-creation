@@ -153,7 +153,7 @@ paths:
           description: 'Incorrect year group data was provided'
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
-  "/users/year_groups/{id}":
+  "/users/year_groups/{id}/":
     put:
       summary: 'Updates year group by id'
       operationId: update_year_group_by_id
@@ -231,7 +231,7 @@ paths:
           description: 'Incorrect group data was provided'
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
-  "/users/groups/{id}":
+  "/users/groups/{id}/":
     put:
       summary: 'Updates group by id'
       operationId: update_group_by_id
@@ -288,7 +288,7 @@ paths:
         '404':
           description: 'Group with such id was not found'
 
-  "/users/{id}/groups/{id}":
+  "/users/{id}/groups/{id}/":
     put:
       summary: 'Add user to a group'
       description: 'Add user with id to a group with id'
