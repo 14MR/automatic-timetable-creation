@@ -27,4 +27,3 @@ class Class(models.Model):
     per_week = models.PositiveSmallIntegerField(validators=[MaxValueValidator(10)])
     groups = models.ManyToManyField(Group)
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
-
