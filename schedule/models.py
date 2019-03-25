@@ -1,3 +1,15 @@
 from django.db import models
+from classes.models import Semester, Class
+from rooms.models import Room
 
-# Create your models here.
+
+class Schedule(models.Model):
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+
+
+class Event(models.Model):
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    current_class = models.ForeignKey(Class, on_delete=models.CASCADE)
+    date = models.DateField()
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
