@@ -1,7 +1,9 @@
 from django.contrib.auth.base_user import AbstractBaseUser
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser, PermissionsMixin, UserManager
+from users.enums import YearType
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -27,3 +29,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
+
+
+class Groups(models.Model):
+    number = models.PositiveSmallIntegerField()
+
+
+class YearGroup(models.Model):
+    year = models.PositiveSmallIntegerField(validators=[
+        MinValueValidator(2015), MaxValueValidator(2100)
+    ])
+    type = models.PositiveSmallIntegerField(choices=YearType.choices)
