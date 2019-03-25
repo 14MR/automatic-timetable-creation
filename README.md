@@ -29,7 +29,7 @@ We follow some conventions according to testing:
 2. Test classes are named `Test*`
 3. Test methods are named `test_*`
 
-###Celery
+### Celery
 * Celery tasks - regular python functions
 ```
 from celery.decorators import task
