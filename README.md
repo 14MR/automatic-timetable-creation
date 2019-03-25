@@ -15,10 +15,14 @@ __Rebuilding container:__
     docker build -t registry.gitlab.com/automatic-timetable-creation/backend:latest -f docker/app/Dockerfile .
     
 __Login into container:__
-    `docker exec -it backend_python_1 bash`
+    
+    docker exec -it backend_python_1 bash
+[See more about docker exec](https://docs.docker.com/engine/reference/commandline/exec/)
+
     
 __Applying migrations:__
-    While in container enter `python manage.py migrate`
+
+    While in container enter python manage.py migrate
 
 
 ###Testing
