@@ -8,7 +8,9 @@ class Semester(models.Model):
     type = models.PositiveSmallIntegerField(choices=SemesterType.choices)
 
 
-class Courses(models.Model):
+class Course(models.Model):
     title = models.CharField(max_length=150)
     description = models.CharField(max_length=500)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+
+
