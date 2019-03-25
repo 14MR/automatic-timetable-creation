@@ -34,12 +34,13 @@ We follow some conventions according to testing:
 ```
 from celery.decorators import task
 
-@task(name="sum_two_numbers")
-def add(x, y):
-    return x + y
+@app.task(name="test_celery_task")
+def t_celery_task():
+    logger.info("test_celery_task")
+    return t_celery()
 ```
 * Run task asynchronously with
 ```
-add.delay(7, 8)
+t_celery.delay()
 ```
 
