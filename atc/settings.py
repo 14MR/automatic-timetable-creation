@@ -38,7 +38,7 @@ APPLICATIONS = [
     "rest_framework.authtoken",
     "corsheaders",
 ]
-DJANGO_APPLICATIONS = ["rooms", "schedule.apps.ScheduleConfig", "users"]
+DJANGO_APPLICATIONS = ["rooms", "schedule.apps.ScheduleConfig", "users", "classes"]
 INSTALLED_APPS = APPLICATIONS + DJANGO_APPLICATIONS
 
 MIDDLEWARE = [
