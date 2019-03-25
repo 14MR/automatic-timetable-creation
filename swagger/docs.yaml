@@ -109,6 +109,140 @@ paths:
                 $ref: '#/components/schemas/User'
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
+  "/users/groups/":
+    get:
+      summary: 'User groups'
+      description: 'Returns students groups'
+      operationId: user_groups
+      tags:
+        - "users"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'User groups have been returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+  "/users/year_groups/":
+    get:
+      summary: 'User year groups'
+      description: 'Returns students year groups'
+      operationId: user_year_groups
+      tags:
+        - "users"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'User year groups have been returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/YearGroup'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+    post:
+      summary: 'Creates a year group'
+      description: 'Creates a year group'
+      operationId: user_create_year_group
+      tags:
+        - "users"
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'Group Year to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupYear'
+      responses:
+        '201':
+          description: 'Group Year successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupYear'
+        '400':
+          description: 'Incorrect year group data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+  "/users/year_groups/{id}":
+    put:
+      summary: 'Updates year group by id'
+      operationId: update_year_group_by_id
+      tags:
+        - "users"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'New year group data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/YearGroup'
+      responses:
+        '200':
+          description: 'YearGroup was updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/YearGroup'
+        '400':
+          description: 'Incorrect year group data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Year group with such id was not found'
+  "/users/{id}/groups/{id}":
+    put:
+      summary: 'Add user to a group'
+      description: 'Add user with id to a group with id'
+      operationID: add_user_to_a_group
+      tags:
+        - "users"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'User have been added to a group'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'User or group with such id does not exist'
+    delete:
+      summary: 'Removes year group by id'
+      operationId: delete_year_group_by_id
+      tags:
+        - "users"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Year Group was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/YearGroup'
+        '404':
+          description: 'Year Group with such id was not found'
 
   /items/:
     get:
@@ -561,8 +695,34 @@ components:
           type: integer
           example: 12
         name:
-          type: integer
+          type: string
           example: 'Lecture hall'
+    Group:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 1
+        year_id:
+          type: integer
+          example: 1
+    YearGroup:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 1
+        year:
+          type: integer
+          example: 2017
+        type:
+          type: integer
+          enum: [0, 1]
+          example: 1
+
+
 
   responses:
     UnauthorizedResponse:
