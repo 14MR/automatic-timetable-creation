@@ -5,14 +5,10 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('schedule', '0001_initial'),
-    ]
+    dependencies = [("schedule", "0001_initial")]
 
     operations = [
         migrations.RenameField(
-            model_name='event',
-            old_name='class_id',
-            new_name='current_class',
-        ),
+            model_name="event", old_name="class_id", new_name="current_class"
+        )
     ]

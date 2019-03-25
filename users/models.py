@@ -10,7 +10,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name="Email address", max_length=255, unique=True)
     first_name = models.CharField(_("first name"), max_length=50)
     last_name = models.CharField(_("last name"), max_length=150)
-    group = models.ForeignKey('Group', blank=True, null=True, on_delete=models.CASCADE)
+    group = models.ForeignKey("Group", blank=True, null=True, on_delete=models.CASCADE)
     is_admin = models.BooleanField(
         "Admin status",
         default=False,
@@ -33,9 +33,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class YearGroup(models.Model):
-    year = models.PositiveSmallIntegerField(validators=[
-        MinValueValidator(2015), MaxValueValidator(2100)
-    ])
+    year = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(2015), MaxValueValidator(2100)]
+    )
     type = models.PositiveSmallIntegerField(choices=YearType.choices)
 
 

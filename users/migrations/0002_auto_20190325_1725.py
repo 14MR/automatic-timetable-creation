@@ -8,40 +8,70 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('users', '0001_initial'),
-    ]
+    dependencies = [("users", "0001_initial")]
 
     operations = [
         migrations.CreateModel(
-            name='Group',
+            name="Group",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('number', models.PositiveSmallIntegerField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("number", models.PositiveSmallIntegerField()),
             ],
         ),
         migrations.CreateModel(
-            name='YearGroup',
+            name="YearGroup",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year', models.PositiveSmallIntegerField(validators=[django.core.validators.MinValueValidator(2015), django.core.validators.MaxValueValidator(2100)])),
-                ('type', models.PositiveSmallIntegerField(choices=[(0, 'BS'), (1, 'MS')])),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "year",
+                    models.PositiveSmallIntegerField(
+                        validators=[
+                            django.core.validators.MinValueValidator(2015),
+                            django.core.validators.MaxValueValidator(2100),
+                        ]
+                    ),
+                ),
+                (
+                    "type",
+                    models.PositiveSmallIntegerField(choices=[(0, "BS"), (1, "MS")]),
+                ),
             ],
         ),
         migrations.AlterModelManagers(
-            name='user',
-            managers=[
-                ('objects', django.contrib.auth.models.UserManager()),
-            ],
+            name="user",
+            managers=[("objects", django.contrib.auth.models.UserManager())],
         ),
         migrations.AddField(
-            model_name='group',
-            name='study_year',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.YearGroup'),
+            model_name="group",
+            name="study_year",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="users.YearGroup"
+            ),
         ),
         migrations.AddField(
-            model_name='user',
-            name='group',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='users.Group'),
+            model_name="user",
+            name="group",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="users.Group",
+            ),
         ),
     ]

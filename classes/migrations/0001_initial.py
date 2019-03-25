@@ -11,69 +11,121 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('users', '0002_auto_20190325_1725'),
+        ("users", "0002_auto_20190325_1725"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Class',
+            name="Class",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('per_week', models.PositiveSmallIntegerField(validators=[django.core.validators.MaxValueValidator(10)])),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "per_week",
+                    models.PositiveSmallIntegerField(
+                        validators=[django.core.validators.MaxValueValidator(10)]
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ClassType',
+            name="ClassType",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=20)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=20)),
             ],
         ),
         migrations.CreateModel(
-            name='Course',
+            name="Course",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=150)),
-                ('description', models.CharField(max_length=500)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=150)),
+                ("description", models.CharField(max_length=500)),
             ],
         ),
         migrations.CreateModel(
-            name='Semester',
+            name="Semester",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year', models.PositiveSmallIntegerField()),
-                ('type', models.PositiveSmallIntegerField(choices=[(2, 'Fall'), (0, 'Spring'), (1, 'Summer')])),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("year", models.PositiveSmallIntegerField()),
+                (
+                    "type",
+                    models.PositiveSmallIntegerField(
+                        choices=[(2, "Fall"), (0, "Spring"), (1, "Summer")]
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='course',
-            name='semester',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='classes.Semester'),
+            model_name="course",
+            name="semester",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="classes.Semester"
+            ),
         ),
         migrations.AddField(
-            model_name='course',
-            name='year_group',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.YearGroup'),
+            model_name="course",
+            name="year_group",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="users.YearGroup"
+            ),
         ),
         migrations.AddField(
-            model_name='class',
-            name='course',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='classes.Course'),
+            model_name="class",
+            name="course",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="classes.Course"
+            ),
         ),
         migrations.AddField(
-            model_name='class',
-            name='groups',
-            field=models.ManyToManyField(to='users.Group'),
+            model_name="class",
+            name="groups",
+            field=models.ManyToManyField(to="users.Group"),
         ),
         migrations.AddField(
-            model_name='class',
-            name='teacher',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="class",
+            name="teacher",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='class',
-            name='type',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='classes.ClassType'),
+            model_name="class",
+            name="type",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="classes.ClassType"
+            ),
         ),
     ]
