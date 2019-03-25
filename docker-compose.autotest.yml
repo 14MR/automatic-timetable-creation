@@ -5,24 +5,3 @@ services:
     command: /bin/bash -c "pip install -r ./requirements_test.txt &&
               pytest --cov='.' --cov-config .coveragerc --ds atc.settings_test &&
               python3 manage.py test --settings=atc.settings_test"
-    networks:
-      - redis-net
-
-
-  redis:
-    image: redis:5.0.4-alpine
-    command: ["redis-server", "--appendonly", "yes"]
-    hostname: redis
-    networks:
-      - redis-net
-    volumes:
-      - redis-data:/data
-
-
-networks:
-  redis-net:
-
-
-volumes:
-  redis-data:
-
