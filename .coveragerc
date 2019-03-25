@@ -3,3 +3,4 @@ omit =
     atc/*
     */migrations/*
     manage.py
+    */apps.py
