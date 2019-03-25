@@ -28,3 +28,19 @@ We follow some conventions according to testing:
 1. Test files are named `test_*.py`
 2. Test classes are named `Test*`
 3. Test methods are named `test_*`
+
+###Celery
+* Celery tasks - regular python functions
+```
+from celery.decorators import task
+
+@app.task(name="test_celery_task")
+def t_celery_task():
+    logger.info("test_celery_task")
+    return t_celery()
+```
+* Run task asynchronously with
+```
+t_celery.delay()
+```
+

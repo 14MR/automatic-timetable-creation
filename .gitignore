@@ -3,6 +3,9 @@
 **/__pycache__/
 .idea/
 
+*.pid
+
+
 
 # Created by https://www.gitignore.io/api/linux,macos,python,django,pycharm,jetbrains
 # Edit at https://www.gitignore.io/?templates=linux,macos,python,django,pycharm,jetbrains
