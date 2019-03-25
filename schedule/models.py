@@ -10,6 +10,6 @@ class Schedule(models.Model):
 class Event(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
-    class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
+    current_class = models.ForeignKey(Class, on_delete=models.CASCADE)
     date = models.DateField()
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
