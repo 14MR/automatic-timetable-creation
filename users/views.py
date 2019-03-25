@@ -1,14 +1,13 @@
-from rest_framework import generics, mixins, permissions
+from rest_framework import viewsets
 from rest_framework.authtoken.models import Token
-from rest_framework.generics import get_object_or_404
-from rest_framework.mixins import UpdateModelMixin
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.views import APIView
 
-from users.models import User
-from users.serializers import AuthTokenSerializer, UserSerializer
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.response import Response
+from users.models import User, Group
+from users.serializers import AuthTokenSerializer, UserSerializer, GroupSerializer
 
 
 class ObtainAuthTokenEmail(ObtainAuthToken):
@@ -48,3 +47,9 @@ class ProfileApiView(APIView):
         user = User.objects.get(id=request.user.id)
         serializer = UserSerializer(user)
         return Response(serializer.data)
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    serializer_class = GroupSerializer
+    permission_classes = [AllowAny]
+    queryset = Group.objects.all()
