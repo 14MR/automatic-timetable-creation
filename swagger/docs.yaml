@@ -109,24 +109,6 @@ paths:
                 $ref: '#/components/schemas/User'
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
-  "/users/groups/":
-    get:
-      summary: 'User groups'
-      description: 'Returns students groups'
-      operationId: user_groups
-      tags:
-        - "users"
-      security:
-        - TokenAuth: []
-      responses:
-        '200':
-          description: 'User groups have been returned'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Group'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
   "/users/year_groups/":
     get:
       summary: 'User year groups'
@@ -205,6 +187,107 @@ paths:
           $ref: '#/components/responses/UnauthorizedResponse'
         '404':
           description: 'Year group with such id was not found'
+  "/users/groups/":
+    get:
+      summary: 'User groups'
+      description: 'Returns students groups'
+      operationId: get_user_groups
+      tags:
+        - "users"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'User groups have been returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+    post:
+      summary: 'Creates a group'
+      description: 'Creates a group'
+      operationId: user_create_group
+      tags:
+        - "users"
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'Group to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '201':
+          description: 'Group successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '400':
+          description: 'Incorrect group data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+  "/users/groups/{id}":
+    put:
+      summary: 'Updates group by id'
+      operationId: update_group_by_id
+      tags:
+        - "users"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'New group data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '200':
+          description: 'Group was updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '400':
+          description: 'Incorrect group data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Group with such id was not found'
+    delete:
+      summary: 'Removes group by id'
+      operationId: delete_group_by_id
+      tags:
+        - "users"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Group was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '404':
+          description: 'Group with such id was not found'
+
   "/users/{id}/groups/{id}":
     put:
       summary: 'Add user to a group'
@@ -221,28 +304,6 @@ paths:
           $ref: '#/components/responses/UnauthorizedResponse'
         '404':
           description: 'User or group with such id does not exist'
-    delete:
-      summary: 'Removes year group by id'
-      operationId: delete_year_group_by_id
-      tags:
-        - "users"
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      security:
-        - TokenAuth: []
-      responses:
-        '200':
-          description: 'Year Group was deleted'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/YearGroup'
-        '404':
-          description: 'Year Group with such id was not found'
 
   /items/:
     get:
