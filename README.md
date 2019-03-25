@@ -10,7 +10,7 @@
 6. Login into container: `docker exec -it backend_python_1 bash` (container's name may changed, check it in list - `docker ps`,
 [see more about docker exec](https://docs.docker.com/engine/reference/commandline/exec/))
 7. Install packages from pip: `pip install`
-8. DB migration applying: `python ./manage.py migrate` (in the directory with manage.py)
+8. DB migration applying: `python manage.py migrate` (in the directory with manage.py)
 9. Open website: [http://localhost](http://localhost) (address may changed, depends on environment)
 
 
