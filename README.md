@@ -28,3 +28,18 @@ We follow some conventions according to testing:
 1. Test files are named `test_*.py`
 2. Test classes are named `Test*`
 3. Test methods are named `test_*`
+
+###Celery
+* Celery tasks - regular python functions
+```
+from celery.decorators import task
+
+@task(name="sum_two_numbers")
+def add(x, y):
+    return x + y
+```
+* Run task asynchronously with
+```
+add.delay(7, 8)
+```
+
