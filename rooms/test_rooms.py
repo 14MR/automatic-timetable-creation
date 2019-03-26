@@ -5,7 +5,6 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from rooms.models import RoomType, Room, ItemType, Item
-from rooms.serializers import RoomSerializer
 
 auditorium = {"name": "Auditoriums"}
 room = {"number": 108, "capacity": 100, "is_yellow": False}
