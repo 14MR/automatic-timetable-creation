@@ -2,10 +2,10 @@
 from django.db.models import Max
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 
 from rooms.models import RoomType, Room, ItemType, Item
-from rooms.serializers import RoomSerializer
+from users.models import User
 
 auditorium = {"name": "Auditoriums"}
 room = {"number": 108, "capacity": 100, "is_yellow": False}
@@ -24,6 +24,10 @@ class TestRooms(APITestCase):
         c_projector["type_id"] = self.projector.id
         c_projector["room_id"] = self.room.id
         self.c_projector = Item.objects.create(**c_projector)
+
+        self.user = User.objects.create(email="test@test.com", is_active=True)
+        self.client = APIClient()
+        self.client.force_authenticate(user=self.user)
 
     def test_create_room(self):
         rooms_count = Room.objects.count()
