@@ -1,6 +1,5 @@
 """PyTest tests for 'users' application """
 
-
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase

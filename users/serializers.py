@@ -37,7 +37,7 @@ class AuthTokenSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     password = serializers.CharField(write_only=True)
-    group_id = serializers.PrimaryKeyRelatedField(source='group', queryset=Group.objects.all())
+    group_id = serializers.PrimaryKeyRelatedField(source='group', queryset=Group.objects.all(), required=False)
 
     def create(self, validated_data):
         password = validated_data.pop("password")
