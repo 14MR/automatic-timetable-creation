@@ -26,7 +26,7 @@ class TestRooms(APITestCase):
 
     def test_create_room(self):
         rooms_count = Room.objects.count()
-        url = "/api/v1/rooms/"
+        url = reverse('room-list')
         data = {
             "number": 313,
             "capacity": 50,
