@@ -6,8 +6,8 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.views import APIView
 
-from users.models import User, Group
-from users.serializers import AuthTokenSerializer, UserSerializer, GroupSerializer
+from users.models import User, Group, YearGroup
+from users.serializers import AuthTokenSerializer, UserSerializer, GroupSerializer, YearGroupSerializer
 
 
 class ObtainAuthTokenEmail(ObtainAuthToken):
@@ -53,3 +53,9 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
     permission_classes = [AllowAny]
     queryset = Group.objects.all()
+
+
+class YearGroupViewSet(viewsets.ModelViewSet):
+    serializer_class = YearGroupSerializer
+    permission_classes = [AllowAny]
+    queryset = YearGroup.objects.all()
