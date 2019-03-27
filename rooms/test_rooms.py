@@ -38,9 +38,13 @@ class TestRooms(APITestCase):
             "is_yellow": True,
             "type_id": self.auditorium.id,
         }
-        response = self.client.post(url, data, format="json")
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        response_post = self.client.post(url, data, format="json")
+        response_get = self.client.get(url, {}, format="json")
+        self.assertEqual(response_post.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Room.objects.count(), 1 + rooms_count)
+
+        self.assertEqual(response_get.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response_get.data), Room.objects.count())
 
     def test_view_rooms(self):
         url = reverse('room-list')
