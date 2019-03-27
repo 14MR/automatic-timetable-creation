@@ -1,0 +1,58 @@
+[
+  {
+    "model": "rooms.itemtype",
+    "pk": 1,
+    "fields": {
+      "name": "Projector"
+    }
+  },
+  {
+    "model": "rooms.itemtype",
+    "pk": 2,
+    "fields": {
+      "name": "WhiteBoard"
+    }
+  },
+  {
+    "model": "rooms.itemtype",
+    "pk": 3,
+    "fields": {
+      "name": "Blackboard"
+    }
+  },
+  {
+    "model": "rooms.itemtype",
+    "pk": 4,
+    "fields": {
+      "name": "PC"
+    }
+  },
+  {
+    "model": "rooms.itemtype",
+    "pk": 5,
+    "fields": {
+      "name": "Laptop"
+    }
+  },
+  {
+    "model": "rooms.itemtype",
+    "pk": 6,
+    "fields": {
+      "name": "White Screen"
+    }
+  },
+  {
+    "model": "rooms.itemtype",
+    "pk": 7,
+    "fields": {
+      "name": "Bookshelf"
+    }
+  },
+  {
+    "model": "rooms.itemtype",
+    "pk": 8,
+    "fields": {
+      "name": "Clicker"
+    }
+  }
+]
