@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import AllowAny
@@ -58,6 +58,12 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
     permission_classes = [AllowAny]
     queryset = Group.objects.all()
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        data = GroupSerializer(instance).data
+        instance.delete()
+        return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
 class YearGroupViewSet(viewsets.ModelViewSet):
