@@ -43,14 +43,9 @@ class TestAuth(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
-group_data = {
-    "number": 3,
-}
+group_data = {"number": 3}
 
-year_group_data = {
-    "year": 2017,
-    "type": 1
-}
+year_group_data = {"year": 2017, "type": 1}
 
 
 class TestGroups(APITestCase):
@@ -66,7 +61,7 @@ class TestGroups(APITestCase):
     # Test PUT on /users/{id}/groups/{id}
     def test_create_and_delete_new_group(self):
         group_count = Group.objects.count()
-        new_group_data = {"number": 2, 'year_id': self.year_group.id}
+        new_group_data = {"number": 2, "year_id": self.year_group.id}
         url = "/api/v1/users/groups/"
 
         response = self.client.post(url, new_group_data, format="json")

@@ -31,7 +31,7 @@ class TestRooms(APITestCase):
 
     def test_create_room(self):
         rooms_count = Room.objects.count()
-        url = reverse('room-list')
+        url = reverse("room-list")
         data = {
             "number": 313,
             "capacity": 50,
@@ -47,13 +47,13 @@ class TestRooms(APITestCase):
         self.assertEqual(len(response_get.data), Room.objects.count())
 
     def test_view_rooms(self):
-        url = reverse('room-list')
+        url = reverse("room-list")
         response = self.client.get(url, {}, format="json")
         self.assertTrue(response.status_code, status.HTTP_200_OK)
         self.assertTrue(len(response.data), Room.objects.count())
 
     def test_view_one_room(self):
-        url = reverse('room-detail', args=(self.room.id,))
+        url = reverse("room-detail", args=(self.room.id,))
         response = self.client.get(url, {}, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["number"], self.room.number)
@@ -67,7 +67,7 @@ class TestRooms(APITestCase):
         }
         impossible_room = Room.objects.all().aggregate(Max("id"))["id__max"] + 1
 
-        url = reverse('room-detail', args=(impossible_room,))
+        url = reverse("room-detail", args=(impossible_room,))
         response = self.client.get(url, {}, format="json")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
@@ -77,7 +77,7 @@ class TestRooms(APITestCase):
         response = self.client.delete(url, {}, format="json")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-        url = reverse('room-items', args=(impossible_room,))
+        url = reverse("room-items", args=(impossible_room,))
 
         response = self.client.get(url, {}, format="json")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
@@ -87,7 +87,7 @@ class TestRooms(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_wrong_put_on_room(self):
-        url = reverse('room-detail', args=(self.room.id,))
+        url = reverse("room-detail", args=(self.room.id,))
         new_room = {
             "number": 110,
             "capacity": 100,
@@ -105,7 +105,7 @@ class TestRooms(APITestCase):
             "type_id": self.auditorium.id,
         }
         new_room = Room.objects.create(**new_room)
-        url = reverse('room-detail', args=(new_room.id,))
+        url = reverse("room-detail", args=(new_room.id,))
 
         response = self.client.delete(url, {}, format="json")
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
@@ -113,7 +113,7 @@ class TestRooms(APITestCase):
     def test_room_types_view(self):
         count = RoomType.objects.count()
 
-        url = reverse('room-types')
+        url = reverse("room-types")
 
         response = self.client.get(url, {}, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -121,7 +121,7 @@ class TestRooms(APITestCase):
 
     def test_item_view(self):
         count = Item.objects.count()
-        url = reverse('item-list')
+        url = reverse("item-list")
 
         response = self.client.get(url, {}, format="json")
 
@@ -131,7 +131,7 @@ class TestRooms(APITestCase):
     def test_add_item(self):
         count = Item.objects.count()
         new_item = {"name": "UnCool Projector", "type_id": self.projector.id}
-        url = reverse('item-list')
+        url = reverse("item-list")
 
         response = self.client.post(url, new_item, format="json")
 
@@ -141,7 +141,7 @@ class TestRooms(APITestCase):
     def test_get_item_types(self):
         count = ItemType.objects.count()
 
-        url = reverse('item-types')
+        url = reverse("item-types")
 
         response = self.client.get(url, {}, format="json")
 
@@ -158,7 +158,7 @@ class TestRooms(APITestCase):
 
     def test_set_items_of_the_room(self):
         count = self.c_projector.room.items.count()
-        url = reverse('room-items', args=(self.room.id,))
+        url = reverse("room-items", args=(self.room.id,))
 
         new_item = [{"name": "Projector WD40", "type_id": self.projector.id}]
         response = self.client.post(url, new_item, format="json")
@@ -169,7 +169,7 @@ class TestRooms(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-        url = reverse('room-items', args=(self.room.id,))
+        url = reverse("room-items", args=(self.room.id,))
 
         response = self.client.get(url, {}, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)

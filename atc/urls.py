@@ -22,5 +22,4 @@ urlpatterns = [
     url(r"^api/v1/users/", include("users.urls")),
     url(r"^api/v1/", include("schedule.urls")),
     url(r"^api/v1/rooms/", include("rooms.urls")),
-
 ]

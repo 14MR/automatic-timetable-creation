@@ -7,7 +7,12 @@ from rest_framework.status import HTTP_201_CREATED
 from rest_framework.views import APIView
 
 from users.models import User, Group, YearGroup
-from users.serializers import AuthTokenSerializer, UserSerializer, GroupSerializer, YearGroupSerializer
+from users.serializers import (
+    AuthTokenSerializer,
+    UserSerializer,
+    GroupSerializer,
+    YearGroupSerializer,
+)
 
 
 class ObtainAuthTokenEmail(ObtainAuthToken):

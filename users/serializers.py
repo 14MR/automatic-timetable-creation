@@ -37,7 +37,9 @@ class AuthTokenSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     password = serializers.CharField(write_only=True)
-    group_id = serializers.PrimaryKeyRelatedField(source='group', queryset=Group.objects.all(), required=False)
+    group_id = serializers.PrimaryKeyRelatedField(
+        source="group", queryset=Group.objects.all(), required=False
+    )
 
     def create(self, validated_data):
         password = validated_data.pop("password")
@@ -54,11 +56,13 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "email", "first_name", "last_name", "password", 'group_id')
+        fields = ("id", "email", "first_name", "last_name", "password", "group_id")
 
 
 class GroupSerializer(serializers.ModelSerializer):
-    year_id = serializers.PrimaryKeyRelatedField(source='study_year', queryset=YearGroup.objects.all())
+    year_id = serializers.PrimaryKeyRelatedField(
+        source="study_year", queryset=YearGroup.objects.all()
+    )
 
     class Meta:
         model = Group

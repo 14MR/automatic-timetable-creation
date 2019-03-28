@@ -2,7 +2,13 @@ from django.conf.urls import url
 from django.urls import include
 from rest_framework import routers
 
-from users.views import ObtainAuthTokenEmail, SignupApiView, ProfileApiView, GroupViewSet, YearGroupViewSet
+from users.views import (
+    ObtainAuthTokenEmail,
+    SignupApiView,
+    ProfileApiView,
+    GroupViewSet,
+    YearGroupViewSet,
+)
 
 group_router = routers.DefaultRouter()
 group_router.register(r"groups", GroupViewSet, basename="group")
