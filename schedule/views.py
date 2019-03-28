@@ -11,7 +11,7 @@ class ScheduleViewSet(viewsets.ModelViewSet):
     queryset = Schedule.objects.all()
 
 
-class EvenViewSet(viewsets.ModelViewSet):
+class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EvenSerializer
     permission_classes = [AllowAny]
     queryset = Event.objects.all()
