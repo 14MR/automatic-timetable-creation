@@ -83,4 +83,5 @@ class TestGroups(APITestCase):
         url = reverse('group-detail', args=(response_post.data['id'],))
         response_delete = self.client.delete(url, {}, format="json")
         self.assertEqual(response_delete.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response_delete.data['id'], response_post.data['id'])
         self.assertEqual(group_count, Group.objects.count())

@@ -201,7 +201,7 @@ paths:
       security:
         - TokenAuth: []
       responses:
-        '200':
+        '204':
           description: 'Year Group was deleted'
           content:
             application/json:
@@ -301,7 +301,7 @@ paths:
       security:
         - TokenAuth: []
       responses:
-        '200':
+        '204':
           description: 'Group was deleted'
           content:
             application/json:
@@ -456,7 +456,7 @@ paths:
       security:
         - TokenAuth: []
       responses:
-        '200':
+        '204':
           description: 'Item was deleted'
           content:
             application/json:
@@ -591,7 +591,7 @@ paths:
       security:
         - TokenAuth: []
       responses:
-        '200':
+        '204':
           description: 'Room was deleted'
           content:
             application/json:
