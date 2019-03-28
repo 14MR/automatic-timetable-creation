@@ -1,5 +1,5 @@
 """PyTest tests for 'users' application """
-
+from django.db.models import Max
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -56,9 +56,9 @@ class TestGroups(APITestCase):
 
     # Test GET(200), POST (201, 400) on /users/year_groups/
     # Test PUT(200, 400, 404), DELETE(200, 404) on /users/year_groups/{id}/
-    # Test POST(400) on /users/groups/
-    # Test PUT(200, 400, 404), DELETE(404) on /users/groups/{id}
-    # Test PUT(200, 400, 404) on /users/{id}/groups/{id}
+
+    # Test PUT(200) on /users/groups/{id}
+    # Test PUT(200, 404) on /users/{id}/groups/{id}
     # TEST GET(200, 404) on /users/{id}/groups/
 
     def test_view_before_create_and_delete_group(self):
@@ -85,3 +85,29 @@ class TestGroups(APITestCase):
         self.assertEqual(response_delete.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(response_delete.data['id'], response_post.data['id'])
         self.assertEqual(group_count, Group.objects.count())
+
+    def test_erroneous_posts_and_gets_groups(self):
+        # Tests POST(400) on /users/groups
+        # Tests PUT(400,404) and DELETE(404) on /users/groups/{id}
+        # Tests PUT(404) on /users/{id}/groups/{id}
+        group_count = Group.objects.count()
+        url = reverse('group-list')
+        new_group_data = {"number": -1, "year_id": self.year_group.id}
+
+        response_post = self.client.post(url, new_group_data, format="json")
+        self.assertEqual(response_post.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(group_count, Group.objects.count())
+
+        url = reverse('group-detail', args=(self.group.id,))
+        response_put = self.client.put(url, new_group_data, format="json")
+        self.assertEqual(response_put.status_code, status.HTTP_400_BAD_REQUEST)
+
+        max_id = Group.objects.all().aggregate(Max("id"))["id__max"] + 1
+        url = reverse('group-detail', args=(max_id,))
+        new_group_data = {"number": 3, "year_id": self.year_group.id}
+        response_put = self.client.put(url, new_group_data, format="json")
+
+        self.assertEqual(response_put.status_code, status.HTTP_404_NOT_FOUND)
+
+        response_delete = self.client.delete(url, {}, format="json")
+        self.assertEqual(response_delete.status_code, status.HTTP_404_NOT_FOUND)
