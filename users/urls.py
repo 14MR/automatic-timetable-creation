@@ -8,7 +8,7 @@ from users.views import (
     ProfileApiView,
     GroupViewSet,
     YearGroupViewSet,
-)
+    UserGroupView)
 
 group_router = routers.DefaultRouter()
 group_router.register(r"groups", GroupViewSet, basename="group")
@@ -22,4 +22,5 @@ urlpatterns = [
     url("profile", ProfileApiView.as_view(), name="users-profile"),
     url(r"^", include(group_router.urls), name="groups"),
     url(r"^", include(year_group_router.urls), name="year_groups"),
+    url('<int:user_id>/groups/<int:group_id>/', UserGroupView.as_view()),
 ]

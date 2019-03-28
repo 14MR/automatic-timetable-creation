@@ -311,8 +311,8 @@ paths:
           description: 'Group with such id was not found'
   "/users/{id}/groups":
     get:
-      summary: 'Get users groups'
-      description: 'Get groups to which this user belongs to'
+      summary: 'Get users group'
+      description: 'Get group to which this user belongs to'
       operationID: get_users_group
       tags:
         - "users"
@@ -320,13 +320,11 @@ paths:
         - TokenAuth: []
       responses:
         '200':
-          description: 'Groups were successfully retrieved'
+          description: 'Group were successfully retrieved'
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Group'
+                $ref: '#/components/schemas/Group'
         '404':
           description: 'User with such id does not exist'
   "/users/{id}/groups/{id}/":

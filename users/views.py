@@ -76,3 +76,10 @@ class YearGroupViewSet(viewsets.ModelViewSet):
         data = YearGroupSerializer(instance).data
         instance.delete()
         return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+
+class UserGroupView(APIView):
+    def get(self, request, *args, **kwargs):
+        group = User.objects.all(pk=kwargs['user_id']).group
+        serializer = GroupSerializer(group)
+        return Response(serializer.data, status=status.HTTP_200_OK)
