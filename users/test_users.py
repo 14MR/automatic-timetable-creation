@@ -54,15 +54,20 @@ class TestGroups(APITestCase):
         group_data["study_year_id"] = self.year_group.id
         self.group = Group.objects.create(**group_data)
 
-    # Test GET, POST on /users/year_groups/
-    # Test PUT, DELETE on /users/year_groups/{id}/
-    # Test GET, POST on /users/groups/
-    # Test PUT, DELETE on /users/groups/{id}
-    # Test PUT on /users/{id}/groups/{id}
+    # Test GET(200), POST (201, 400) on /users/year_groups/
+    # Test PUT(200, 400, 404), DELETE(200, 404) on /users/year_groups/{id}/
+    # Test GET(200), POST(201,400) on /users/groups/
+    # Test PUT(200, 400, 404), DELETE(200, 404) on /users/groups/{id}
+    # Test PUT(200, 400, 404) on /users/{id}/groups/{id}
+    # TEST GET(200, 404) on /users/{id}/groups/
+
     def test_create_and_delete_new_group(self):
+        # Tests GET(200) on /users/groups/
+        # Tests POST (201) on /users/groups
+        # Tests DELETE (200) on /users/groups/{id}
         group_count = Group.objects.count()
         new_group_data = {"number": 2, "year_id": self.year_group.id}
-        url = "/api/v1/users/groups/"
+        url = reverse('group-list')
 
         response = self.client.post(url, new_group_data, format="json")
         self.assertEqual(group_count + 1, Group.objects.count())
