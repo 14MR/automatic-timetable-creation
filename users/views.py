@@ -70,3 +70,9 @@ class YearGroupViewSet(viewsets.ModelViewSet):
     serializer_class = YearGroupSerializer
     permission_classes = [AllowAny]
     queryset = YearGroup.objects.all()
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        data = YearGroupSerializer(instance).data
+        instance.delete()
+        return Response(data, status=status.HTTP_204_NO_CONTENT)
