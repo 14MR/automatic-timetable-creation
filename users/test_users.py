@@ -56,18 +56,31 @@ class TestGroups(APITestCase):
 
     # Test GET(200), POST (201, 400) on /users/year_groups/
     # Test PUT(200, 400, 404), DELETE(200, 404) on /users/year_groups/{id}/
-    # Test GET(200), POST(201,400) on /users/groups/
-    # Test PUT(200, 400, 404), DELETE(200, 404) on /users/groups/{id}
+    # Test POST(400) on /users/groups/
+    # Test PUT(200, 400, 404), DELETE(404) on /users/groups/{id}
     # Test PUT(200, 400, 404) on /users/{id}/groups/{id}
     # TEST GET(200, 404) on /users/{id}/groups/
 
-    def test_create_and_delete_new_group(self):
+    def test_view_before_create_and_delete_group(self):
         # Tests GET(200) on /users/groups/
         # Tests POST (201) on /users/groups
         # Tests DELETE (200) on /users/groups/{id}
         group_count = Group.objects.count()
         new_group_data = {"number": 2, "year_id": self.year_group.id}
         url = reverse('group-list')
+        response_get = self.client.get(url, {}, format="json")
+        self.assertEqual(response_get.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response_get.data), group_count)
 
-        response = self.client.post(url, new_group_data, format="json")
+        response_post = self.client.post(url, new_group_data, format="json")
+        self.assertEqual(response_post.status_code, status.HTTP_201_CREATED)
         self.assertEqual(group_count + 1, Group.objects.count())
+
+        response_get = self.client.get(url, {}, format="json")
+        self.assertEqual(response_get.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response_get.data), Group.objects.count())
+
+        url = reverse('group-detail', args=(response_post.data['id'],))
+        response_delete = self.client.delete(url, {}, format="json")
+        self.assertEqual(response_delete.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(group_count, Group.objects.count())
