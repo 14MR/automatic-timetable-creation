@@ -13,6 +13,8 @@ services:
       - web
     environment:
       VIRTUAL_HOST: "api.atc.mustafin.dev"
+      LETSENCRYPT_HOST: "api.atc.mustafin.dev"
+      LETSENCRYPT_EMAIL: "t.mustafin@innopolis.ru"
 
   postgres:
     image: postgres:11.2-alpine

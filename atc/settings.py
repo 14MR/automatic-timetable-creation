@@ -38,7 +38,7 @@ APPLICATIONS = [
     "rest_framework.authtoken",
     "corsheaders",
 ]
-DJANGO_APPLICATIONS = ["rooms", "schedule.apps.ScheduleConfig", "users"]
+DJANGO_APPLICATIONS = ["rooms", "schedule.apps.ScheduleConfig", "users", "classes"]
 INSTALLED_APPS = APPLICATIONS + DJANGO_APPLICATIONS
 
 MIDDLEWARE = [
@@ -129,6 +129,6 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # CELERY STUFF
-BROKER_URL = os.environ.get('BROKER_URL', 'redis://redis:6379')
-CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', 'redis://redis:6379')
-CELERY_TIMEZONE = 'Europe/Moscow'
+BROKER_URL = os.environ.get("BROKER_URL", "redis://redis:6379")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND", "redis://redis:6379")
+CELERY_TIMEZONE = "Europe/Moscow"
