@@ -5,3 +5,16 @@ services:
     command: /bin/bash -c "pip install -r ./requirements_test.txt &&
               pytest --cov='.' --cov-config .coveragerc --ds atc.settings_test &&
               python3 manage.py test --settings=atc.settings_test"
+  postgres:
+      restart: always
+      image: postgres:11.2-alpine
+      ports:
+        - 5432:5432
+      environment:
+        POSTGRES_USER: "postgres"
+        POSTGRES_PASSWORD: "postgres"
+      networks:
+        - project
+
+networks:
+  project:
