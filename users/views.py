@@ -80,7 +80,12 @@ class YearGroupViewSet(viewsets.ModelViewSet):
 
 
 class UserGroupView(APIView):
-    def get(self, request, pk, *args, **kwargs):
-        user = get_object_or_404(User, pk=pk)
+    permission_classes = [AllowAny]
+
+    def get(self, request, user_id, group_id, *args, **kwargs):
+        print(f"user_id {user_id}")
+        print(f"group_id {group_id}")
+
+        user = get_object_or_404(User, pk=user_id)
         serializer = GroupSerializer(user.group)
         return Response(serializer.data, status=status.HTTP_200_OK)
