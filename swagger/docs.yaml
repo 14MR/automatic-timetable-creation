@@ -141,14 +141,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GroupYear'
+              $ref: '#/components/schemas/YearGroup'
       responses:
         '201':
           description: 'Group Year successfully created'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GroupYear'
+                $ref: '#/components/schemas/YearGroup'
         '400':
           description: 'Incorrect year group data was provided'
         '401':
@@ -187,6 +187,28 @@ paths:
           $ref: '#/components/responses/UnauthorizedResponse'
         '404':
           description: 'Year group with such id was not found'
+    delete:
+      summary: 'Removes year group by id'
+      operationId: delete_year_group_by_id
+      tags:
+        - "users"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '204':
+          description: 'Year Group was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/YearGroup'
+        '404':
+          description: 'Year Group with such id was not found'
   "/users/groups/":
     get:
       summary: 'User groups'
@@ -279,7 +301,7 @@ paths:
       security:
         - TokenAuth: []
       responses:
-        '200':
+        '204':
           description: 'Group was deleted'
           content:
             application/json:
@@ -287,24 +309,6 @@ paths:
                 $ref: '#/components/schemas/Group'
         '404':
           description: 'Group with such id was not found'
-
-  "/users/{id}/groups/{id}/":
-    put:
-      summary: 'Add user to a group'
-      description: 'Add user with id to a group with id'
-      operationID: add_user_to_a_group
-      tags:
-        - "users"
-      security:
-        - TokenAuth: []
-      responses:
-        '200':
-          description: 'User have been added to a group'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '404':
-          description: 'User or group with such id does not exist'
-
   /rooms/items/:
     get:
       summary: 'Returns items'
@@ -415,7 +419,7 @@ paths:
       security:
         - TokenAuth: []
       responses:
-        '200':
+        '204':
           description: 'Item was deleted'
           content:
             application/json:
@@ -550,7 +554,7 @@ paths:
       security:
         - TokenAuth: []
       responses:
-        '200':
+        '204':
           description: 'Room was deleted'
           content:
             application/json:
@@ -765,6 +769,9 @@ components:
           readOnly: true
           minimum: 0
           example: 1
+        number:
+          type: integer
+          example: 3
         year_id:
           type: integer
           example: 1
