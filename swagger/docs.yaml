@@ -305,7 +305,7 @@ paths:
         '404':
           description: 'User or group with such id does not exist'
 
-  /items/:
+  /rooms/items/:
     get:
       summary: 'Returns items'
       operationId: get_items
@@ -347,7 +347,7 @@ paths:
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
 
-  /items/{id}/:
+  /rooms/items/{id}/:
     get:
       summary: 'Returns item by id'
       operationId: get_item_by_id
@@ -424,7 +424,7 @@ paths:
         '404':
           description: 'Item with such id was not found'
 
-  /item/types/:
+  /rooms/item/types/:
     get:
       summary: 'Returns item types'
       operationId: get_item_types
