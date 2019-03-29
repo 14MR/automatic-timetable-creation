@@ -23,6 +23,8 @@ services:
     depends_on:
       - postgres
     restart: always
+    environment:
+      DEBUG: 'True'
     networks:
       - project
       - redis-net
