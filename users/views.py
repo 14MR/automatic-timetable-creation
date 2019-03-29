@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -79,7 +80,7 @@ class YearGroupViewSet(viewsets.ModelViewSet):
 
 
 class UserGroupView(APIView):
-    def get(self, request, *args, **kwargs):
-        group = User.objects.all(pk=kwargs['user_id']).group
-        serializer = GroupSerializer(group)
+    def get(self, request, pk, *args, **kwargs):
+        user = get_object_or_404(User, pk=pk)
+        serializer = GroupSerializer(user.group)
         return Response(serializer.data, status=status.HTTP_200_OK)

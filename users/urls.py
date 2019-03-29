@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from django.urls import include
+from django.urls import include, path
 from rest_framework import routers
 
 from users.views import (
@@ -22,5 +22,5 @@ urlpatterns = [
     url("profile", ProfileApiView.as_view(), name="users-profile"),
     url(r"^", include(group_router.urls), name="groups"),
     url(r"^", include(year_group_router.urls), name="year_groups"),
-    url('<int:user_id>/groups/<int:group_id>/', UserGroupView.as_view()),
+    path('<int:user_id>/groups/<int:group_id>/', UserGroupView.as_view()),
 ]
