@@ -75,7 +75,7 @@ class TestEvents(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["room_id"], self.event.room_id)
 
-    def test_erroneous_get_year_groups(self):
+    def test_erroneous_get_event(self):
         # Tests GET(404) on /schedules/events/{id}/
         max_id = Event.objects.all().aggregate(Max("id"))["id__max"] + 1
 
@@ -84,7 +84,7 @@ class TestEvents(APITestCase):
         response = self.client.get(url, {}, format="json")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-    def test_erroneous_post_year_group(self):
+    def test_erroneous_post_event(self):
         # Tests POST(400) on /schedules/events/
         event_count = Event.objects.count()
         url = reverse("event-list")
@@ -99,7 +99,7 @@ class TestEvents(APITestCase):
         self.assertEqual(response_post.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(event_count, Event.objects.count())
 
-    def test_erroneous_put_year_groups(self):
+    def test_erroneous_put_event(self):
         # Tests PUT(400,404) on /schedules/events/{id}/
         new_event_data = {"date": "1000-23-23"
                           }
@@ -114,7 +114,7 @@ class TestEvents(APITestCase):
 
         self.assertEqual(response_put.status_code, status.HTTP_404_NOT_FOUND)
 
-    def test_erroneous_delete_year_groups(self):
+    def test_erroneous_delete_event(self):
         # Tests DELETE(404) on /schedules/events/{id}/
         max_id = Event.objects.all().aggregate(Max("id"))["id__max"] + 1
         url = reverse("event-detail", args=(max_id,))
