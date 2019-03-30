@@ -26,7 +26,9 @@ class ClassViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=["get"])
     def types(self, request, pk=None):
         queryset = ClassType.objects.all()
-        return Response(ClassTypeSerializer(queryset, many=True).data, status=status.HTTP_200_OK)
+        return Response(
+            ClassTypeSerializer(queryset, many=True).data, status=status.HTTP_200_OK
+        )
 
 
 class CourseViewSet(viewsets.ModelViewSet):

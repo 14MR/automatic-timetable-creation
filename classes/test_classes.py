@@ -25,10 +25,7 @@ class TestSemesters(APITestCase):
     def test_create_semester(self):
         # Tests POST (201) on /classes/semesters/
         semester_count = Semester.objects.count()
-        new_semester_data = {
-            "year": 2017,
-            "type": 0
-        }
+        new_semester_data = {"year": 2017, "type": 0}
         url = reverse("semester-list")
 
         response_post = self.client.post(url, new_semester_data, format="json")
@@ -52,16 +49,15 @@ class TestSemesters(APITestCase):
 
     def test_put_semester(self):
         # Test PUT(200) on /classes/semesters/{id}/
-        new_semester_data = {
-            "year": 2018,
-            "type": self.semester.type
-        }
+        new_semester_data = {"year": 2018, "type": self.semester.type}
         url = reverse("semester-detail", args=(self.semester.id,))
         response = self.client.put(url, new_semester_data, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["year"], new_semester_data["year"])
-        self.assertEqual(Semester.objects.get(pk=self.semester.id).year, new_semester_data["year"])
+        self.assertEqual(
+            Semester.objects.get(pk=self.semester.id).year, new_semester_data["year"]
+        )
 
     def test_view_single_semester(self):
         # Tests GET(200) on /classes/semesters/{id}/
@@ -84,10 +80,7 @@ class TestSemesters(APITestCase):
         # Tests POST(400) on /classes/semesters/
         semester_count = Semester.objects.count()
         url = reverse("semester-list")
-        new_semester_data = {
-            "year": 2018,
-            "type": 1000
-        }
+        new_semester_data = {"year": 2018, "type": 1000}
 
         response_post = self.client.post(url, new_semester_data, format="json")
         self.assertEqual(response_post.status_code, status.HTTP_400_BAD_REQUEST)
@@ -136,7 +129,7 @@ class TestCourses(APITestCase):
             "title": "Linear Algebra",
             "description": "Delve into the N-space",
             "semester_id": self.course.semester_id,
-            "year_group_id": self.course.year_group_id
+            "year_group_id": self.course.year_group_id,
         }
         url = reverse("course-list")
 
@@ -165,14 +158,16 @@ class TestCourses(APITestCase):
             "title": "Not A Linear Algebra",
             "description": self.course.description,
             "semester_id": self.course.semester_id,
-            "year_group_id": self.course.year_group_id
+            "year_group_id": self.course.year_group_id,
         }
         url = reverse("course-detail", args=(self.course.id,))
         response = self.client.put(url, new_course_data, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["title"], new_course_data["title"])
-        self.assertEqual(Course.objects.get(pk=self.course.id).title, new_course_data["title"])
+        self.assertEqual(
+            Course.objects.get(pk=self.course.id).title, new_course_data["title"]
+        )
 
     def test_view_single_course(self):
         # Tests GET(200) on /classes/courses/{id}/
@@ -199,7 +194,7 @@ class TestCourses(APITestCase):
             "title": "Not A Linear Algebra",
             "description": 405,
             "semester_id": -1,
-            "year_group_id": self.course.year_group_id
+            "year_group_id": self.course.year_group_id,
         }
         response_post = self.client.post(url, new_course_data, format="json")
         self.assertEqual(response_post.status_code, status.HTTP_400_BAD_REQUEST)
@@ -249,10 +244,8 @@ class TestClasses(APITestCase):
             "course_id": self.this_class.course_id,
             "type_id": self.this_class.type_id,
             "per_week": 1,
-            "group_ids": [
-                self.groups[0].id,
-            ],
-            "teacher_id": self.this_class.teacher_id
+            "group_ids": [self.groups[0].id],
+            "teacher_id": self.this_class.teacher_id,
         }
         url = reverse("class-list")
 
@@ -283,14 +276,17 @@ class TestClasses(APITestCase):
             "type_id": self.this_class.type_id,
             "per_week": 1,
             "group_ids": groups_id,
-            "teacher_id": self.this_class.teacher_id
+            "teacher_id": self.this_class.teacher_id,
         }
         url = reverse("class-detail", args=(self.this_class.id,))
         response = self.client.put(url, new_class_data, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["course_id"], new_class_data["course_id"])
-        self.assertEqual(Class.objects.get(pk=self.this_class.id).course_id, new_class_data["course_id"])
+        self.assertEqual(
+            Class.objects.get(pk=self.this_class.id).course_id,
+            new_class_data["course_id"],
+        )
         self.assertEqual(response.data["group_ids"], groups_id)
 
     def test_view_single_class(self):
@@ -318,10 +314,8 @@ class TestClasses(APITestCase):
             "course_id": self.this_class.course_id,
             "type_id": self.this_class.type_id,
             "per_week": 1,
-            "group_ids": [
-                Group.objects.all().aggregate(Max("id"))["id__max"] + 1,
-            ],
-            "teacher_id": self.this_class.teacher_id
+            "group_ids": [Group.objects.all().aggregate(Max("id"))["id__max"] + 1],
+            "teacher_id": self.this_class.teacher_id,
         }
         response_post = self.client.post(url, new_class_data, format="json")
         self.assertEqual(response_post.status_code, status.HTTP_400_BAD_REQUEST)

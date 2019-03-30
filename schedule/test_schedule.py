@@ -28,7 +28,7 @@ class TestEvents(APITestCase):
             "end_time": "10:30:00",
             "class_id": self.event.current_class_id,
             "date": "2017-07-21",
-            "room_id": self.event.room_id
+            "room_id": self.event.room_id,
         }
         url = reverse("event-list")
 
@@ -58,14 +58,16 @@ class TestEvents(APITestCase):
             "end_time": self.event.end_time,
             "class_id": self.event.current_class_id,
             "date": "2017-07-23",
-            "room_id": self.event.room_id
+            "room_id": self.event.room_id,
         }
         url = reverse("event-detail", args=(self.event.id,))
         response = self.client.put(url, new_event_data, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["date"], new_event_data["date"])
-        self.assertEqual(str(Event.objects.get(pk=self.event.id).date), new_event_data["date"])
+        self.assertEqual(
+            str(Event.objects.get(pk=self.event.id).date), new_event_data["date"]
+        )
 
     def test_view_single_event(self):
         # Tests GET(200) on /schedules/events/{id}/
@@ -93,7 +95,7 @@ class TestEvents(APITestCase):
             "end_time": "26:30:00",
             "class_id": self.event.current_class_id,
             "date": "2017-07-21",
-            "room_id": self.event.room_id
+            "room_id": self.event.room_id,
         }
         response_post = self.client.post(url, new_event_data, format="json")
         self.assertEqual(response_post.status_code, status.HTTP_400_BAD_REQUEST)
@@ -101,8 +103,7 @@ class TestEvents(APITestCase):
 
     def test_erroneous_put_event(self):
         # Tests PUT(400,404) on /schedules/events/{id}/
-        new_event_data = {"date": "1000-23-23"
-                          }
+        new_event_data = {"date": "1000-23-23"}
 
         url = reverse("event-detail", args=(self.event.id,))
         response_put = self.client.put(url, new_event_data, format="json")
