@@ -5,6 +5,8 @@ from rest_framework.test import APITestCase
 
 from classes.factory import SemesterFactory, CourseFactory, ClassFactory
 from classes.models import Semester, Course, Class, ClassType
+from users.factory import GroupFactory
+from users.models import Group
 
 
 class TestSemesters(APITestCase):
@@ -229,6 +231,7 @@ class TestCourses(APITestCase):
 class TestClasses(APITestCase):
     def setUp(self):
         self.this_class = ClassFactory.create_batch(size=1)[0]
+        self.groups = GroupFactory.create_batch(size=3)
 
     def test_view_class(self):
         # Tests GET(200) on /classes/
@@ -243,6 +246,13 @@ class TestClasses(APITestCase):
         # Tests POST (201) on /classes/
         class_count = Class.objects.count()
         new_class_data = {
+            "course_id": self.this_class.course_id,
+            "type_id": self.this_class.type_id,
+            "per_week": 1,
+            "group_ids": [
+                self.groups[0].id,
+            ],
+            "teacher_id": self.this_class.teacher_id
         }
         url = reverse("class-list")
 
@@ -267,7 +277,13 @@ class TestClasses(APITestCase):
 
     def test_put_class(self):
         # Test PUT(200) on /classes/{id}/
+        groups_id = list(map(lambda x: x.id, self.groups))
         new_class_data = {
+            "course_id": self.this_class.course_id,
+            "type_id": self.this_class.type_id,
+            "per_week": 1,
+            "group_ids": groups_id,
+            "teacher_id": self.this_class.teacher_id
         }
         url = reverse("class-detail", args=(self.this_class.id,))
         response = self.client.put(url, new_class_data, format="json")
@@ -275,6 +291,7 @@ class TestClasses(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["course_id"], new_class_data["course_id"])
         self.assertEqual(Class.objects.get(pk=self.this_class.id).course_id, new_class_data["course_id"])
+        self.assertEqual(response.data["group_ids"], groups_id)
 
     def test_view_single_class(self):
         # Tests GET(200) on /classes/{id}/
@@ -298,6 +315,13 @@ class TestClasses(APITestCase):
         class_count = Class.objects.count()
         url = reverse("class-list")
         new_class_data = {
+            "course_id": self.this_class.course_id,
+            "type_id": self.this_class.type_id,
+            "per_week": 1,
+            "group_ids": [
+                Group.objects.all().aggregate(Max("id"))["id__max"] + 1,
+            ],
+            "teacher_id": self.this_class.teacher_id
         }
         response_post = self.client.post(url, new_class_data, format="json")
         self.assertEqual(response_post.status_code, status.HTTP_400_BAD_REQUEST)
