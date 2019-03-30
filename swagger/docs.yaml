@@ -428,7 +428,7 @@ paths:
         '404':
           description: 'Item with such id was not found'
 
-  /rooms/item/types/:
+  /rooms/items/types/:
     get:
       summary: 'Returns item types'
       operationId: get_item_types
@@ -625,7 +625,7 @@ paths:
               items:
                 $ref: '#/components/schemas/ItemNoRoom'
       responses:
-        '200':
+        '201':
           description: 'Item(s) was/were successfully added to the room'
           content:
             application/json:
