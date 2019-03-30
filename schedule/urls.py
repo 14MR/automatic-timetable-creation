@@ -7,6 +7,4 @@ from schedule.views import EventViewSet
 router = routers.DefaultRouter()
 router.register(r"events", EventViewSet, basename="event")
 
-urlpatterns = [
-    url(r"^", include(router.urls), name="schedules"),
-]
+urlpatterns = [url(r"^", include(router.urls), name="schedules")]
