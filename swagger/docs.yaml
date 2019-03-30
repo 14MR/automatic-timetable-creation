@@ -642,6 +642,251 @@ paths:
         '404':
           description: 'Room or item with such id does not exist'
 
+  /schedules/:
+    get:
+      summary: 'Returns schedules'
+      operationId: get_schedules
+      tags:
+        - "schedules"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Schedules successfully returned'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schedule'
+    post:
+      summary: 'Creates schedule'
+      description: 'Returns schedule with its new id'
+      operationId: create_schedule
+      tags:
+        - "schedules"
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'Schedule to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schedule'
+      responses:
+        '200':
+          description: 'Schedule successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '400':
+          description: 'Incorrect schedule data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+
+  /schedules/{id}/:
+    get:
+      summary: 'Returns schedule by id'
+      operationId: get_schedule_by_id
+      tags:
+        - "schedules"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Schedule was found and returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '404':
+          description: 'Schedule with such id was not found'
+    put:
+      summary: 'Updates schedule by id'
+      operationId: update_schedule_by_id
+      tags:
+        - "schedules"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'New schedule data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schedule'
+      responses:
+        '200':
+          description: 'Schedule was successfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '400':
+          description: 'Incorrect schedule data'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Schedule with such id was not found'
+    delete:
+      summary: 'Deletes schedule by id'
+      operationId: delete_schedule_by_id
+      tags:
+        - "schedules"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '204':
+          description: 'Schedule was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '404':
+          description: 'Schedule with such id was not found'
+
+  /schedules/events/:
+    get:
+      summary: 'Returns events'
+      operationId: get_events
+      tags:
+        - "events"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Events successfully returned'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+    post:
+      summary: 'Creates event'
+      description: 'Returns event with its new id'
+      operationId: create_event
+      tags:
+        - "events"
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'Event to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: 'Event successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          description: 'Incorrect event data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+
+  /events/events/{id}:
+    get:
+      summary: 'Returns event by id'
+      operationId: get_event_by_id
+      tags:
+        - "events"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Event was found and returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: 'Event with such id was not found'
+    put:
+      summary: 'Updates event by id'
+      operationId: update_event_by_id
+      tags:
+        - "events"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'New event data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: 'Event was successfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          description: 'Incorrect event data'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Event with such id was not found'
+    delete:
+      summary: 'Deletes event by id'
+      operationId: delete_event_by_id
+      tags:
+        - "events"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '204':
+          description: 'Event was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: 'Event with such id was not found'
 components:
   schemas:
     UserCreation:
