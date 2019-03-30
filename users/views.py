@@ -26,7 +26,7 @@ class ObtainAuthTokenEmail(ObtainAuthToken):
 
 class SignupApiView(APIView):
     authentication_classes = ()
-    permission_classes = ()
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
@@ -36,7 +36,7 @@ class SignupApiView(APIView):
 
 
 class ProfileApiView(APIView):
-    permission_classes = ()
+    permission_classes = [permissions.IsAuthenticated]
 
     def put(self, request, *args, **kwargs):
         request.data["id"] = request.user.id
