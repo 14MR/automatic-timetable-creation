@@ -309,41 +309,6 @@ paths:
                 $ref: '#/components/schemas/Group'
         '404':
           description: 'Group with such id was not found'
-  "/users/{id}/groups":
-    get:
-      summary: 'Get users group'
-      description: 'Get group to which this user belongs to'
-      operationID: get_users_group
-      tags:
-        - "users"
-      security:
-        - TokenAuth: []
-      responses:
-        '200':
-          description: 'Group were successfully retrieved'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Group'
-        '404':
-          description: 'User with such id does not exist'
-  "/users/{id}/groups/{id}/":
-    put:
-      summary: 'Add user to a group'
-      description: 'Add user with id to a group with id'
-      operationID: add_user_to_a_group
-      tags:
-        - "users"
-      security:
-        - TokenAuth: []
-      responses:
-        '200':
-          description: 'User have been added to a group'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '404':
-          description: 'User or group with such id does not exist'
-
   /rooms/items/:
     get:
       summary: 'Returns items'
@@ -824,6 +789,106 @@ components:
           type: integer
           enum: [0, 1]
           example: 1
+    Schedule:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 10
+        semester_id:
+          type: integer
+          example: 1
+    Event:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 10
+        start_time:
+          type: string
+          example: "09:00:00"
+        end_time:
+          type: string
+          example: "10:30:00"
+        class_id:
+          type: integer
+          example: 1
+        date:
+          type: date
+          example: "2017-07-21"
+        room_id:
+          type: integer
+          example: 1
+    Semester:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 10
+        year:
+          type: integer
+          example: 2017
+        type:
+          type: integer
+          enum: [0,1,2]
+          example: 0
+    Class:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 10
+        course_id:
+          type: integer
+          example: 1
+        type_id:
+          type: integer
+          example: 1
+        per_week:
+          type: integer
+          example: 2
+        group_ids:
+          type: array
+          items:
+            - type: integer
+          example: [1, 2, 3]
+        teacher_id:
+          type: integer
+          example: 1
+    Course:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 10
+        title:
+          type: string
+          example: "Probability and Statistics"
+        descripion:
+          type: string
+          example: "Delve into the unknown abyss"
+        semester_id:
+          type: integer
+          example: 1
+        year_group_id:
+          type: integer
+          example: 1
+    ClassType:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 10
+        title:
+          type: string
+          example: "Lecture"
+
 
 
 

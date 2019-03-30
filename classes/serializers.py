@@ -17,7 +17,7 @@ class ClassSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Class
-        fields = ('id', 'course_id', 'type_id', 'per_week', 'group_is', 'teacher_id')
+        fields = ('id', 'course_id', 'type_id', 'per_week', 'group_ids', 'teacher_id')
 
 
 class CourseSerializer(serializers.ModelSerializer):
