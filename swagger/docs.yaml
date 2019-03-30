@@ -770,7 +770,7 @@ paths:
       summary: 'Returns events'
       operationId: get_events
       tags:
-        - "events"
+        - "schedules"
       security:
         - TokenAuth: []
       responses:
@@ -787,7 +787,7 @@ paths:
       description: 'Returns event with its new id'
       operationId: create_event
       tags:
-        - "events"
+        - "schedules"
       security:
         - TokenAuth: []
       requestBody:
@@ -809,12 +809,12 @@ paths:
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
 
-  /events/events/{id}:
+  /schedules/events/{id}:
     get:
       summary: 'Returns event by id'
       operationId: get_event_by_id
       tags:
-        - "events"
+        - "schedules"
       parameters:
         - name: id
           in: path
@@ -836,7 +836,7 @@ paths:
       summary: 'Updates event by id'
       operationId: update_event_by_id
       tags:
-        - "events"
+        - "schedules"
       parameters:
         - name: id
           in: path
@@ -869,7 +869,7 @@ paths:
       summary: 'Deletes event by id'
       operationId: delete_event_by_id
       tags:
-        - "events"
+        - "schedules"
       parameters:
         - name: id
           in: path
@@ -887,6 +887,452 @@ paths:
                 $ref: '#/components/schemas/Event'
         '404':
           description: 'Event with such id was not found'
+
+  /classes/:
+    get:
+      summary: 'Returns classes'
+      operationId: get_classes
+      tags:
+        - "classes"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'classes successfully returned'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Class'
+    post:
+      summary: 'Creates class'
+      description: 'Returns class with its new id'
+      operationId: create_class
+      tags:
+        - "classes"
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'Class to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Class'
+      responses:
+        '200':
+          description: 'Class successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+        '400':
+          description: 'Incorrect class data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+
+  /classes/{id}:
+    get:
+      summary: 'Returns class by id'
+      operationId: get_class_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Class was found and returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+        '404':
+          description: 'Class with such id was not found'
+    put:
+      summary: 'Updates class by id'
+      operationId: update_class_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'New class data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Class'
+      responses:
+        '200':
+          description: 'Class was successfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+        '400':
+          description: 'Incorrect class data'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Class with such id was not found'
+    delete:
+      summary: 'Deletes class by id'
+      operationId: delete_class_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '204':
+          description: 'Class was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+        '404':
+          description: 'Class with such id was not found'
+  /classes/types/:
+    get:
+      summary: 'Lists class types'
+      operationId: get_class_types
+      tags:
+        - "classes"
+      responses:
+        '200':
+          description: 'List was successfully retrieved'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClassType'
+
+  /classes/{id}/groups/:
+    get:
+      summary: 'Returns all groups from the class'
+      operationId: get_groups_for_the_class_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Groups were successfully retrieved'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+        '404':
+          description: 'Class with such id does not exist'
+    put:
+      summary: 'Set groups for the class'
+      operationId: set_groups_for_the_class_by_id
+      tags:
+        - "classes"
+      description: 'Class to which the groups will be set'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                - type: integer
+      responses:
+        '200':
+          description: 'Groups were successfully set for the class'
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  $ref: '#/components/schemas/Class'
+        '400':
+          description: 'Incorrect group data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Class or group with such id does not exist'
+
+  /classes/courses/:
+    get:
+      summary: 'Returns courses'
+      operationId: get_courses
+      tags:
+        - "classes"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'courses successfully returned'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+    post:
+      summary: 'Creates course'
+      description: 'Returns course with its new id'
+      operationId: create_course
+      tags:
+        - "classes"
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'Course to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      responses:
+        '200':
+          description: 'Course successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          description: 'Incorrect course data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+  /classes/courses/{id}:
+    get:
+      summary: 'Returns course by id'
+      operationId: get_course_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Course was found and returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '404':
+          description: 'Course with such id was not found'
+    put:
+      summary: 'Updates course by id'
+      operationId: update_course_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'New course data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      responses:
+        '200':
+          description: 'Course was successfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          description: 'Incorrect course data'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Course with such id was not found'
+    delete:
+      summary: 'Deletes course by id'
+      operationId: delete_course_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '204':
+          description: 'Course was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '404':
+          description: 'Course with such id was not found'
+
+  /classes/semesters/:
+    get:
+      summary: 'Returns semesters'
+      operationId: get_semesters
+      tags:
+        - "classes"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'semesters successfully returned'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Semester'
+    post:
+      summary: 'Creates semester'
+      description: 'Returns semester with its new id'
+      operationId: create_semester
+      tags:
+        - "classes"
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'Semester to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Semester'
+      responses:
+        '200':
+          description: 'Semester successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Semester'
+        '400':
+          description: 'Incorrect semester data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+
+  /classes/semesters/{id}:
+    get:
+      summary: 'Returns semester by id'
+      operationId: get_semester_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Semester was found and returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Semester'
+        '404':
+          description: 'Semester with such id was not found'
+    put:
+      summary: 'Updates semester by id'
+      operationId: update_semester_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'New semester data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Semester'
+      responses:
+        '200':
+          description: 'Semester was successfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Semester'
+        '400':
+          description: 'Incorrect semester data'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Semester with such id was not found'
+    delete:
+      summary: 'Deletes semester by id'
+      operationId: delete_semester_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '204':
+          description: 'Semester was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Semester'
+        '404':
+          description: 'Semester with such id was not found'
+
 components:
   schemas:
     UserCreation:
