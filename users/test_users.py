@@ -168,7 +168,19 @@ class TestGroups(APITestCase):
 
         response_delete = self.client.delete(url, {}, format="json")
         self.assertEqual(response_delete.status_code, status.HTTP_404_NOT_FOUND)
-        # TODO test put 404 for users-group and get 404 for users-groups
+
+        max_user_id = User.objects.all().aggregate(Max("id"))["id__max"] + 1
+        url = reverse('users-view-group', args=(max_user_id,))
+        response_get = self.client.get(url, {}, format="json")
+        self.assertEqual(response_get.status_code, status.HTTP_404_NOT_FOUND)
+
+        url = reverse('users-add-group', args=(max_user_id, self.group.id))
+        response_put = self.client.put(url, {}, format="json")
+        self.assertEqual(response_put.status_code, status.HTTP_404_NOT_FOUND)
+
+        url = reverse('users-add-group', args=(self.user.id, max_id))
+        response_put = self.client.put(url, {}, format="json")
+        self.assertEqual(response_put.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_put_group(self):
         # Test PUT(200) on /users/groups/{id}

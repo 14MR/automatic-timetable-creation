@@ -8,7 +8,7 @@ from users.views import (
     ProfileApiView,
     GroupViewSet,
     YearGroupViewSet,
-    UserGroupView)
+    UserGroupView, UserGroupAdd)
 
 router = routers.DefaultRouter()
 router.register(r"groups", GroupViewSet, basename="group")
@@ -19,5 +19,6 @@ urlpatterns = [
     url("signup", SignupApiView.as_view(), name="users-signup"),
     url("profile", ProfileApiView.as_view(), name="users-profile"),
     url(r"^", include(router.urls), name="groups"),
-    path('<int:user_id>/groups/<int:group_id>/', UserGroupView.as_view()),
+    path('<int:user_id>/groups/<int:group_id>/', UserGroupAdd.as_view(), name='users-add-group'),
+    path('<int:user_id>/groups/', UserGroupView.as_view(), name='users-view-group'),
 ]

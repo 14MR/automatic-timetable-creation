@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.generics import UpdateAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
@@ -79,12 +80,21 @@ class YearGroupViewSet(viewsets.ModelViewSet):
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
-class UserGroupView(APIView):
+class UserGroupAdd(UpdateAPIView):
     permission_classes = [AllowAny]
 
-    def get(self, request, user_id, group_id, *args, **kwargs):
-        print(f"user_id {user_id}")
-        print(f"group_id {group_id}")
+    def put(self, request, user_id, group_id, *args, **kwargs):
+        user = get_object_or_404(User, pk=user_id)
+        group = get_object_or_404(Group, pk=group_id)
+        user.group_id = group.id
+        user.save()
+        return Response(status=status.HTTP_200_OK)
+
+
+class UserGroupView(RetrieveAPIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, user_id, *args, **kwargs):
 
         user = get_object_or_404(User, pk=user_id)
         serializer = GroupSerializer(user.group)
