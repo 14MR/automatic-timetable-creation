@@ -163,7 +163,7 @@ class TestRooms(APITestCase):
         new_item = [{"name": "Projector WD40", "type_id": self.projector.id}]
         response = self.client.post(url, new_item, format="json")
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         new_item = {"name": 12, "item_id": self.projector.id}
         response = self.client.post(url, new_item, format="json")
 

@@ -62,7 +62,7 @@ class RoomViewSet(viewsets.ModelViewSet):
             for item in items.data:
                 item["room"] = room
                 Item.objects.create(**item)
-            return Response(status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_201_CREATED)
         elif request.method == "GET":
             get_object_or_404(Room.objects.all(), pk=pk)
             queryset_items = Item.objects.filter(room=pk)

@@ -340,7 +340,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Item'
       responses:
-        '200':
+        '201':
           description: 'Item was successfully created'
           content:
             application/json:
@@ -475,7 +475,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Room'
       responses:
-        '200':
+        '201':
           description: 'Room successfully created'
           content:
             application/json:
@@ -625,7 +625,7 @@ paths:
               items:
                 $ref: '#/components/schemas/ItemNoRoom'
       responses:
-        '200':
+        '201':
           description: 'Item(s) was/were successfully added to the room'
           content:
             application/json:
@@ -641,129 +641,6 @@ paths:
           $ref: '#/components/responses/UnauthorizedResponse'
         '404':
           description: 'Room or item with such id does not exist'
-
-  /schedules/:
-    get:
-      summary: 'Returns schedules'
-      operationId: get_schedules
-      tags:
-        - "schedules"
-      security:
-        - TokenAuth: []
-      responses:
-        '200':
-          description: 'Schedules successfully returned'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Schedule'
-    post:
-      summary: 'Creates schedule'
-      description: 'Returns schedule with its new id'
-      operationId: create_schedule
-      tags:
-        - "schedules"
-      security:
-        - TokenAuth: []
-      requestBody:
-        description: 'Schedule to create'
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Schedule'
-      responses:
-        '200':
-          description: 'Schedule successfully created'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Schedule'
-        '400':
-          description: 'Incorrect schedule data was provided'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-
-  /schedules/{id}/:
-    get:
-      summary: 'Returns schedule by id'
-      operationId: get_schedule_by_id
-      tags:
-        - "schedules"
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      security:
-        - TokenAuth: []
-      responses:
-        '200':
-          description: 'Schedule was found and returned'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Schedule'
-        '404':
-          description: 'Schedule with such id was not found'
-    put:
-      summary: 'Updates schedule by id'
-      operationId: update_schedule_by_id
-      tags:
-        - "schedules"
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      security:
-        - TokenAuth: []
-      requestBody:
-        description: 'New schedule data'
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Schedule'
-      responses:
-        '200':
-          description: 'Schedule was successfully updated'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Schedule'
-        '400':
-          description: 'Incorrect schedule data'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '404':
-          description: 'Schedule with such id was not found'
-    delete:
-      summary: 'Deletes schedule by id'
-      operationId: delete_schedule_by_id
-      tags:
-        - "schedules"
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      security:
-        - TokenAuth: []
-      responses:
-        '204':
-          description: 'Schedule was deleted'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Schedule'
-        '404':
-          description: 'Schedule with such id was not found'
 
   /schedules/events/:
     get:
@@ -798,7 +675,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Event'
       responses:
-        '200':
+        '201':
           description: 'Event successfully created'
           content:
             application/json:
@@ -921,7 +798,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Class'
       responses:
-        '200':
+        '201':
           description: 'Class successfully created'
           content:
             application/json:
@@ -1121,7 +998,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Course'
       responses:
-        '200':
+        '201':
           description: 'Course successfully created'
           content:
             application/json:
@@ -1243,7 +1120,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Semester'
       responses:
-        '200':
+        '201':
           description: 'Semester successfully created'
           content:
             application/json:
