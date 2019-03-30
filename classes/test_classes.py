@@ -3,8 +3,8 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from classes.factory import SemesterFactory, CourseFactory
-from classes.models import Semester, Course
+from classes.factory import SemesterFactory, CourseFactory, ClassFactory
+from classes.models import Semester, Course, Class, ClassType
 
 
 class TestSemesters(APITestCase):
@@ -224,3 +224,112 @@ class TestCourses(APITestCase):
 
         response_delete = self.client.delete(url, {}, format="json")
         self.assertEqual(response_delete.status_code, status.HTTP_404_NOT_FOUND)
+
+
+class TestClasses(APITestCase):
+    def setUp(self):
+        self.this_class = ClassFactory.create_batch(size=1)[0]
+
+    def test_view_class(self):
+        # Tests GET(200) on /classes/
+        class_count = Class.objects.count()
+        url = reverse("class-list")
+        response_get = self.client.get(url, {}, format="json")
+
+        self.assertEqual(response_get.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response_get.data), class_count)
+
+    def test_create_class(self):
+        # Tests POST (201) on /classes/
+        class_count = Class.objects.count()
+        new_class_data = {
+        }
+        url = reverse("class-list")
+
+        response_post = self.client.post(url, new_class_data, format="json")
+        response_get = self.client.get(url, {}, format="json")
+
+        self.assertEqual(response_post.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(class_count + 1, Class.objects.count())
+        self.assertEqual(response_get.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response_get.data), Class.objects.count())
+
+    def test_delete_class(self):
+        # Tests DELETE (200) on /classes/
+        class_count = Class.objects.count()
+        current_class = ClassFactory.create_batch(size=1)[0]
+        url = reverse("class-detail", args=(current_class.id,))
+        response_delete = self.client.delete(url, {}, format="json")
+
+        self.assertEqual(response_delete.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response_delete.data["id"], current_class.id)
+        self.assertEqual(class_count, Class.objects.count())
+
+    def test_put_class(self):
+        # Test PUT(200) on /classes/{id}/
+        new_class_data = {
+        }
+        url = reverse("class-detail", args=(self.this_class.id,))
+        response = self.client.put(url, new_class_data, format="json")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["course_id"], new_class_data["course_id"])
+        self.assertEqual(Class.objects.get(pk=self.this_class.id).course_id, new_class_data["course_id"])
+
+    def test_view_single_class(self):
+        # Tests GET(200) on /classes/{id}/
+        url = reverse("class-detail", args=(self.this_class.id,))
+
+        response = self.client.get(url, {}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["course_id"], self.this_class.course_id)
+
+    def test_erroneous_get_class(self):
+        # Tests GET(404) on /classes/{id}/
+        max_id = Class.objects.all().aggregate(Max("id"))["id__max"] + 1
+
+        url = reverse("class-detail", args=(max_id,))
+
+        response = self.client.get(url, {}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_erroneous_post_class(self):
+        # Tests POST(400) on /classes/
+        class_count = Class.objects.count()
+        url = reverse("class-list")
+        new_class_data = {
+        }
+        response_post = self.client.post(url, new_class_data, format="json")
+        self.assertEqual(response_post.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(class_count, Class.objects.count())
+
+    def test_erroneous_put_class(self):
+        # Tests PUT(400,404) on /classes/{id}/
+        new_class_data = {"title": 0}
+
+        url = reverse("class-detail", args=(self.this_class.id,))
+        response_put = self.client.put(url, new_class_data, format="json")
+        self.assertEqual(response_put.status_code, status.HTTP_400_BAD_REQUEST)
+
+        max_id = Class.objects.all().aggregate(Max("id"))["id__max"] + 1
+        url = reverse("class-detail", args=(max_id,))
+        response_put = self.client.put(url, new_class_data, format="json")
+
+        self.assertEqual(response_put.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_erroneous_delete_class(self):
+        # Tests DELETE(404) on /classes/{id}/
+        max_id = Class.objects.all().aggregate(Max("id"))["id__max"] + 1
+        url = reverse("class-detail", args=(max_id,))
+
+        response_delete = self.client.delete(url, {}, format="json")
+        self.assertEqual(response_delete.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_view_class_types(self):
+        # Tests GET(200) on /classes/types/
+        class_type_count = ClassType.objects.count()
+        url = reverse("class-types")
+        response_get = self.client.get(url, {}, format="json")
+
+        self.assertEqual(response_get.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response_get.data), class_type_count)

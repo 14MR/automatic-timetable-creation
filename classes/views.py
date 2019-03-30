@@ -1,8 +1,9 @@
 from rest_framework import viewsets, status
+from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from classes.models import Class, Semester, Course
+from classes.models import Class, Semester, Course, ClassType
 from classes.serializers import (
     ClassSerializer,
     ClassTypeSerializer,
@@ -21,6 +22,11 @@ class ClassViewSet(viewsets.ModelViewSet):
         data = ClassSerializer(instance).data
         instance.delete()
         return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+    @action(detail=False, methods=["get"])
+    def types(self, request, pk=None):
+        queryset = ClassType.objects.all()
+        return Response(ClassTypeSerializer(queryset, many=True).data, status=status.HTTP_200_OK)
 
 
 class CourseViewSet(viewsets.ModelViewSet):
