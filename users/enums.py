@@ -8,6 +8,6 @@ class YearType(DjangoChoices):
 
 class RoleType(DjangoChoices):
     admin = ChoiceItem(0, "Site Administrator")
-    professor = ChoiceItem(1, "Teaching Staff")
-    student = ChoiceItem(2, "Student")
-    b_admin = ChoiceItem(3, "Building Administrator")
+    professor = ChoiceItem(2, "Teaching Staff")
+    student = ChoiceItem(3, "Student")
+    b_admin = ChoiceItem(1, "Building Administrator")
