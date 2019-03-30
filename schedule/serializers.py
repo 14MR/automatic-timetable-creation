@@ -12,7 +12,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
         fields = ("id", "semester_id")
 
 
-class EvenSerializer(serializers.ModelSerializer):
+class EventSerializer(serializers.ModelSerializer):
     class_id = serializers.PrimaryKeyRelatedField(
         source="current_class", queryset=Class.objects.all()
     )

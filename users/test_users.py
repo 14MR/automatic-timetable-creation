@@ -78,7 +78,7 @@ class TestGroups(APITestCase):
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response_get.data), YearGroup.objects.count())
 
-    def test_view_before_create_and_delete_year_group(self):
+    def test_delete_year_group(self):
         # Tests DELETE (200) on /users/year_groups/{id}
         group_count = YearGroup.objects.count()
         year_group = YearGroupFactory.create_batch(size=1)[0]
@@ -133,6 +133,23 @@ class TestGroups(APITestCase):
             YearGroup.objects.get(pk=self.year_group.id).year, new_group_data["year"]
         )
 
+    def test_get_particular_year_group(self):
+        # Tests GET(200) on /users/year_groups/{id}/
+        url = reverse("year_group-detail", args=(self.year_group.id,))
+
+        response = self.client.get(url, {}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["year"], self.year_group.year)
+
+    def test_erroneous_get_year_groups(self):
+        # Tests GET(404) on /users/year_groups/{id}/
+        max_id = YearGroup.objects.all().aggregate(Max("id"))["id__max"] + 1
+
+        url = reverse("year_group-detail", args=(max_id,))
+
+        response = self.client.get(url, {}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
     def test_view_group(self):
         # Tests GET(200) on /users/groups/
         group_count = Group.objects.count()
@@ -142,7 +159,7 @@ class TestGroups(APITestCase):
         self.assertEqual(len(response_get.data), group_count)
 
     def test_post_group(self):
-        # Tests POST (201) on /users/groups
+        # Tests POST (201) on /users/groups/
         group_count = Group.objects.count()
         new_group_data = {"number": 2, "year_id": self.year_group.id}
         url = reverse("group-list")
@@ -155,8 +172,8 @@ class TestGroups(APITestCase):
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response_get.data), Group.objects.count())
 
-    def test_view_before_create_and_delete_group(self):
-        # Tests DELETE (200) on /users/groups/{id}
+    def test_delete_group(self):
+        # Tests DELETE (200) on /users/groups/{id}/
         group_count = Group.objects.count()
         group = GroupFactory.create_batch(size=1)[0]
         url = reverse("group-detail", args=(group.id,))
@@ -166,6 +183,14 @@ class TestGroups(APITestCase):
         self.assertEqual(response_delete.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(response_delete.data["id"], group.id)
         self.assertEqual(group_count, Group.objects.count())
+
+    def test_get_particular_groups(self):
+        # Tests GET(200) on /users/groups/{id}/
+        url = reverse("group-detail", args=(self.group.id,))
+
+        response = self.client.get(url, {}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["number"], self.group.number)
 
     def test_erroneous_post_groups(self):
         # Tests POST(400) on /users/groups/
@@ -198,6 +223,15 @@ class TestGroups(APITestCase):
 
         response_delete = self.client.delete(url, {}, format="json")
         self.assertEqual(response_delete.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_erroneous_get_group(self):
+        # Tests GET(404) on /users/groups/{id}/
+        max_id = Group.objects.all().aggregate(Max("id"))["id__max"] + 1
+
+        url = reverse("group-detail", args=(max_id,))
+
+        response = self.client.get(url, {}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_erroneous_put_to_user_group(self):
         # Tests PUT(404) on /users/{id}/groups/{id}/
