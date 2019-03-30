@@ -36,6 +36,8 @@ class SignupApiView(APIView):
 
 
 class ProfileApiView(APIView):
+    permission_classes = ()
+    
     def put(self, request, *args, **kwargs):
         request.data["id"] = request.user.id
         user = User.objects.get(id=request.user.id)
