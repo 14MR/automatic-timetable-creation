@@ -1,1 +1,16 @@
-[{"model": "rooms.roomtype", "pk": 1, "fields": {"name": "Auditorium"}}, {"model": "rooms.roomtype", "pk": 2, "fields": {"name": "Lecture Hall"}}]
+[
+  {
+    "model": "rooms.roomtype",
+    "pk": 1,
+    "fields": {
+      "name": "Auditorium"
+    }
+  },
+  {
+    "model": "rooms.roomtype",
+    "pk": 2,
+    "fields": {
+      "name": "Lecture Hall"
+    }
+  }
+]

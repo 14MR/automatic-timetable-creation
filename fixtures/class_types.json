@@ -1,0 +1,23 @@
+[
+  {
+    "model": "classes.classtype",
+    "pk": 1,
+    "fields": {
+      "title": "Lab"
+    }
+  },
+  {
+    "model": "classes.classtype",
+    "pk": 2,
+    "fields": {
+      "title": "Tutorial"
+    }
+  },
+  {
+    "model": "classes.classtype",
+    "pk": 3,
+    "fields": {
+      "title": "Lecture"
+    }
+  }
+]
