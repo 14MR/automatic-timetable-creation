@@ -39,7 +39,7 @@ class TestRooms(APITestCase):
             "type_id": self.auditorium.id,
         }
         response_post = self.client.post(url, data, format="json")
-        response_get = self.client.get(url, {}, format="json")
+        response_get = self.client.get(url)
         self.assertEqual(response_post.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Room.objects.count(), 1 + rooms_count)
 
@@ -48,13 +48,13 @@ class TestRooms(APITestCase):
 
     def test_view_rooms(self):
         url = reverse("room-list")
-        response = self.client.get(url, {}, format="json")
+        response = self.client.get(url)
         self.assertTrue(response.status_code, status.HTTP_200_OK)
         self.assertTrue(len(response.data), Room.objects.count())
 
     def test_view_one_room(self):
         url = reverse("room-detail", args=(self.room.id,))
-        response = self.client.get(url, {}, format="json")
+        response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["number"], self.room.number)
 
@@ -68,18 +68,18 @@ class TestRooms(APITestCase):
         impossible_room = Room.objects.all().aggregate(Max("id"))["id__max"] + 1
 
         url = reverse("room-detail", args=(impossible_room,))
-        response = self.client.get(url, {}, format="json")
+        response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
         response = self.client.put(url, new_room, format="json")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-        response = self.client.delete(url, {}, format="json")
+        response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
         url = reverse("room-items", args=(impossible_room,))
 
-        response = self.client.get(url, {}, format="json")
+        response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
         new_item = {"name": "dull projector", "item_id": self.projector.id}
@@ -107,7 +107,7 @@ class TestRooms(APITestCase):
         new_room = Room.objects.create(**new_room)
         url = reverse("room-detail", args=(new_room.id,))
 
-        response = self.client.delete(url, {}, format="json")
+        response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_room_types_view(self):
@@ -115,7 +115,7 @@ class TestRooms(APITestCase):
 
         url = reverse("room-types")
 
-        response = self.client.get(url, {}, format="json")
+        response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), count)
 
@@ -123,7 +123,7 @@ class TestRooms(APITestCase):
         count = Item.objects.count()
         url = reverse("item-list")
 
-        response = self.client.get(url, {}, format="json")
+        response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), count)
@@ -143,7 +143,7 @@ class TestRooms(APITestCase):
 
         url = reverse("item-types")
 
-        response = self.client.get(url, {}, format="json")
+        response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(count, len(response.data))
@@ -151,7 +151,7 @@ class TestRooms(APITestCase):
     def test_get_items_of_the_room(self):
         url = "/api/v1/rooms/{}/items/".format(self.room.id)
 
-        response = self.client.get(url, {}, format="json")
+        response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data[0]["id"], self.c_projector.id)
@@ -171,6 +171,6 @@ class TestRooms(APITestCase):
 
         url = reverse("room-items", args=(self.room.id,))
 
-        response = self.client.get(url, {}, format="json")
+        response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), count + 1)

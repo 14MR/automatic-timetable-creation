@@ -16,7 +16,7 @@ class TestEvents(APITestCase):
         # Tests GET(200) on /schedules/events/
         event_count = Event.objects.count()
         url = reverse("event-list")
-        response_get = self.client.get(url, {}, format="json")
+        response_get = self.client.get(url)
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response_get.data), event_count)
 
@@ -33,7 +33,7 @@ class TestEvents(APITestCase):
         url = reverse("event-list")
 
         response_post = self.client.post(url, new_event_data, format="json")
-        response_get = self.client.get(url, {}, format="json")
+        response_get = self.client.get(url)
 
         self.assertEqual(response_post.status_code, status.HTTP_201_CREATED)
         self.assertEqual(event_count + 1, Event.objects.count())
@@ -45,7 +45,7 @@ class TestEvents(APITestCase):
         event_count = Event.objects.count()
         event = EventFactory.create_batch(size=1)[0]
         url = reverse("event-detail", args=(event.id,))
-        response_delete = self.client.delete(url, {}, format="json")
+        response_delete = self.client.delete(url)
 
         self.assertEqual(response_delete.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(response_delete.data["id"], event.id)
@@ -73,7 +73,7 @@ class TestEvents(APITestCase):
         # Tests GET(200) on /schedules/events/{id}/
         url = reverse("event-detail", args=(self.event.id,))
 
-        response = self.client.get(url, {}, format="json")
+        response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["room_id"], self.event.room_id)
 
@@ -83,7 +83,7 @@ class TestEvents(APITestCase):
 
         url = reverse("event-detail", args=(max_id,))
 
-        response = self.client.get(url, {}, format="json")
+        response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_erroneous_post_event(self):
@@ -120,5 +120,5 @@ class TestEvents(APITestCase):
         max_id = Event.objects.all().aggregate(Max("id"))["id__max"] + 1
         url = reverse("event-detail", args=(max_id,))
 
-        response_delete = self.client.delete(url, {}, format="json")
+        response_delete = self.client.delete(url)
         self.assertEqual(response_delete.status_code, status.HTTP_404_NOT_FOUND)
