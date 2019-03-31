@@ -902,69 +902,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ClassType'
-
-  /classes/{id}/groups/:
-    get:
-      summary: 'Returns all groups from the class'
-      operationId: get_groups_for_the_class_by_id
-      tags:
-        - "classes"
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      security:
-        - TokenAuth: []
-      responses:
-        '200':
-          description: 'Groups were successfully retrieved'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Group'
-        '404':
-          description: 'Class with such id does not exist'
-    put:
-      summary: 'Set groups for the class'
-      operationId: set_groups_for_the_class_by_id
-      tags:
-        - "classes"
-      description: 'Class to which the groups will be set'
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      security:
-        - TokenAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                - type: integer
-      responses:
-        '200':
-          description: 'Groups were successfully set for the class'
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  $ref: '#/components/schemas/Class'
-        '400':
-          description: 'Incorrect group data was provided'
-        '401':
-          $ref: '#/components/responses/UnauthorizedResponse'
-        '404':
-          description: 'Class or group with such id does not exist'
-
   /classes/courses/:
     get:
       summary: 'Returns courses'

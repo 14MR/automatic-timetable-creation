@@ -2,7 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
-from users.models import User
+from users.models import User, Group, YearGroup
 
 
 class AuthTokenSerializer(serializers.Serializer):
@@ -37,6 +37,9 @@ class AuthTokenSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     password = serializers.CharField(write_only=True)
+    group_id = serializers.PrimaryKeyRelatedField(
+        source="group", queryset=Group.objects.all(), required=False
+    )
 
     def create(self, validated_data):
         password = validated_data.pop("password")
@@ -53,4 +56,20 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "email", "first_name", "last_name", "password")
+        fields = ("id", "email", "first_name", "last_name", "password", "group_id")
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    year_id = serializers.PrimaryKeyRelatedField(
+        source="study_year", queryset=YearGroup.objects.all()
+    )
+
+    class Meta:
+        model = Group
+        fields = ("id", "number", "year_id")
+
+
+class YearGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = YearGroup
+        fields = ("id", "year", "type")

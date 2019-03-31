@@ -28,9 +28,19 @@ class ItemTypeFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ItemType
 
-    name = random.choice(["Projector", "Whiteboard", "Blackboard",
-                          "Interactive board", "Window", "Bottled water",
-                          "Trashcan", "Sink", "Wi-Fi"])
+    name = random.choice(
+        [
+            "Projector",
+            "Whiteboard",
+            "Blackboard",
+            "Interactive board",
+            "Window",
+            "Bottled water",
+            "Trashcan",
+            "Sink",
+            "Wi-Fi",
+        ]
+    )
 
 
 class ItemFactory(factory.django.DjangoModelFactory):

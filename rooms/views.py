@@ -18,7 +18,7 @@ from rest_framework.permissions import AllowAny
 
 class RoomViewSet(viewsets.ModelViewSet):
     serializer_class = RoomSerializer
-    permission_classes = [AllowAny]
+    permission_classes = (AllowAny,)
 
     def get_queryset(self):
         return Room.objects.all()
@@ -74,7 +74,7 @@ class RoomViewSet(viewsets.ModelViewSet):
 
 class ItemViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
-    permission_classes = [AllowAny]
+    permission_classes = (AllowAny,)
 
     def get_queryset(self):
         return Item.objects.all()
