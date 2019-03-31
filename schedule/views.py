@@ -7,7 +7,7 @@ from schedule.serializers import Event, EventSerializer
 
 class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
-    permission_classes = [AllowAny]
+    permission_classes = (AllowAny,)
     queryset = Event.objects.all()
 
     def destroy(self, request, *args, **kwargs):

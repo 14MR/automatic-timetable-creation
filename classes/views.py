@@ -14,7 +14,7 @@ from classes.serializers import (
 
 class ClassViewSet(viewsets.ModelViewSet):
     serializer_class = ClassSerializer
-    permission_classes = [AllowAny]
+    permission_classes = (AllowAny,)
     queryset = Class.objects.all()
 
     def destroy(self, request, *args, **kwargs):
@@ -33,7 +33,7 @@ class ClassViewSet(viewsets.ModelViewSet):
 
 class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
-    permission_classes = [AllowAny]
+    permission_classes = (AllowAny,)
     queryset = Course.objects.all()
 
     def destroy(self, request, *args, **kwargs):
@@ -45,7 +45,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
 class SemesterViewSet(viewsets.ModelViewSet):
     serializer_class = SemesterSerializer
-    permission_classes = [AllowAny]
+    permission_classes = (AllowAny,)
     queryset = Semester.objects.all()
 
     def destroy(self, request, *args, **kwargs):
