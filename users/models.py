@@ -35,7 +35,7 @@ class YearGroup(models.Model):
     year = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(2015), MaxValueValidator(2100)]
     )
-    type = models.PositiveSmallIntegerField(choices=YearType.choices)
+    type = models.PositiveSmallIntegerField(verbose_name='type of group', choices=YearType.choices)
 
     def __str__(self):
         return f"{self.get_type_display()}{self.year}"
