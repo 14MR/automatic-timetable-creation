@@ -11,11 +11,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_("first name"), max_length=50)
     last_name = models.CharField(_("last name"), max_length=150)
     group = models.ForeignKey("Group", blank=True, null=True, on_delete=models.CASCADE)
-    is_admin = models.BooleanField(
-        "Admin status",
-        default=False,
-        help_text="Designates whether the user can log into this admin site.",
-    )
     is_active = models.BooleanField(
         _("active"),
         default=True,
@@ -30,6 +25,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
+
+    @property
+    def is_staff(self):
+        return self.is_superuser
 
 
 class YearGroup(models.Model):
