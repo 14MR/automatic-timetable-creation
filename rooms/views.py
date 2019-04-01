@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
+from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -13,12 +14,12 @@ from rooms.serializers import (
     RoomTypeSerializer,
     ItemTypeSerializer,
 )
-from rest_framework.permissions import AllowAny
+from rooms.permissions import IsBuildingAdminOrHigher
 
 
 class RoomViewSet(viewsets.ModelViewSet):
     serializer_class = RoomSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (permissions.IsAuthenticated, IsBuildingAdminOrHigher)
 
     def get_queryset(self):
         return Room.objects.all()
@@ -74,7 +75,7 @@ class RoomViewSet(viewsets.ModelViewSet):
 
 class ItemViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (permissions.IsAuthenticated, IsBuildingAdminOrHigher)
 
     def get_queryset(self):
         return Item.objects.all()

@@ -40,10 +40,11 @@ class UserSerializer(serializers.ModelSerializer):
         source="group", queryset=Group.objects.all(), required=False
     )
     email = serializers.CharField(write_only=True)
+    role = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = User
-        fields = ("id", "email", "first_name", "last_name", "group_id")
+        fields = ("id", "email", "first_name", "last_name", "group_id", "role")
 
 
 class UserCreateSerializer(UserSerializer):
@@ -62,7 +63,7 @@ class UserCreateSerializer(UserSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "email", "first_name", "last_name", "password", "group_id")
+        fields = ("id", "email", "first_name", "last_name", "password", "group_id", "role")
 
 
 class GroupSerializer(serializers.ModelSerializer):

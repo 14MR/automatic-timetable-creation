@@ -3,13 +3,14 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser, PermissionsMixin, UserManager
-from users.enums import YearType
+from users.enums import YearType, RoleType
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name="Email address", max_length=255, unique=True)
     first_name = models.CharField(_("first name"), max_length=50)
     last_name = models.CharField(_("last name"), max_length=150)
+    role = models.PositiveSmallIntegerField(choices=RoleType.choices, default=RoleType.student)
     group = models.ForeignKey("Group", blank=True, null=True, on_delete=models.CASCADE)
     is_admin = models.BooleanField(
         "Admin status",

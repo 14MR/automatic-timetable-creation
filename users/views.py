@@ -1,14 +1,15 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
+from rest_framework import permissions
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.generics import UpdateAPIView, RetrieveAPIView
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
 from rest_framework.views import APIView
 
 from users.models import User, Group, YearGroup
+from users.permissions import IsDOEOrHigher
 from users.serializers import (
     AuthTokenSerializer,
     UserSerializer,
@@ -32,7 +33,7 @@ class ObtainAuthTokenEmail(ObtainAuthToken):
 
 class SignupApiView(APIView):
     authentication_classes = ()
-    permission_classes = ()
+    permission_classes = (permissions.AllowAny,)
 
     def post(self, request, *args, **kwargs):
         serializer = UserCreateSerializer(data=request.data)
@@ -42,6 +43,8 @@ class SignupApiView(APIView):
 
 
 class ProfileApiView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
     def put(self, request, *args, **kwargs):
         request.data["id"] = request.user.id
         user = User.objects.get(id=request.user.id)
@@ -58,7 +61,7 @@ class ProfileApiView(APIView):
 
 class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Group.objects.all()
 
     def destroy(self, request, *args, **kwargs):
@@ -70,7 +73,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 class YearGroupViewSet(viewsets.ModelViewSet):
     serializer_class = YearGroupSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = YearGroup.objects.all()
 
     def destroy(self, request, *args, **kwargs):
@@ -81,7 +84,7 @@ class YearGroupViewSet(viewsets.ModelViewSet):
 
 
 class UserGroupAdd(UpdateAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (permissions.IsAuthenticated, IsDOEOrHigher)
 
     def put(self, request, user_id, group_id, *args, **kwargs):
         user = get_object_or_404(User, pk=user_id)
@@ -92,7 +95,7 @@ class UserGroupAdd(UpdateAPIView):
 
 
 class UserGroupView(RetrieveAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, user_id, *args, **kwargs):
 
