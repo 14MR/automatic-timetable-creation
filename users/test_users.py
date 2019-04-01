@@ -207,31 +207,29 @@ class TestGroups(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["number"], self.group.number)
 
-    # TODO: uncomment after moving to postgresql for tests
+    def test_erroneous_post_groups(self):
+        # Tests POST(400) on /users/groups/
+        group_count = Group.objects.count()
+        url = reverse("group-list")
+        new_group_data = {"number": -1, "year_id": self.year_group.id}
 
-    # def test_erroneous_post_groups(self):
-    #     # Tests POST(400) on /users/groups/
-    #     group_count = Group.objects.count()
-    #     url = reverse("group-list")
-    #     new_group_data = {"number": -1, "year_id": self.year_group.id}
-    #
-    #     response_post = self.client.post(url, new_group_data, format="json")
-    #     self.assertEqual(response_post.status_code, status.HTTP_400_BAD_REQUEST)
-    #     self.assertEqual(group_count, Group.objects.count())
-    #
-    # def test_erroneous_put_groups(self):
-    #     # Tests PUT(400,404) on /users/groups/{id}/
-    #     new_group_data = {"number": -1, "year_id": self.year_group.id}
-    #
-    #     url = reverse("group-detail", args=(self.group.id,))
-    #     response_put = self.client.put(url, new_group_data, format="json")
-    #     self.assertEqual(response_put.status_code, status.HTTP_400_BAD_REQUEST)
-    #
-    #     max_id = Group.objects.all().aggregate(Max("id"))["id__max"] + 1
-    #     url = reverse("group-detail", args=(max_id,))
-    #     new_group_data = {"number": 3, "year_id": self.year_group.id}
-    #     response_put = self.client.put(url, new_group_data, format="json")
-    #     self.assertEqual(response_put.status_code, status.HTTP_404_NOT_FOUND)
+        response_post = self.client.post(url, new_group_data, format="json")
+        self.assertEqual(response_post.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(group_count, Group.objects.count())
+
+    def test_erroneous_put_groups(self):
+        # Tests PUT(400,404) on /users/groups/{id}/
+        new_group_data = {"number": -1, "year_id": self.year_group.id}
+
+        url = reverse("group-detail", args=(self.group.id,))
+        response_put = self.client.put(url, new_group_data, format="json")
+        self.assertEqual(response_put.status_code, status.HTTP_400_BAD_REQUEST)
+
+        max_id = Group.objects.all().aggregate(Max("id"))["id__max"] + 1
+        url = reverse("group-detail", args=(max_id,))
+        new_group_data = {"number": 3, "year_id": self.year_group.id}
+        response_put = self.client.put(url, new_group_data, format="json")
+        self.assertEqual(response_put.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_erroneous_delete_groups(self):
         # Tests DELETE(404) on /users/groups/{id}/
