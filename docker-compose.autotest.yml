@@ -5,6 +5,8 @@ services:
     command: /bin/bash -c "pip install -r ./requirements_test.txt &&
               pytest --cov='.' --cov-config .coveragerc --ds atc.settings_test &&
               python3 manage.py test --settings=atc.settings_test"
+    depends_on:
+      - postgres
     networks:
         - project
 
