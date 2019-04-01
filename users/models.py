@@ -37,7 +37,13 @@ class YearGroup(models.Model):
     )
     type = models.PositiveSmallIntegerField(choices=YearType.choices)
 
+    def __str__(self):
+        return f"{self.get_type_display()}{self.year}"
+
 
 class Group(models.Model):
     number = models.PositiveSmallIntegerField()
     study_year = models.ForeignKey(YearGroup, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.study_year}-{self.number}"

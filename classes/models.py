@@ -9,6 +9,9 @@ class Semester(models.Model):
     year = models.PositiveSmallIntegerField()
     type = models.PositiveSmallIntegerField(choices=SemesterType.choices)
 
+    def __str__(self):
+        return f"{self.get_type_display()} semester in {self.year} year"
+
 
 class Course(models.Model):
     title = models.CharField(max_length=150)
@@ -16,9 +19,15 @@ class Course(models.Model):
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
     year_group = models.ForeignKey(YearGroup, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.title} course for {self.year_group} on {self.semester}"
+
 
 class ClassType(models.Model):
     title = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.title
 
 
 class Class(models.Model):
@@ -27,3 +36,10 @@ class Class(models.Model):
     per_week = models.PositiveSmallIntegerField(validators=[MaxValueValidator(10)])
     groups = models.ManyToManyField(Group)
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.type.title}_{self.course.title}_{self.teacher.first_name}{self.teacher.last_name}"
+
+    class Meta:
+        verbose_name = "Class"
+        verbose_name_plural = "Classes"
