@@ -1,4 +1,6 @@
 from rest_framework import permissions
+from djchoices import DjangoChoices, ChoiceItem
+from users.enums import RoleType
 
 # permission level 0 or 1, building administrators
 class IsBuildingAdminOrHigher(permissions.BasePermission):

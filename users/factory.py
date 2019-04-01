@@ -2,7 +2,6 @@ import factory
 import random
 
 from users.models import User
-from users.models import Role
 from users.models import YearGroup
 from users.models import Group
 
@@ -23,13 +22,6 @@ class GroupFactory(factory.django.DjangoModelFactory):
     study_year = factory.SubFactory(YearGroupFactory)
 
 
-class RoleFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = Role
-
-    level = random.randint(0, 3)
-
-
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
@@ -37,7 +29,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     email = factory.Faker("free_email")
     first_name = factory.Faker("first_name")
     last_name = factory.Faker("last_name")
-    role = factory.SubFactory(RoleFactory)
+    role = random.randint(0, 3)
     group = factory.SubFactory(GroupFactory)
     is_admin = False
     is_active = True

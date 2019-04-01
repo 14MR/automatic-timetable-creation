@@ -11,7 +11,8 @@ user_data = {
     "first_name": "Bob",
     "last_name": "Bobov",
     "email": "bob_valid_email@kek.ru",
-    "password": "12345678"
+    "password": "12345678",
+    "role": 2
 }
 
 
@@ -28,7 +29,8 @@ class TestAuth(APITestCase):
             "first_name": "first",
             "last_name": "name",
             "email": "valid_email@kek.ru",
-            "password": "12345678"
+            "password": "12345678",
+            "role": 2
         }
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
