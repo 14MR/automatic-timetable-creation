@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 
 from rooms.models import RoomType, Room, ItemType, Item
+from users.enums import RoleType
 from users.models import User
 
 auditorium = {"name": "Auditoriums"}
@@ -29,6 +30,11 @@ class TestRooms(APITestCase):
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 
+        self.admin = User.objects.create(email="test_admin@test.com", is_active=True,
+                                         role=RoleType.b_admin)
+        self.admin_client = APIClient()
+        self.admin_client.force_authenticate(user=self.admin)
+
     def test_create_room(self):
         rooms_count = Room.objects.count()
         url = reverse("room-list")
@@ -38,8 +44,8 @@ class TestRooms(APITestCase):
             "is_yellow": True,
             "type_id": self.auditorium.id,
         }
-        response_post = self.client.post(url, data, format="json")
-        response_get = self.client.get(url)
+        response_post = self.admin_client.post(url, data, format="json")
+        response_get = self.admin_client.get(url)
         self.assertEqual(response_post.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Room.objects.count(), 1 + rooms_count)
 
@@ -94,7 +100,7 @@ class TestRooms(APITestCase):
             "is_yellow": 10,
             "type_id": self.auditorium.id,
         }
-        response = self.client.put(url, new_room, format="json")
+        response = self.admin_client.put(url, new_room, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_remove_on_room(self):
@@ -107,7 +113,7 @@ class TestRooms(APITestCase):
         new_room = Room.objects.create(**new_room)
         url = reverse("room-detail", args=(new_room.id,))
 
-        response = self.client.delete(url)
+        response = self.admin_client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_room_types_view(self):
@@ -133,7 +139,7 @@ class TestRooms(APITestCase):
         new_item = {"name": "UnCool Projector", "type_id": self.projector.id}
         url = reverse("item-list")
 
-        response = self.client.post(url, new_item, format="json")
+        response = self.admin_client.post(url, new_item, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Item.objects.count(), count + 1)
@@ -161,16 +167,16 @@ class TestRooms(APITestCase):
         url = reverse("room-items", args=(self.room.id,))
 
         new_item = [{"name": "Projector WD40", "type_id": self.projector.id}]
-        response = self.client.post(url, new_item, format="json")
+        response = self.admin_client.post(url, new_item, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         new_item = {"name": 12, "item_id": self.projector.id}
-        response = self.client.post(url, new_item, format="json")
+        response = self.admin_client.post(url, new_item, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         url = reverse("room-items", args=(self.room.id,))
 
-        response = self.client.get(url)
+        response = self.admin_client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), count + 1)
