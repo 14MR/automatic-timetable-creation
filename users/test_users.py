@@ -6,13 +6,14 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from users.models import User
+from users.enums import RoleType
 
 user_data = {
     "first_name": "Bob",
     "last_name": "Bobov",
     "email": "bob_valid_email@kek.ru",
     "password": "12345678",
-    "role": 2
+    "role": RoleType.professor
 }
 
 
@@ -30,7 +31,7 @@ class TestAuth(APITestCase):
             "last_name": "name",
             "email": "valid_email@kek.ru",
             "password": "12345678",
-            "role": 2
+            "role": RoleType.professor
         }
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
