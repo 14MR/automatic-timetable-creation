@@ -1,5 +1,4 @@
 from rest_framework import permissions
-from djchoices import DjangoChoices, ChoiceItem
 from users.enums import RoleType
 
 # permission level 0 or 1, building administrators
@@ -10,4 +9,4 @@ class IsBuildingAdminOrHigher(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        return request.user.role == 0 or request.user.role == 1 # verify? need to populate database
+        return request.user.role == RoleType.admin or request.user.role == RoleType.b_admin
