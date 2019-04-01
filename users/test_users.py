@@ -1,11 +1,12 @@
 """PyTest tests for 'users' application """
+
 from django.db.models import Max
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 
-from users.models import User, YearGroup, Group
 from users.factory import YearGroupFactory, GroupFactory
+from users.models import User, YearGroup, Group
 
 user_data = {
     "first_name": "Bob",
@@ -20,6 +21,10 @@ class TestAuth(APITestCase):
         self.user = User.objects.create(**user_data)
         self.user.set_password(user_data["password"])
         self.user.save()
+
+        self.user = User.objects.create(email="test@test.com", is_active=True)
+        self.client = APIClient()
+        self.client.force_authenticate(user=self.user)
 
     def test_create_account(self):
         count = User.objects.count()
@@ -38,10 +43,20 @@ class TestAuth(APITestCase):
         )
 
     def test_get_token(self):
+        u_data = user_data.copy()
         url = reverse("users-login")
-        data = {"email": user_data.pop("email"), "password": user_data.pop("password")}
+        data = {"email": u_data.pop("email"), "password": u_data.pop("password")}
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_profile_change(self):
+        url = reverse("users-profile")
+        data = user_data.copy()
+        data['email'] = 'a@a.ru'
+        response = self.client.put(url, data, format="json")
+        self.assertEqual(data["first_name"], response.json().get("first_name"))
+        self.assertEqual(data["last_name"], response.json().get("last_name"))
+        self.assertNotEqual(data["email"], response.json().get("email"))
 
 
 group_data = {"number": 3}

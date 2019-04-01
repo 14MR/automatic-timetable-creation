@@ -36,6 +36,18 @@ class AuthTokenSerializer(serializers.Serializer):
 
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
+    group_id = serializers.PrimaryKeyRelatedField(
+        source="group", queryset=Group.objects.all(), required=False
+    )
+    email = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ("id", "email", "first_name", "last_name", "group_id")
+
+
+class UserCreateSerializer(UserSerializer):
+    id = serializers.IntegerField(read_only=True)
     password = serializers.CharField(write_only=True)
     group_id = serializers.PrimaryKeyRelatedField(
         source="group", queryset=Group.objects.all(), required=False
@@ -47,12 +59,6 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
-
-    def update(self, instance, validated_data):
-        for i in validated_data:
-            setattr(instance, i, validated_data[i])
-        instance.save()
-        return instance
 
     class Meta:
         model = User

@@ -14,7 +14,7 @@ from users.serializers import (
     UserSerializer,
     GroupSerializer,
     YearGroupSerializer,
-)
+    UserCreateSerializer)
 
 
 class ObtainAuthTokenEmail(ObtainAuthToken):
@@ -35,7 +35,7 @@ class SignupApiView(APIView):
     permission_classes = ()
 
     def post(self, request, *args, **kwargs):
-        serializer = UserSerializer(data=request.data)
+        serializer = UserCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=HTTP_201_CREATED)
@@ -47,7 +47,7 @@ class ProfileApiView(APIView):
         user = User.objects.get(id=request.user.id)
         serializer = UserSerializer(user, data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.update(user, serializer.validated_data)
+        serializer.save()
         return Response(serializer.data)
 
     def get(self, request, *args, **kwargs):
