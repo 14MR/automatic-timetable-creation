@@ -71,7 +71,7 @@ class TestAuth(APITestCase):
         response = self.client.get(url)
         self.assertEqual(user_data["first_name"], response.json().get("first_name"))
         self.assertEqual(user_data["last_name"], response.json().get("last_name"))
-        self.assertNotEqual(user_data["email"], response.json().get("email"))
+        self.assertEqual(user_data["email"], response.json().get("email"))
 
 
 group_data = {"number": 3}
