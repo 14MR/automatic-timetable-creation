@@ -6,6 +6,9 @@ from rooms.models import Room
 class Schedule(models.Model):
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.semester} schedule"
+
 
 class Event(models.Model):
     start_time = models.TimeField()
