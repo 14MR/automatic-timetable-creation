@@ -31,5 +31,4 @@ class UserFactory(factory.django.DjangoModelFactory):
     last_name = factory.Faker("last_name")
     role = random.randint(0, 3)
     group = factory.SubFactory(GroupFactory)
-    is_admin = False
     is_active = True
