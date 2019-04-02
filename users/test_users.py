@@ -9,13 +9,13 @@ from users.factory import YearGroupFactory, GroupFactory
 from users.models import User, YearGroup, Group
 from users.enums import RoleType
 
-
 user_data = {
     "first_name": "Bob",
     "last_name": "Bobov",
     "email": "bob_valid_email@kek.ru",
     "password": "12345678",
-    "role": RoleType.professor
+    "role": RoleType.professor,
+    "is_active": True
 }
 
 
@@ -25,7 +25,6 @@ class TestAuth(APITestCase):
         self.user.set_password(user_data["password"])
         self.user.save()
 
-        self.user = User.objects.create(email="test@test.com", is_active=True)
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
 
@@ -66,6 +65,13 @@ class TestAuth(APITestCase):
         self.assertEqual(data["first_name"], response.json().get("first_name"))
         self.assertEqual(data["last_name"], response.json().get("last_name"))
         self.assertNotEqual(data["email"], response.json().get("email"))
+
+    def test_profile_get(self):
+        url = reverse("users-profile")
+        response = self.client.get(url)
+        self.assertEqual(user_data["first_name"], response.json().get("first_name"))
+        self.assertEqual(user_data["last_name"], response.json().get("last_name"))
+        self.assertNotEqual(user_data["email"], response.json().get("email"))
 
 
 group_data = {"number": 3}

@@ -37,9 +37,9 @@ class AuthTokenSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     group_id = serializers.PrimaryKeyRelatedField(
-        source="group", queryset=Group.objects.all(), required=False
+        source="group", read_only=True
     )
-    email = serializers.CharField(write_only=True)
+    email = serializers.CharField(read_only=True)
     role = serializers.IntegerField(read_only=True)
 
     class Meta:
@@ -53,6 +53,12 @@ class UserCreateSerializer(UserSerializer):
     group_id = serializers.PrimaryKeyRelatedField(
         source="group", queryset=Group.objects.all(), required=False
     )
+    email = serializers.EmailField(required=True)
+
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Email is already taken")
+        return value
 
     def create(self, validated_data):
         password = validated_data.pop("password")
@@ -63,7 +69,7 @@ class UserCreateSerializer(UserSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "email", "first_name", "last_name", "password", "group_id", "role")
+        fields = ("id", "email", "first_name", "last_name", "password", "group_id", "role", "email")
 
 
 class GroupSerializer(serializers.ModelSerializer):

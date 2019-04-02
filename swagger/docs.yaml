@@ -1179,6 +1179,12 @@ components:
         last_name:
           type: string
           example: 'Doe'
+        group_id:
+          type: integer
+          example: 12
+        role:
+          type: integer
+          example: 5
 
     Item:
       required:
