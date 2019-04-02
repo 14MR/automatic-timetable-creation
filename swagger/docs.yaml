@@ -109,8 +109,207 @@ paths:
                 $ref: '#/components/schemas/User'
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
-
-  /items/:
+  "/users/year_groups/":
+    get:
+      summary: 'User year groups'
+      description: 'Returns students year groups'
+      operationId: user_year_groups
+      tags:
+        - "users"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'User year groups have been returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/YearGroup'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+    post:
+      summary: 'Creates a year group'
+      description: 'Creates a year group'
+      operationId: user_create_year_group
+      tags:
+        - "users"
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'Group Year to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/YearGroup'
+      responses:
+        '201':
+          description: 'Group Year successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/YearGroup'
+        '400':
+          description: 'Incorrect year group data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+  "/users/year_groups/{id}/":
+    put:
+      summary: 'Updates year group by id'
+      operationId: update_year_group_by_id
+      tags:
+        - "users"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'New year group data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/YearGroup'
+      responses:
+        '200':
+          description: 'YearGroup was updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/YearGroup'
+        '400':
+          description: 'Incorrect year group data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Year group with such id was not found'
+    delete:
+      summary: 'Removes year group by id'
+      operationId: delete_year_group_by_id
+      tags:
+        - "users"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '204':
+          description: 'Year Group was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/YearGroup'
+        '404':
+          description: 'Year Group with such id was not found'
+  "/users/groups/":
+    get:
+      summary: 'User groups'
+      description: 'Returns students groups'
+      operationId: get_user_groups
+      tags:
+        - "users"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'User groups have been returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+    post:
+      summary: 'Creates a group'
+      description: 'Creates a group'
+      operationId: user_create_group
+      tags:
+        - "users"
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'Group to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '201':
+          description: 'Group successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '400':
+          description: 'Incorrect group data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+  "/users/groups/{id}/":
+    put:
+      summary: 'Updates group by id'
+      operationId: update_group_by_id
+      tags:
+        - "users"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'New group data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '200':
+          description: 'Group was updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '400':
+          description: 'Incorrect group data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Group with such id was not found'
+    delete:
+      summary: 'Removes group by id'
+      operationId: delete_group_by_id
+      tags:
+        - "users"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '204':
+          description: 'Group was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '404':
+          description: 'Group with such id was not found'
+  /rooms/items/:
     get:
       summary: 'Returns items'
       operationId: get_items
@@ -141,7 +340,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Item'
       responses:
-        '200':
+        '201':
           description: 'Item was successfully created'
           content:
             application/json:
@@ -152,7 +351,7 @@ paths:
         '401':
           $ref: '#/components/responses/UnauthorizedResponse'
 
-  /items/{id}/:
+  /rooms/items/{id}/:
     get:
       summary: 'Returns item by id'
       operationId: get_item_by_id
@@ -220,7 +419,7 @@ paths:
       security:
         - TokenAuth: []
       responses:
-        '200':
+        '204':
           description: 'Item was deleted'
           content:
             application/json:
@@ -229,7 +428,7 @@ paths:
         '404':
           description: 'Item with such id was not found'
 
-  /item/types/:
+  /rooms/item/types/:
     get:
       summary: 'Returns item types'
       operationId: get_item_types
@@ -276,7 +475,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Room'
       responses:
-        '200':
+        '201':
           description: 'Room successfully created'
           content:
             application/json:
@@ -355,7 +554,7 @@ paths:
       security:
         - TokenAuth: []
       responses:
-        '200':
+        '204':
           description: 'Room was deleted'
           content:
             application/json:
@@ -426,7 +625,7 @@ paths:
               items:
                 $ref: '#/components/schemas/ItemNoRoom'
       responses:
-        '200':
+        '201':
           description: 'Item(s) was/were successfully added to the room'
           content:
             application/json:
@@ -442,6 +641,511 @@ paths:
           $ref: '#/components/responses/UnauthorizedResponse'
         '404':
           description: 'Room or item with such id does not exist'
+
+  /schedules/events/:
+    get:
+      summary: 'Returns events'
+      operationId: get_events
+      tags:
+        - "schedules"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Events successfully returned'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+    post:
+      summary: 'Creates event'
+      description: 'Returns event with its new id'
+      operationId: create_event
+      tags:
+        - "schedules"
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'Event to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '201':
+          description: 'Event successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          description: 'Incorrect event data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+
+  /schedules/events/{id}:
+    get:
+      summary: 'Returns event by id'
+      operationId: get_event_by_id
+      tags:
+        - "schedules"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Event was found and returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: 'Event with such id was not found'
+    put:
+      summary: 'Updates event by id'
+      operationId: update_event_by_id
+      tags:
+        - "schedules"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'New event data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: 'Event was successfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          description: 'Incorrect event data'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Event with such id was not found'
+    delete:
+      summary: 'Deletes event by id'
+      operationId: delete_event_by_id
+      tags:
+        - "schedules"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '204':
+          description: 'Event was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: 'Event with such id was not found'
+
+  /classes/:
+    get:
+      summary: 'Returns classes'
+      operationId: get_classes
+      tags:
+        - "classes"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'classes successfully returned'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Class'
+    post:
+      summary: 'Creates class'
+      description: 'Returns class with its new id'
+      operationId: create_class
+      tags:
+        - "classes"
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'Class to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Class'
+      responses:
+        '201':
+          description: 'Class successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+        '400':
+          description: 'Incorrect class data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+
+  /classes/{id}:
+    get:
+      summary: 'Returns class by id'
+      operationId: get_class_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Class was found and returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+        '404':
+          description: 'Class with such id was not found'
+    put:
+      summary: 'Updates class by id'
+      operationId: update_class_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'New class data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Class'
+      responses:
+        '200':
+          description: 'Class was successfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+        '400':
+          description: 'Incorrect class data'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Class with such id was not found'
+    delete:
+      summary: 'Deletes class by id'
+      operationId: delete_class_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '204':
+          description: 'Class was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+        '404':
+          description: 'Class with such id was not found'
+  /classes/types/:
+    get:
+      summary: 'Lists class types'
+      operationId: get_class_types
+      tags:
+        - "classes"
+      responses:
+        '200':
+          description: 'List was successfully retrieved'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClassType'
+  /classes/courses/:
+    get:
+      summary: 'Returns courses'
+      operationId: get_courses
+      tags:
+        - "classes"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'courses successfully returned'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+    post:
+      summary: 'Creates course'
+      description: 'Returns course with its new id'
+      operationId: create_course
+      tags:
+        - "classes"
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'Course to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      responses:
+        '201':
+          description: 'Course successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          description: 'Incorrect course data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+  /classes/courses/{id}:
+    get:
+      summary: 'Returns course by id'
+      operationId: get_course_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Course was found and returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '404':
+          description: 'Course with such id was not found'
+    put:
+      summary: 'Updates course by id'
+      operationId: update_course_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'New course data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      responses:
+        '200':
+          description: 'Course was successfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          description: 'Incorrect course data'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Course with such id was not found'
+    delete:
+      summary: 'Deletes course by id'
+      operationId: delete_course_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '204':
+          description: 'Course was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '404':
+          description: 'Course with such id was not found'
+
+  /classes/semesters/:
+    get:
+      summary: 'Returns semesters'
+      operationId: get_semesters
+      tags:
+        - "classes"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'semesters successfully returned'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Semester'
+    post:
+      summary: 'Creates semester'
+      description: 'Returns semester with its new id'
+      operationId: create_semester
+      tags:
+        - "classes"
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'Semester to create'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Semester'
+      responses:
+        '201':
+          description: 'Semester successfully created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Semester'
+        '400':
+          description: 'Incorrect semester data was provided'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+
+  /classes/semesters/{id}:
+    get:
+      summary: 'Returns semester by id'
+      operationId: get_semester_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Semester was found and returned'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Semester'
+        '404':
+          description: 'Semester with such id was not found'
+    put:
+      summary: 'Updates semester by id'
+      operationId: update_semester_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      requestBody:
+        description: 'New semester data'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Semester'
+      responses:
+        '200':
+          description: 'Semester was successfully updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Semester'
+        '400':
+          description: 'Incorrect semester data'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+        '404':
+          description: 'Semester with such id was not found'
+    delete:
+      summary: 'Deletes semester by id'
+      operationId: delete_semester_by_id
+      tags:
+        - "classes"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - TokenAuth: []
+      responses:
+        '204':
+          description: 'Semester was deleted'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Semester'
+        '404':
+          description: 'Semester with such id was not found'
 
 components:
   schemas:
@@ -475,6 +1179,12 @@ components:
         last_name:
           type: string
           example: 'Doe'
+        group_id:
+          type: integer
+          example: 12
+        role:
+          type: integer
+          example: 5
 
     Item:
       required:
@@ -561,8 +1271,137 @@ components:
           type: integer
           example: 12
         name:
-          type: integer
+          type: string
           example: 'Lecture hall'
+    Group:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 1
+        number:
+          type: integer
+          example: 3
+        year_id:
+          type: integer
+          example: 1
+    YearGroup:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 1
+        year:
+          type: integer
+          example: 2017
+        type:
+          type: integer
+          enum: [0, 1]
+          example: 1
+    Schedule:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 10
+        semester_id:
+          type: integer
+          example: 1
+    Event:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 10
+        start_time:
+          type: string
+          example: "09:00:00"
+        end_time:
+          type: string
+          example: "10:30:00"
+        class_id:
+          type: integer
+          example: 1
+        date:
+          type: date
+          example: "2017-07-21"
+        room_id:
+          type: integer
+          example: 1
+    Semester:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 10
+        year:
+          type: integer
+          example: 2017
+        type:
+          type: integer
+          enum: [0,1,2]
+          example: 0
+    Class:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 10
+        course_id:
+          type: integer
+          example: 1
+        type_id:
+          type: integer
+          example: 1
+        per_week:
+          type: integer
+          example: 2
+        group_ids:
+          type: array
+          items:
+            - type: integer
+          example: [1, 2, 3]
+        teacher_id:
+          type: integer
+          example: 1
+    Course:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 10
+        title:
+          type: string
+          example: "Probability and Statistics"
+        descripion:
+          type: string
+          example: "Delve into the unknown abyss"
+        semester_id:
+          type: integer
+          example: 1
+        year_group_id:
+          type: integer
+          example: 1
+    ClassType:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          minimum: 0
+          example: 10
+        title:
+          type: string
+          example: "Lecture"
+
+
+
 
   responses:
     UnauthorizedResponse:

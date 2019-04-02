@@ -1,17 +1,25 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
+from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from rooms.models import ItemType
-from rooms.serializers import RoomSerializer, Room, Item, ItemSerializer, RoomType, RoomTypeSerializer, \
-    ItemTypeSerializer
-from rest_framework.permissions import AllowAny
+from rooms.serializers import (
+    RoomSerializer,
+    Room,
+    Item,
+    ItemSerializer,
+    RoomType,
+    RoomTypeSerializer,
+    ItemTypeSerializer,
+)
+from rooms.permissions import IsBuildingAdminOrHigher
 
 
 class RoomViewSet(viewsets.ModelViewSet):
     serializer_class = RoomSerializer
-    permission_classes = [AllowAny]
+    permission_classes = (permissions.IsAuthenticated, IsBuildingAdminOrHigher)
 
     def get_queryset(self):
         return Room.objects.all()
@@ -37,34 +45,37 @@ class RoomViewSet(viewsets.ModelViewSet):
         instance.delete()
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
-    @action(detail=False, methods=['get'])
+    @action(detail=False, methods=["get"])
     def types(self, request, pk=None):
         queryset = RoomType.objects.all()
         serializer = RoomTypeSerializer(data=queryset, many=True)
         serializer.is_valid()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @action(detail=True, methods=['post', 'get'])
+    @action(detail=True, methods=["post", "get"])
     def items(self, request, pk=None):
-        if request.method == 'POST':
+        if request.method == "POST":
             queryset_rooms = Room.objects.all()
             room = get_object_or_404(queryset_rooms, pk=pk)
 
             items = ItemSerializer(data=request.data, many=True)
             items.is_valid(raise_exception=True)
             for item in items.data:
-                item['room'] = room
+                item["room"] = room
                 Item.objects.create(**item)
-            return Response(status=status.HTTP_200_OK)
-        elif request.method == 'GET':
+            return Response(status=status.HTTP_201_CREATED)
+        elif request.method == "GET":
             get_object_or_404(Room.objects.all(), pk=pk)
             queryset_items = Item.objects.filter(room=pk)
-            return Response(ItemSerializer(queryset_items, many=True).data, status=status.HTTP_200_OK)
+            return Response(
+                ItemSerializer(queryset_items, many=True).data,
+                status=status.HTTP_200_OK,
+            )
 
 
 class ItemViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
-    permission_classes = [AllowAny]
+    permission_classes = (permissions.IsAuthenticated, IsBuildingAdminOrHigher)
 
     def get_queryset(self):
         return Item.objects.all()
@@ -99,7 +110,9 @@ class ItemViewSet(viewsets.ModelViewSet):
         self.perform_destroy(instance)
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
-    @action(detail=False, methods=['get'])
+    @action(detail=False, methods=["get"])
     def types(self, request, pk=None):
         queryset = ItemType.objects.all()
-        return Response(ItemTypeSerializer(queryset, many=True).data, status=status.HTTP_200_OK)
+        return Response(
+            ItemTypeSerializer(queryset, many=True).data, status=status.HTTP_200_OK
+        )

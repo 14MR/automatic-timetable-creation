@@ -23,8 +23,23 @@ services:
     depends_on:
       - postgres
     restart: always
+    environment:
+      DEBUG: 'True'
     networks:
       - project
+      - redis-net
+
+
+
+  redis:
+    image: redis:5.0.4-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    hostname: redis
+    networks:
+      - redis-net
+    volumes:
+      - redis-data:/data
+
 
   postgres:
     restart: always
@@ -50,7 +65,8 @@ services:
 
 volumes:
   db_data:
+  redis-data:
 
 networks:
   project:
-
+  redis-net:
