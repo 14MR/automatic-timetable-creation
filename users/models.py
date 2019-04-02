@@ -12,11 +12,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_("last name"), max_length=150)
     role = models.PositiveSmallIntegerField(choices=RoleType.choices, default=RoleType.student)
     group = models.ForeignKey("Group", blank=True, null=True, on_delete=models.CASCADE)
-    is_admin = models.BooleanField(
-        "Admin status",
-        default=False,
-        help_text="Designates whether the user can log into this admin site.",
-    )
     is_active = models.BooleanField(
         _("active"),
         default=True,
@@ -32,14 +27,24 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
+    @property
+    def is_staff(self):
+        return self.is_superuser
+
 
 class YearGroup(models.Model):
     year = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(2015), MaxValueValidator(2100)]
     )
-    type = models.PositiveSmallIntegerField(choices=YearType.choices)
+    type = models.PositiveSmallIntegerField(verbose_name='type of group', choices=YearType.choices)
+
+    def __str__(self):
+        return f"{self.get_type_display()}{self.year}"
 
 
 class Group(models.Model):
     number = models.PositiveSmallIntegerField()
     study_year = models.ForeignKey(YearGroup, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.study_year}-{self.number}"
