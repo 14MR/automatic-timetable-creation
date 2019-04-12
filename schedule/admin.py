@@ -9,4 +9,12 @@ class AdminEvent(admin.ModelAdmin):
 
 
 admin.site.register(Schedule)
+
+
+class TimeslotAdmin(admin.ModelAdmin):
+    list_display = ('day_of_week', 'starting_time', 'ending_time')
+    ordering = ('day_of_week', 'starting_time')
+
+
+admin.site.register(Timeslot, TimeslotAdmin)
 admin.site.register(Event, AdminEvent)
