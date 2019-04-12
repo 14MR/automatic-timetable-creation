@@ -9,9 +9,9 @@ from users.enums import YearType, RoleType
 class UserManager(BaseUserManager):
     def create_user(self, email, password):
         if not email:
-            raise ValueError("ENTER AN EMAIL BUDDY")
+            raise ValueError("Enter email")
         if not password:
-            raise ValueError("PASSWORD?!?!?!? HELLO??")
+            raise ValueError("Enter password")
 
         user = self.model(email=self.normalize_email(email))
         user.set_password(password)
