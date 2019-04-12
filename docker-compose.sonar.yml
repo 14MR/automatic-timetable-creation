@@ -15,3 +15,6 @@ services:
       - project
     volumes:
       - .:/root/src
+
+networks:
+  project:
