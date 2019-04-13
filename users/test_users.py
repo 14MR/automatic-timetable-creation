@@ -100,7 +100,7 @@ class TestGroups(APITestCase):
         url = reverse("year_group-list")
         response_get = self.client.get(url)
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response_get.data), group_count)
+        self.assertEqual(len(response_get.data['results']), group_count)
 
     def test_create_year_group(self):
         # Tests POST (201) on /users/year_groups/
@@ -114,7 +114,7 @@ class TestGroups(APITestCase):
         self.assertEqual(response_post.status_code, status.HTTP_201_CREATED)
         self.assertEqual(group_count + 1, YearGroup.objects.count())
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response_get.data), YearGroup.objects.count())
+        self.assertEqual(len(response_get.data['results']), YearGroup.objects.count())
 
     def test_delete_year_group(self):
         # Tests DELETE (200) on /users/year_groups/{id}
@@ -194,7 +194,7 @@ class TestGroups(APITestCase):
         url = reverse("group-list")
         response_get = self.client.get(url)
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response_get.data), group_count)
+        self.assertEqual(len(response_get.data['results']), group_count)
 
     def test_post_group(self):
         # Tests POST (201) on /users/groups/
@@ -208,7 +208,7 @@ class TestGroups(APITestCase):
         self.assertEqual(response_post.status_code, status.HTTP_201_CREATED)
         self.assertEqual(group_count + 1, Group.objects.count())
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response_get.data), Group.objects.count())
+        self.assertEqual(len(response_get.data['results']), Group.objects.count())
 
     def test_delete_group(self):
         # Tests DELETE (200) on /users/groups/{id}/

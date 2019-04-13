@@ -50,13 +50,13 @@ class TestRooms(APITestCase):
         self.assertEqual(Room.objects.count(), 1 + rooms_count)
 
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response_get.data), Room.objects.count())
+        self.assertEqual(len(response_get.data['results']), Room.objects.count())
 
     def test_view_rooms(self):
         url = reverse("room-list")
         response = self.client.get(url)
         self.assertTrue(response.status_code, status.HTTP_200_OK)
-        self.assertTrue(len(response.data), Room.objects.count())
+        self.assertTrue(len(response.data['results']), Room.objects.count())
 
     def test_view_one_room(self):
         url = reverse("room-detail", args=(self.room.id,))
@@ -132,7 +132,7 @@ class TestRooms(APITestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), count)
+        self.assertEqual(len(response.data['results']), count)
 
     def test_add_item(self):
         count = Item.objects.count()

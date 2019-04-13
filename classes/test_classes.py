@@ -20,7 +20,7 @@ class TestSemesters(APITestCase):
         response_get = self.client.get(url)
 
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response_get.data), semester_count)
+        self.assertEqual(len(response_get.data['results']), semester_count)
 
     def test_create_semester(self):
         # Tests POST (201) on /classes/semesters/
@@ -34,7 +34,7 @@ class TestSemesters(APITestCase):
         self.assertEqual(response_post.status_code, status.HTTP_201_CREATED)
         self.assertEqual(semester_count + 1, Semester.objects.count())
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response_get.data), Semester.objects.count())
+        self.assertEqual(len(response_get.data['results']), Semester.objects.count())
 
     def test_delete_semester(self):
         # Tests DELETE (200) on /classes/semesters/
@@ -120,7 +120,7 @@ class TestCourses(APITestCase):
         response_get = self.client.get(url)
 
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response_get.data), course_count)
+        self.assertEqual(len(response_get.data['results']), course_count)
 
     def test_create_course(self):
         # Tests POST (201) on /classes/courses/
@@ -139,7 +139,7 @@ class TestCourses(APITestCase):
         self.assertEqual(response_post.status_code, status.HTTP_201_CREATED)
         self.assertEqual(course_count + 1, Course.objects.count())
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response_get.data), Course.objects.count())
+        self.assertEqual(len(response_get.data['results']), Course.objects.count())
 
     def test_delete_course(self):
         # Tests DELETE (200) on /classes/courses/
@@ -235,7 +235,7 @@ class TestClasses(APITestCase):
         response_get = self.client.get(url)
 
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response_get.data), class_count)
+        self.assertEqual(len(response_get.data['results']), class_count)
 
     def test_create_class(self):
         # Tests POST (201) on /classes/
@@ -255,7 +255,7 @@ class TestClasses(APITestCase):
         self.assertEqual(response_post.status_code, status.HTTP_201_CREATED)
         self.assertEqual(class_count + 1, Class.objects.count())
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response_get.data), Class.objects.count())
+        self.assertEqual(len(response_get.data['results']), Class.objects.count())
 
     def test_delete_class(self):
         # Tests DELETE (200) on /classes/

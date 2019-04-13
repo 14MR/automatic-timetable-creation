@@ -18,7 +18,7 @@ class TestEvents(APITestCase):
         url = reverse("event-list")
         response_get = self.client.get(url)
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response_get.data), event_count)
+        self.assertEqual(len(response_get.data['results']), event_count)
 
     def test_create_event(self):
         # Tests POST (201) on /schedules/events/
@@ -38,7 +38,7 @@ class TestEvents(APITestCase):
         self.assertEqual(response_post.status_code, status.HTTP_201_CREATED)
         self.assertEqual(event_count + 1, Event.objects.count())
         self.assertEqual(response_get.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response_get.data), Event.objects.count())
+        self.assertEqual(len(response_get.data['results']), Event.objects.count())
 
     def test_delete_event(self):
         # Tests DELETE (200) on /schedules/events/{id}/
