@@ -5,6 +5,7 @@ from rest_framework.compat import MinValueValidator
 from classes.models import Semester, Class
 from rooms.models import Room
 from schedule.enums import DaysOfWeek
+from users.models import Group
 
 
 class Schedule(models.Model):
@@ -12,14 +13,6 @@ class Schedule(models.Model):
 
     def __str__(self):
         return f"{self.semester} schedule"
-
-
-class Event(models.Model):
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    current_class = models.ForeignKey(Class, on_delete=models.CASCADE)
-    date = models.DateField()
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
 
 
 class Timeslot(models.Model):
@@ -33,3 +26,15 @@ class Timeslot(models.Model):
             models.CheckConstraint(check=models.Q(day_of_week__gte=0), name='day_of_week_gte_0'),
             models.CheckConstraint(check=models.Q(day_of_week__lte=7), name='day_of_week_lte_7'),
         ]
+
+    def __str__(self):
+        return f"Timeslot from {self.starting_time} to {self.ending_time} on {self.get_day_of_week_display()}"
+
+
+class Event(models.Model):
+    timeslot = models.ForeignKey(Timeslot, on_delete=models.CASCADE)
+    current_class = models.ForeignKey(Class, on_delete=models.CASCADE)
+    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    date = models.DateField()
