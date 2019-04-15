@@ -35,6 +35,6 @@ class Event(models.Model):
     timeslot = models.ForeignKey(Timeslot, on_delete=models.CASCADE)
     current_class = models.ForeignKey(Class, on_delete=models.CASCADE)
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    group = models.ManyToManyField(Group, related_name="events")
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     date = models.DateField()
