@@ -18,6 +18,8 @@ docker-build:
     - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_SLUG}_python
     - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_SLUG}_web -f docker/nginx/Dockerfile docker/nginx/ --no-cache
     - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_SLUG}_web
+    - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_SLUG}_docs -f docker/nginx-docs/Dockerfile . --no-cache
+    - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_SLUG}_docs
 
 test:
   stage: test
@@ -34,6 +36,7 @@ deploy:
   script:
     - docker pull ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_SLUG}_python
     - docker pull ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_SLUG}_web
+    - docker pull ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_SLUG}_docs
     - docker-compose -f docker-compose.prod.yml -p $CI_PROJECT_NAME stop || echo
     - docker-compose -f docker-compose.prod.yml -p $CI_PROJECT_NAME rm -f || echo
     - docker-compose -f docker-compose.prod.yml -p $CI_PROJECT_NAME up -d
