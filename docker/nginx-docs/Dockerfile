@@ -2,7 +2,8 @@ FROM swaggerapi/swagger-codegen-cli:latest
 
 COPY ./docs.yaml /swagger/docs.yml
 
-ENTRYPOINT ["java", "-jar", "/opt/swagger-codegen-cli/swagger-codegen-cli.jar"]
+ENTRYPOINT "/bin/sh"
+#ENTRYPOINT ["java", "-jar", "/opt/swagger-codegen-cli/swagger-codegen-cli.jar"]
 #
 #RUN swagger-codegen generate -i /swagger/docs.yml -l html2 -o /swagger/static/
 
