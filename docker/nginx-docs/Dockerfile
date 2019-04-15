@@ -1,17 +1,19 @@
-FROM swaggerapi/swagger-codegen-cli:latest
+FROM node:alpine
 
-COPY ./docs.yaml /swagger/docs.yml
+WORKDIR /app
 
-ENTRYPOINT "/bin/sh"
-#ENTRYPOINT ["java", "-jar", "/opt/swagger-codegen-cli/swagger-codegen-cli.jar"]
-#
-#RUN swagger-codegen generate -i /swagger/docs.yml -l html2 -o /swagger/static/
+RUN apk update && apk add git
 
-#FROM nginx:1.15.8-alpine
-#
-#COPY ./host.conf /etc/nginx/conf.d/default.conf
-#
-#COPY ./auth /etc/nginx/auth
-#
-#COPY --from=0 /app/static /usr/share/nginx/html/static
-#
+RUN npm update && npm i -g redoc-cli
+
+COPY ./docs.yaml /swagger/docs.yaml
+
+RUN redoc-cli bundle /swagger/docs.yaml -o /swagger/static/index.html
+
+FROM nginx:alpine
+
+COPY ./auth /etc/nginx/auth
+
+COPY ./host.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=0 /swagger/static/index.html /usr/share/nginx/html
