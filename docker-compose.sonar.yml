@@ -1,0 +1,20 @@
+version: '3'
+services:
+  sonarqube:
+    image: sonarqube:7.7-community
+    networks:
+      - project
+    ports:
+      - 9000:9000
+
+  scanner:
+    image: newtmitch/sonar-scanner:3.2.0-alpine
+    depends_on:
+      - sonarqube
+    networks:
+      - project
+    volumes:
+      - .:/root/src
+
+networks:
+  project:

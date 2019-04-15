@@ -1317,13 +1317,16 @@ components:
           readOnly: true
           minimum: 0
           example: 10
-        start_time:
-          type: string
-          example: "09:00:00"
-        end_time:
-          type: string
-          example: "10:30:00"
+        timeslot_id:
+          type: integer
+          example: 1
+        group_id:
+          type: integer
+          example: 1
         class_id:
+          type: integer
+          example: 1
+        schedule_id:
           type: integer
           example: 1
         date:
