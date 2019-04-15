@@ -5,10 +5,12 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from schedule.factory import EventFactory
-from schedule.models import Event
+from schedule.models import Event, Timeslot
 
 
 class TestEvents(APITestCase):
+    fixtures = ['fixtures/timeslots.json', ]
+
     def setUp(self):
         self.event = EventFactory.create_batch(size=1)[0]
 
@@ -24,11 +26,12 @@ class TestEvents(APITestCase):
         # Tests POST (201) on /schedules/events/
         event_count = Event.objects.count()
         new_event_data = {
-            "start_time": "09:00:00",
-            "end_time": "10:30:00",
+            "timeslot_id": self.event.timeslot_id,
             "class_id": self.event.current_class_id,
             "date": "2017-07-21",
             "room_id": self.event.room_id,
+            "group_id": self.event.group_id,
+            "schedule_id": self.event.schedule_id
         }
         url = reverse("event-list")
 
@@ -54,11 +57,12 @@ class TestEvents(APITestCase):
     def test_put_event(self):
         # Test PUT(200) on /schedules/events/{id}/
         new_event_data = {
-            "start_time": self.event.start_time,
-            "end_time": self.event.end_time,
+            "timeslot_id": self.event.timeslot_id,
             "class_id": self.event.current_class_id,
             "date": "2017-07-23",
             "room_id": self.event.room_id,
+            "group_id": self.event.group_id,
+            "schedule_id": self.event.schedule_id
         }
         url = reverse("event-detail", args=(self.event.id,))
         response = self.client.put(url, new_event_data, format="json")
