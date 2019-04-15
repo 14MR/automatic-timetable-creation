@@ -1,5 +1,17 @@
 version: '3'
 services:
+
+  docsweb:
+    image: registry.gitlab.com/automatic-timetable-creation/backend:develop_docsweb
+    ports:
+      - 9009:80
+    restart: always
+    depends_on:
+    - python
+
+    networks:
+      - project
+
   swagger:
     image: swaggerapi/swagger-ui
     ports:
