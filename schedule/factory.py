@@ -21,14 +21,19 @@ class ScheduleFactory(factory.django.DjangoModelFactory):
 class TimeslotFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Timeslot
-        django_get_or_create = ('username',)
+        django_get_or_create = ('id', 'starting_time', 'ending_time', 'day_of_week')
+
+    id = 1
+    starting_time = "09:00:00"
+    ending_time = "10:30:00"
+    day_of_week = 0
 
 
 class EventFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Event
 
-    timeslot = Timeslot.objects.all().first()
+    timeslot = factory.SubFactory(TimeslotFactory)
     schedule = factory.SubFactory(ScheduleFactory)
     group = factory.SubFactory(GroupFactory)
     current_class = factory.SubFactory(ClassFactory)
