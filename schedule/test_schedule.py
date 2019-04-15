@@ -6,6 +6,7 @@ from rest_framework.test import APITestCase
 
 from schedule.factory import EventFactory
 from schedule.models import Event, Timeslot
+from users.factory import GroupFactory
 
 
 class TestEvents(APITestCase):
@@ -13,6 +14,7 @@ class TestEvents(APITestCase):
 
     def setUp(self):
         self.event = EventFactory.create_batch(size=1)[0]
+        self.group = GroupFactory.create_batch(size=1)[0]
 
     def test_view_event(self):
         # Tests GET(200) on /schedules/events/
@@ -30,7 +32,7 @@ class TestEvents(APITestCase):
             "class_id": self.event.current_class_id,
             "date": "2017-07-21",
             "room_id": self.event.room_id,
-            "group_id": self.event.group_id,
+            "group_ids": [self.group.id],
             "schedule_id": self.event.schedule_id
         }
         url = reverse("event-list")
@@ -61,7 +63,7 @@ class TestEvents(APITestCase):
             "class_id": self.event.current_class_id,
             "date": "2017-07-23",
             "room_id": self.event.room_id,
-            "group_id": self.event.group_id,
+            "group_ids": [self.group.id],
             "schedule_id": self.event.schedule_id
         }
         url = reverse("event-detail", args=(self.event.id,))

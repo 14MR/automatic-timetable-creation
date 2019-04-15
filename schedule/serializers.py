@@ -15,7 +15,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
 
 
 class EventSerializer(serializers.ModelSerializer):
-    group_id = serializers.PrimaryKeyRelatedField(source='group', queryset=Group.objects.all())
+    group_ids = serializers.PrimaryKeyRelatedField(many=True, source='group', queryset=Group.objects.all())
     timeslot_id = serializers.PrimaryKeyRelatedField(source='timeslot', queryset=Timeslot.objects.all())
     class_id = serializers.PrimaryKeyRelatedField(
         source="current_class", queryset=Class.objects.all()
@@ -27,4 +27,4 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ("id", "class_id", "room_id", "group_id", "timeslot_id", "schedule_id", "date")
+        fields = ("id", "class_id", "room_id", "group_ids", "timeslot_id", "schedule_id", "date")
