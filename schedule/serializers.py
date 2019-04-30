@@ -1,7 +1,9 @@
+from rooms.serializers import RoomSerializer
 from schedule.models import Event, Schedule, Semester, Class, Room, Timeslot
 from rest_framework import serializers
 
 from users.models import Group
+from users.serializers import GroupSerializer
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
@@ -15,16 +17,14 @@ class ScheduleSerializer(serializers.ModelSerializer):
 
 
 class EventSerializer(serializers.ModelSerializer):
-    group_id = serializers.PrimaryKeyRelatedField(source='group', queryset=Group.objects.all())
-    timeslot_id = serializers.PrimaryKeyRelatedField(source='timeslot', queryset=Timeslot.objects.all())
+    group = GroupSerializer()
+    starting_time = serializers.TimeField(source='timeslot.starting_time')
+    ending_time = serializers.TimeField(source='timeslot.ending_time')
     class_id = serializers.PrimaryKeyRelatedField(
         source="current_class", queryset=Class.objects.all()
     )
-    room_id = serializers.PrimaryKeyRelatedField(
-        source="room", queryset=Room.objects.all()
-    )
-    schedule_id = serializers.PrimaryKeyRelatedField(source='schedule', queryset=Schedule.objects.all())
+    room = RoomSerializer()
 
     class Meta:
         model = Event
-        fields = ("id", "class_id", "room_id", "group_id", "timeslot_id", "schedule_id", "date")
+        fields = ("id", "class_id", "room", "group", "starting_time", "ending_time", "date")
