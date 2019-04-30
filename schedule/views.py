@@ -23,13 +23,11 @@ class EventViewSet(viewsets.ModelViewSet):
         today = timezone.now()
         start = today - timedelta(days=today.weekday())
         end = start + timedelta(days=6)
-        # events = Event.objects.filter(timeslot__starting_time__gte=start, timeslot__ending_time__lte=end)
-        events = Event.objects.all()
+        events = Event.objects.filter(date__gte=start, date__lte=end)
 
         dates = events.values_list('date', flat=True)
 
         for date in dates:
-                print(date)
                 d_events = Event.objects.filter(date=date)
                 resp[str(date)] = EventSerializer(d_events, many=True).data
 
