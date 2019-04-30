@@ -18,11 +18,21 @@ class EventViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=["get"])
     def my(self, request, *args, **kwargs):
 
+        resp = {}
+
         today = timezone.now()
         start = today - timedelta(days=today.weekday())
         end = start + timedelta(days=6)
         # events = Event.objects.filter(timeslot__starting_time__gte=start, timeslot__ending_time__lte=end)
         events = Event.objects.all()
+
+        dates = events.values_list('date', flat=True)
+
+        for date in dates:
+                print(date)
+                d_events = Event.objects.filter(date=date)
+                resp[str(date)] = EventSerializer(d_events, many=True).data
+
         # all_timeslots = Timeslot.objects.none()
         # for day_choice in DaysOfWeek.choices:
         #     timeslots = Timeslot.objects.filter(day_of_week=day_choice[0], events__isnull=False)
@@ -51,10 +61,10 @@ class EventViewSet(viewsets.ModelViewSet):
         # response['timeslots'] = list(set([f'{t.starting_time} - {t.ending_time}' for t in
         #                                   all_timeslots.only('starting_time', 'ending_time').distinct()]))
 
-        response = EventSerializer(events, many=True).data
+        # response = EventSerializer(events, many=True).data
 
 
-        return Response(response, status=status.HTTP_200_OK)
+        return Response(resp, status=status.HTTP_200_OK)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()

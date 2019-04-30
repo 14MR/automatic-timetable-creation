@@ -17,12 +17,13 @@ class ScheduleSerializer(serializers.ModelSerializer):
 
 
 class EventSerializer(serializers.ModelSerializer):
-    group = GroupSerializer()
-    starting_time = serializers.TimeField(source='timeslot.starting_time')
-    ending_time = serializers.TimeField(source='timeslot.ending_time')
+    group = GroupSerializer(many=True)
+    starting_time = serializers.DateTimeField(source='timeslot.starting_time')
+    ending_time = serializers.DateTimeField(source='timeslot.ending_time')
     class_id = serializers.PrimaryKeyRelatedField(
         source="current_class", queryset=Class.objects.all()
     )
+    # class_info =
     room = RoomSerializer()
 
     class Meta:
