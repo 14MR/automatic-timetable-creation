@@ -107,6 +107,8 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.TokenAuthentication",
     ),
+    'DEFAULT_PAGINATION_CLASS': 'atc.paginators.LimitOffsetSimplePagination',
+    'PAGE_SIZE': 10
 }
 
 # Internationalization
