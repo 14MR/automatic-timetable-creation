@@ -22,8 +22,7 @@ class EventViewSet(viewsets.ModelViewSet):
         today = timezone.now()
         start = today - timedelta(days=today.weekday())
         end = start + timedelta(days=6)
-        # events = Event.objects.filter(date__gte=start, date__lte=end)
-        events = Event.objects.all()
+        events = Event.objects.filter(date__gte=start, date__lte=end)
         dates = events.values_list('date', flat=True)
 
         for date in dates:
