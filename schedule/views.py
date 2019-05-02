@@ -1,22 +1,17 @@
 from celery.result import AsyncResult
+from datetime import timedelta
 from django.utils import timezone
-from rest_framework import viewsets, status, generics
+from rest_framework import viewsets, status
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from atc.celery import app
-from schedule.enums import DaysOfWeek
-from schedule.models import Timeslot
 from schedule.serializers import Event, EventSerializer
-from datetime import datetime, timedelta
-
 from schedule.tasks import generate_table_and_save
 
 
 class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
-    permission_classes = (AllowAny,)
     queryset = Event.objects.all()
 
     @action(detail=False, methods=["get"])
@@ -27,7 +22,7 @@ class EventViewSet(viewsets.ModelViewSet):
         start = today - timedelta(days=today.weekday())
         end = start + timedelta(days=6)
         events = Event.objects.filter(date__gte=start, date__lte=end)
-        dates = events.values_list('date', flat=True)
+        dates = events.values_list('date', flat=True).distinct()
 
         for date in dates:
             d_events = Event.objects.filter(date=date)
@@ -43,7 +38,6 @@ class EventViewSet(viewsets.ModelViewSet):
 
 
 class GenerateViewSet(viewsets.ModelViewSet):
-    permission_classes = (AllowAny,)
 
     def list(self, request, *args, **kwargs):
         uid = request.query_params.get('uid', False)
