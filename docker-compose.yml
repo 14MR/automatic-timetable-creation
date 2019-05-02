@@ -41,7 +41,20 @@ services:
       - project
       - redis-net
 
-
+  celery:
+    image: registry.gitlab.com/automatic-timetable-creation/backend:latest
+    command: /bin/bash -c "pip install -r requirements.txt && celery -A atc worker --beat --loglevel=info"
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      - redis
+    restart: always
+    environment:
+      DEBUG: 'True'
+    networks:
+      - project
+      - redis-net
 
   redis:
     image: redis:5.0.4-alpine
