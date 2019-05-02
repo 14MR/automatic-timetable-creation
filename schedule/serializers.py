@@ -13,7 +13,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Schedule
-        fields = ("id", "semester_id")
+        fields = ("id", "semester_id", "is_active")
 
 
 class EventSerializer(serializers.ModelSerializer):

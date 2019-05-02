@@ -10,9 +10,22 @@ from users.models import Group
 
 class Schedule(models.Model):
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.semester} schedule"
+
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            # select all other active items
+            qs = type(self).objects.filter(active=True, semester=self.semester)
+            # except self (if self already exists)
+            if self.pk:
+                qs = qs.exclude(pk=self.pk)
+            # and deactive them
+            qs.update(is_active=False, semester=self.semester)
+
+        super(Schedule, self).save(*args, **kwargs)
 
 
 class Timeslot(models.Model):
