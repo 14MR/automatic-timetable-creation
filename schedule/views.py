@@ -1,7 +1,7 @@
 from celery.result import AsyncResult
 from datetime import timedelta
 from django.utils import timezone
-from rest_framework import viewsets, status, mixins
+from rest_framework import viewsets, status, mixins, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -10,6 +10,7 @@ from schedule.models import Schedule
 from schedule.serializers import Event, EventSerializer
 from schedule.tasks import generate_table_and_save
 from users.enums import RoleType
+from users.permissions import IsDOEOrHigher
 
 
 class EventViewSet(viewsets.ViewSet):
@@ -59,6 +60,7 @@ class SchedulesViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 
 
 class GenerateViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated, IsDOEOrHigher)
 
     def list(self, request, *args, **kwargs):
         uid = request.query_params.get('uid', False)
