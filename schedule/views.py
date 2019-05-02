@@ -1,11 +1,12 @@
 from celery.result import AsyncResult
 from datetime import timedelta
 from django.utils import timezone
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from atc.celery import app
+from schedule.models import Schedule
 from schedule.serializers import Event, EventSerializer
 from schedule.tasks import generate_table_and_save
 
@@ -26,6 +27,27 @@ class EventViewSet(viewsets.ViewSet):
 
         for date in dates:
             d_events = Event.objects.filter(date=date)
+            resp[str(date)] = EventSerializer(d_events, many=True).data
+
+        return Response(resp, status=status.HTTP_200_OK)
+
+
+class SchedulesViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    serializer_class = EventSerializer
+    queryset = Schedule.objects.all()
+
+    def retrieve(self, request, pk=None):
+        schedule = self.get_object()
+        resp = {}
+
+        today = timezone.now()
+        start = today - timedelta(days=today.weekday())
+        end = start + timedelta(days=6)
+        events = Event.objects.filter(date__gte=start, date__lte=end, schedule=schedule)
+        dates = events.values_list('date', flat=True).distinct()
+
+        for date in dates:
+            d_events = events.filter(date=date)
             resp[str(date)] = EventSerializer(d_events, many=True).data
 
         return Response(resp, status=status.HTTP_200_OK)
