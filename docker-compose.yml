@@ -2,7 +2,7 @@ version: '3'
 services:
 
   docsweb:
-    image: registry.gitlab.com/automatic-timetable-creation/backend:develop_docsweb
+    image: registry.gitlab.com/automatic-timetable-creation/backend:docs
     ports:
       - 9009:80
     restart: always
