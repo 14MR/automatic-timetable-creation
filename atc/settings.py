@@ -134,3 +134,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 BROKER_URL = os.environ.get("BROKER_URL", "redis://redis:6379")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND", "redis://redis:6379")
 CELERY_TIMEZONE = "Europe/Moscow"
+#CELERY_RESULT_BACKEND = ""

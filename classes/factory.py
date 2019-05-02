@@ -1,6 +1,8 @@
 import factory
 import random
 
+from factory import fuzzy
+
 from classes.models import Semester, Course, Class, ClassType
 from users.factory import YearGroupFactory, UserFactory
 
@@ -9,8 +11,8 @@ class SemesterFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Semester
 
-    year = random.randint(2018, 2100)
-    type = random.choice([0, 1, 2])
+    year = fuzzy.FuzzyInteger(2018, 2100)
+    type = fuzzy.FuzzyInteger(0, 2)
 
 
 class CourseFactory(factory.django.DjangoModelFactory):
@@ -27,7 +29,7 @@ class ClassTypeFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ClassType
 
-    title = random.choice(["Lecture", "Tutorial", "Lab"])
+    title = fuzzy.FuzzyChoice(["Lecture", "Tutorial", "Lab"])
 
 
 class ClassFactory(factory.django.DjangoModelFactory):
@@ -36,5 +38,5 @@ class ClassFactory(factory.django.DjangoModelFactory):
 
     course = factory.SubFactory(CourseFactory)
     type = factory.SubFactory(ClassTypeFactory)
-    per_week = random.randint(1, 10)
+    per_week = fuzzy.FuzzyInteger(1, 10)
     teacher = factory.SubFactory(UserFactory)

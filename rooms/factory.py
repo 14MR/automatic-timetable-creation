@@ -1,6 +1,8 @@
 import factory
 import random
 
+from factory import fuzzy
+
 from rooms.models import ItemType
 from rooms.models import Item
 from rooms.models import RoomType
@@ -18,10 +20,10 @@ class RoomFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Room
 
-    number = random.randint(100, 600)
+    number = fuzzy.FuzzyInteger(100, 600)
     type = factory.SubFactory(RoomTypeFactory)
-    capacity = 10 * random.randint(3, 20)
-    is_yellow = number > 299 if random.choice([True, False]) else False
+    capacity = fuzzy.FuzzyInteger(30, 60)
+    is_yellow = fuzzy.FuzzyInteger(0, 1)
 
 
 class ItemTypeFactory(factory.django.DjangoModelFactory):

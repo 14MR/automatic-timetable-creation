@@ -1,13 +1,17 @@
+from celery.result import AsyncResult
 from django.utils import timezone
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, generics
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
+from atc.celery import app
 from schedule.enums import DaysOfWeek
 from schedule.models import Timeslot
 from schedule.serializers import Event, EventSerializer
 from datetime import datetime, timedelta
+
+from schedule.tasks import generate_table_and_save
 
 
 class EventViewSet(viewsets.ModelViewSet):
@@ -36,3 +40,22 @@ class EventViewSet(viewsets.ModelViewSet):
         data = EventSerializer(instance).data
         instance.delete()
         return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+
+class GenerateViewSet(viewsets.ModelViewSet):
+    permission_classes = (AllowAny,)
+
+    def list(self, request, *args, **kwargs):
+        uid = request.query_params.get('uid', False)
+
+        if not uid:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        res = AsyncResult(uid, app=app)
+
+        return Response({"ready": res.successful()})
+
+    def create(self, request, *args, **kwargs):
+        uid = generate_table_and_save.delay()
+
+        return Response({"uid": uid.id})
