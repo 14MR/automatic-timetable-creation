@@ -9,6 +9,7 @@ from atc.celery import app
 from schedule.models import Schedule
 from schedule.serializers import Event, EventSerializer
 from schedule.tasks import generate_table_and_save
+from users.enums import RoleType
 
 
 class EventViewSet(viewsets.ViewSet):
@@ -23,10 +24,14 @@ class EventViewSet(viewsets.ViewSet):
         start = today - timedelta(days=today.weekday())
         end = start + timedelta(days=6)
         events = Event.objects.filter(date__gte=start, date__lte=end)
+
+        if request.user.role == RoleType.student:  # students see only their events
+            events = events.filter(group__user=request.user)
+
         dates = events.values_list('date', flat=True).distinct()
 
         for date in dates:
-            d_events = Event.objects.filter(date=date)
+            d_events = events.filter(date=date)
             resp[str(date)] = EventSerializer(d_events, many=True).data
 
         return Response(resp, status=status.HTTP_200_OK)

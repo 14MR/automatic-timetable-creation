@@ -12,3 +12,4 @@ class AdminGroup(admin.ModelAdmin):
 
 admin.site.register(YearGroup, AdminYearGroup)
 admin.site.register(Group, AdminGroup)
+admin.site.register(User)
