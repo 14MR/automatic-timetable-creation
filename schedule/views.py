@@ -13,9 +13,18 @@ from users.enums import RoleType
 from users.permissions import IsDOEOrHigher
 
 
-class EventViewSet(viewsets.ViewSet):
+class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
+    permission_classes = (permissions.IsAuthenticated, IsDOEOrHigher)
+
+    permission_classes_by_action = {
+        'create': (permissions.IsAuthenticated, IsDOEOrHigher),
+        'update': (permissions.IsAuthenticated, IsDOEOrHigher),
+        'delete': (permissions.IsAuthenticated, IsDOEOrHigher),
+        'list': (permissions.IsAuthenticated, IsDOEOrHigher),
+        'my': (permissions.IsAuthenticated,),
+    }
 
     @action(detail=False, methods=["get"])
     def my(self, request, *args, **kwargs):
@@ -70,7 +79,10 @@ class GenerateViewSet(viewsets.ModelViewSet):
 
         res = AsyncResult(uid, app=app)
 
-        return Response({"ready": res.successful(), "semester_id": res.get()})
+        if res.successful():
+            return Response({"ready": res.successful(), "schedule_id": res.get()})
+
+        return Response({"ready": res.successful(), "schedule_id": None})
 
     def create(self, request, *args, **kwargs):
         uid = generate_table_and_save.delay()

@@ -2,11 +2,12 @@
 from django.db.models import Max
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 
 from schedule.factory import EventFactory
 from schedule.models import Event, Timeslot
 from users.factory import GroupFactory
+from users.models import User
 
 
 class TestEvents(APITestCase):
@@ -15,6 +16,10 @@ class TestEvents(APITestCase):
     def setUp(self):
         self.event = EventFactory.create_batch(size=1)[0]
         self.group = GroupFactory.create_batch(size=1)[0]
+
+        self.user = User.objects.create(email="test@test.com", is_active=True, is_superuser=True)
+        self.client = APIClient()
+        self.client.force_authenticate(user=self.user)
 
     def test_view_event(self):
         # Tests GET(200) on /schedules/events/
@@ -44,18 +49,6 @@ class TestEvents(APITestCase):
     #     self.assertEqual(event_count + 1, Event.objects.count())
     #     self.assertEqual(response_get.status_code, status.HTTP_200_OK)
     #     self.assertEqual(len(response_get.data), Event.objects.count())
-
-    def test_delete_event(self):
-        # Tests DELETE (200) on /schedules/events/{id}/
-        event_count = Event.objects.count()
-        event = EventFactory.create_batch(size=1)[0]
-        url = reverse("event-detail", args=(event.id,))
-        response_delete = self.client.delete(url)
-
-        self.assertEqual(response_delete.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(response_delete.data["id"], event.id)
-        self.assertEqual(event_count, Event.objects.count())
-
     # def test_put_event(self):
     #     # Test PUT(200) on /schedules/events/{id}/
     #     new_event_data = {
