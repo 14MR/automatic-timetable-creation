@@ -642,6 +642,83 @@ paths:
         '404':
           description: 'Room or item with such id does not exist'
 
+  /schedules/:
+    get:
+      summary: 'Returns status of generation'
+      operationId: get_schedules
+      tags:
+        - "schedules"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Events successfully returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: id
+                    example: 1
+                  semester_id:
+                    type: integer
+                    example: 12
+                  is_active:
+                    type: boolean
+                    example: true
+
+  /schedules/generate/:
+    get:
+      summary: 'Returns status of generation'
+      operationId: get_generation_status
+      tags:
+        - "schedules"
+      security:
+        - TokenAuth: []
+      parameters:
+        - in: query
+          name: uid
+          schema:
+            type: string
+          required: true
+          description: UID from POST `/schedules/generate/`
+      responses:
+        '200':
+          description: 'Events successfully returned'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ready:
+                    type: boolean
+                    example: true
+                  schedule_id:
+                    type: integer
+                    example: 12
+                    nullable: true
+    post:
+      summary: 'Starts new generation'
+      description: 'Starts new generation'
+      operationId: starts_generation_of_schedule
+      tags:
+        - "schedules"
+      security:
+        - TokenAuth: []
+      responses:
+        '200':
+          description: 'Event successfully created'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uid:
+                    type: string
+                    example: "ed1b6d1b-f604-466c-b9e7-719dd710dbdc"
+
+
   /schedules/events/:
     get:
       summary: 'Returns events'
