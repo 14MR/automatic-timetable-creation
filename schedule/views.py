@@ -1,9 +1,13 @@
+from django.utils import timezone
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
+from schedule.enums import DaysOfWeek
+from schedule.models import Timeslot
 from schedule.serializers import Event, EventSerializer
+from datetime import datetime, timedelta
 
 
 class EventViewSet(viewsets.ModelViewSet):
@@ -13,236 +17,19 @@ class EventViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def my(self, request, *args, **kwargs):
-        data = {
-            "monday": [
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "NotSucci",
-                        "room": "108",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "118",
-                    },
-                    {"class": "", "type": "", "room": ""},
-                ],
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {"class": "", "type": "", "room": ""},
-                ],
-            ],
-            "tuesday": [
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {"class": "SWP", "type": "lecture", "room": "108"},
-                ],
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "NotSucci",
-                        "room": "111",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {"class": "", "type": "", "room": ""},
-                ],
-            ],
-            "wednesday": [
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {"class": "", "type": "", "room": ""},
-                ],
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "NotSucci",
-                        "room": "111",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {"class": "", "type": "", "room": ""},
-                ],
-            ],
-            "thursday": [
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {"class": "", "type": "", "room": ""},
-                ],
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "NotSucci",
-                        "room": "111",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {"class": "", "type": "", "room": ""},
-                ],
-            ],
-            "friday": [
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {"class": "", "type": "", "room": ""},
-                ],
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "NotSucci",
-                        "room": "111",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {"class": "", "type": "", "room": ""},
-                ],
-            ],
-            "saturday": [
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {"class": "", "type": "", "room": ""},
-                ],
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "NotSucci",
-                        "room": "111",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {"class": "", "type": "", "room": ""},
-                ],
-            ],
-            "sunday": [
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {"class": "", "type": "", "room": ""},
-                ],
-                [
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "NotSucci",
-                        "room": "111",
-                    },
-                    {
-                        "class": "Discrete Maths",
-                        "type": "lab",
-                        "teacher_name": "Succi",
-                        "room": "108",
-                    },
-                    {"class": "", "type": "", "room": ""},
-                ],
-            ],
-            "timeslots": ["09:00-10:30", "10:35-12:05"],
-            "groups": ["B18-02", "B18-03", "B18-04"],
-        }
+        resp = {}
 
-        return Response(data, status=status.HTTP_200_OK)
+        today = timezone.now()
+        start = today - timedelta(days=today.weekday())
+        end = start + timedelta(days=6)
+        events = Event.objects.filter(date__gte=start, date__lte=end)
+        dates = events.values_list('date', flat=True)
+
+        for date in dates:
+            d_events = Event.objects.filter(date=date)
+            resp[str(date)] = EventSerializer(d_events, many=True).data
+
+        return Response(resp, status=status.HTTP_200_OK)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()

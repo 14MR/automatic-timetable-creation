@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from classes.models import Class, ClassType, Course, Semester
 from users.models import YearGroup, User, Group
+from users.serializers import UserSerializer
 
 
 class ClassTypeSerializer(serializers.ModelSerializer):
@@ -45,3 +46,13 @@ class SemesterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Semester
         fields = ("id", "year", "type")
+
+
+class ClassEventSerializer(serializers.ModelSerializer):
+    course = CourseSerializer()
+    type = ClassTypeSerializer()
+    teacher = UserSerializer()
+
+    class Meta:
+        model = Class
+        fields = ("id", "course", "type", "teacher")
