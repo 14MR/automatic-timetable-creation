@@ -10,7 +10,7 @@ from schedule.serializers import Event, EventSerializer
 from schedule.tasks import generate_table_and_save
 
 
-class EventViewSet(viewsets.ModelViewSet):
+class EventViewSet(viewsets.ViewSet):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
 
@@ -29,12 +29,6 @@ class EventViewSet(viewsets.ModelViewSet):
             resp[str(date)] = EventSerializer(d_events, many=True).data
 
         return Response(resp, status=status.HTTP_200_OK)
-
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        data = EventSerializer(instance).data
-        instance.delete()
-        return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
 class GenerateViewSet(viewsets.ModelViewSet):
