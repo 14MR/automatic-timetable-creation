@@ -41,7 +41,7 @@ services:
       - project
 
   docsweb:
-    image: registry.gitlab.com/automatic-timetable-creation/backend:${CI_COMMIT_REF_SLUG}_python
+    image: registry.gitlab.com/automatic-timetable-creation/backend:${CI_COMMIT_REF_SLUG}_docs
     ports:
       - 80
     restart: always

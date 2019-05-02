@@ -25,10 +25,10 @@ test:
   stage: test
   script:
     - docker pull ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_SLUG}_python
-    - docker-compose -f docker-compose.autotest.yml run python
+    - docker-compose -f docker-compose.autotest.yml -p atc_autotest_$CI_COMMIT_SHA run python
   coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
   after_script:
-    - docker-compose -f docker-compose.autotest.yml down -v
+    - docker-compose -f docker-compose.autotest.yml -p atc_autotest_$CI_COMMIT_SHA down -v
 
 
 deploy:
