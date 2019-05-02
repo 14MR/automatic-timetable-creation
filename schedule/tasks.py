@@ -5,7 +5,7 @@ from celery.utils.log import get_task_logger
 from django.utils import timezone
 
 from atc.celery import app
-from classes.models import Class
+from classes.models import Class, Semester
 from rooms.models import Room
 from schedule.algorithm import generate
 from schedule.models import Schedule, Timeslot, Event
@@ -48,7 +48,7 @@ def prepare_data(schedule_id):
         for j in range(len(timeslots)):
             room = rooms[i]
             slot = timeslots[j]
-            timespaceslots.append(slot.id*100000 + room.id)
+            timespaceslots.append(slot.id * 100000 + room.id)
 
     for i in range(len(classes)):
         cl = classes[i]
@@ -85,13 +85,14 @@ def generate_table():
 @app.task
 def generate_table_and_save():
     result = generate_table()
-    schedule = Schedule.objects.last()
+    semester = Semester.objects.last()
+    schedule = Schedule.objects.create(semester=semester)
     for r in result:
         current_class = Class.objects.get(
-                course_id=r['course_id'],
-                type_id=r['type_id'],
-                teacher_id=r['teacher_id']
-            )
+            course_id=r['course_id'],
+            type_id=r['type_id'],
+            teacher_id=r['teacher_id']
+        )
 
         event = Event.objects.create(
             current_class=current_class,
@@ -105,4 +106,4 @@ def generate_table_and_save():
             event.group.add(j)
 
     logger.info("Schedule saved")
-    return result
+    return schedule.id

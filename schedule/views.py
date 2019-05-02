@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from atc.celery import app
 from schedule.models import Schedule
-from schedule.serializers import Event, EventSerializer
+from schedule.serializers import Event, EventSerializer, ScheduleSerializer
 from schedule.tasks import generate_table_and_save
 from users.enums import RoleType
 from users.permissions import IsDOEOrHigher
@@ -38,8 +38,8 @@ class EventViewSet(viewsets.ViewSet):
         return Response(resp, status=status.HTTP_200_OK)
 
 
-class SchedulesViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-    serializer_class = EventSerializer
+class SchedulesViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = ScheduleSerializer
     queryset = Schedule.objects.all()
 
     def retrieve(self, request, pk=None):
@@ -70,7 +70,7 @@ class GenerateViewSet(viewsets.ModelViewSet):
 
         res = AsyncResult(uid, app=app)
 
-        return Response({"ready": res.successful()})
+        return Response({"ready": res.successful(), "semester_id": res.get()})
 
     def create(self, request, *args, **kwargs):
         uid = generate_table_and_save.delay()
