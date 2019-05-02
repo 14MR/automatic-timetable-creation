@@ -1,0 +1,718 @@
+[
+
+    {
+        "teacher_id": 11,
+        "course_id": 1,
+        "type_id": 1,
+        "groups_ids": [
+            1,2,3,5,6,7,8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 2,
+                "priority": 10
+            }
+        ]
+    },
+{
+        "teacher_id": 9,
+        "course_id": 1,
+        "type_id": 2,
+        "groups_ids": [
+           1,2,3,5,6,7,8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 9,
+        "course_id": 1,
+        "type_id": 3,
+        "groups_ids": [
+            2
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 2
+            }
+        ]
+    },
+{
+        "teacher_id": 14,
+        "course_id": 1,
+        "type_id": 3,
+        "groups_ids": [
+            6
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 4
+            }
+        ]
+    },
+{
+        "teacher_id": 9,
+        "course_id": 1,
+        "type_id": 3,
+        "groups_ids": [
+            3
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 5
+            }
+        ]
+    },
+{
+        "teacher_id": 14,
+        "course_id": 1,
+        "type_id": 3,
+        "groups_ids": [
+            7
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 14,
+        "course_id": 1,
+        "type_id": 3,
+        "groups_ids": [
+            8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 2
+            }
+        ]
+    },
+{
+        "teacher_id": 9,
+        "course_id": 1,
+        "type_id": 3,
+        "groups_ids": [
+            5
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 4
+            }
+        ]
+    },
+{
+        "teacher_id": 14,
+        "course_id": 1,
+        "type_id": 3,
+        "groups_ids": [
+            1
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 6
+            }
+        ]
+    },
+{
+        "teacher_id": 5,
+        "course_id": 2,
+        "type_id": 1,
+        "groups_ids": [
+           1,2,3,5,6,7,8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 8,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+            1
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 10,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+            2
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 2
+            }
+        ]
+    },
+{
+        "teacher_id": 10,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+            3
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 4,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+            5
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 4,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+            6
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 19,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+            7
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 19,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+            8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 12,
+        "course_id": 2,
+        "type_id": 2,
+        "groups_ids": [
+            1,2,3,5,6,7,8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 12,
+        "course_id": 2,
+        "type_id": 3,
+        "groups_ids": [
+            1
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 15,
+        "course_id": 2,
+        "type_id": 3,
+        "groups_ids": [
+            2
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 15,
+        "course_id": 2,
+        "type_id": 3,
+        "groups_ids": [
+            3
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 12,
+        "course_id": 2,
+        "type_id": 3,
+        "groups_ids": [
+            5
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 12,
+        "course_id": 2,
+        "type_id": 3,
+        "groups_ids": [
+            6
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 12,
+        "course_id": 2,
+        "type_id": 3,
+        "groups_ids": [
+            7
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 15,
+        "course_id": 2,
+        "type_id": 3,
+        "groups_ids": [
+            8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 18,
+        "course_id": 4,
+        "type_id": 1,
+        "groups_ids": [
+            1,2,3,5,6,7,8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 17,
+        "course_id": 4,
+        "type_id": 2,
+        "groups_ids": [
+            1,2,3,5,6,7,8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 17,
+        "course_id": 4,
+        "type_id": 3,
+        "groups_ids": [
+            1
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 16,
+        "course_id": 4,
+        "type_id": 3,
+        "groups_ids": [
+            2
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 16,
+        "course_id": 4,
+        "type_id": 3,
+        "groups_ids": [
+            3
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 6,
+        "course_id": 4,
+        "type_id": 3,
+        "groups_ids": [
+            5
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+
+{
+        "teacher_id": 6,
+        "course_id": 4,
+        "type_id": 3,
+        "groups_ids": [
+            6
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 6,
+        "course_id": 4,
+        "type_id": 3,
+        "groups_ids": [
+            7
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 6,
+        "course_id": 4,
+        "type_id": 3,
+        "groups_ids": [
+            8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 3,
+        "course_id": 5,
+        "type_id": 1,
+        "groups_ids": [
+            1,2,3,5,6,7,8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 2,
+        "course_id": 5,
+        "type_id": 2,
+        "groups_ids": [
+            1,2,3,5,6,7,8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 13,
+        "course_id": 5,
+        "type_id": 3,
+        "groups_ids": [
+            1
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 13,
+        "course_id": 5,
+        "type_id": 3,
+        "groups_ids": [
+            2
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 1,
+        "course_id": 5,
+        "type_id": 3,
+        "groups_ids": [
+            3
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 13,
+        "course_id": 5,
+        "type_id": 3,
+        "groups_ids": [
+            5
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 13,
+        "course_id": 5,
+        "type_id": 3,
+        "groups_ids": [
+            6
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 7,
+        "course_id": 5,
+        "type_id": 3,
+        "groups_ids": [
+            7
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 7,
+        "course_id": 5,
+        "type_id": 3,
+        "groups_ids": [
+            8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 8,
+        "course_id": 3,
+        "type_id": 1,
+        "groups_ids": [
+            1,2,3,5,6,7,8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 8,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+           1
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 10,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+            2
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 10,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+            3
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 4,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+            5
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 4,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+            6
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 19,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+            7
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    },
+{
+        "teacher_id": 19,
+        "course_id": 3,
+        "type_id": 3,
+        "groups_ids": [
+            8
+        ],
+        "timespaceslots": [
+            {
+                "slot_id": 3,
+                "priority": 1
+            }
+        ]
+    }
+]

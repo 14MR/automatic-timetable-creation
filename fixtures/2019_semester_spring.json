@@ -1,0 +1,1933 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$TgNKeLhI9YU0$8jzGcBSFyD2nlcBO2XKxZqeMrsy3j1f8IuiIYTV/8V0=",
+      "last_login": "2019-04-30T17:06:49.837Z",
+      "is_superuser": true,
+      "email": "admin@admin.ru",
+      "first_name": "admin",
+      "last_name": "admin",
+      "role": 0,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "n.shilov@innopolis.ru",
+      "first_name": "Nikolay",
+      "last_name": "Shilov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "a.shikulin@innopolis.ru",
+      "first_name": "Alexey",
+      "last_name": "Shikulin",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 4,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "a.khan@innopolis.ru",
+      "first_name": "Adil",
+      "last_name": "Khan",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 5,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "l.jonata@innopolis.ru",
+      "first_name": "Luiz",
+      "last_name": "Araujo",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 6,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "j.brown@innopolis.ru",
+      "first_name": "Joseph",
+      "last_name": "Brown",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 7,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "h.aslam@innopolis.ru",
+      "first_name": "Hamna",
+      "last_name": "Aslam",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 8,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "n.lozhnikov@innopolis.ru",
+      "first_name": "Nikita",
+      "last_name": "Lozhnikov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 9,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "a.kanatov@innopolis.ru",
+      "first_name": "Alexey",
+      "last_name": "Kanatov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 10,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "i.dmitriev@innopolis.ru",
+      "first_name": "Ivan",
+      "last_name": "Dmitriev",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 11,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "e.bobrov@innopolis.ru",
+      "first_name": "Evgenii",
+      "last_name": "Bobrov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 12,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "a.borisov@innopolis.ru",
+      "first_name": "Alexander",
+      "last_name": "Borisov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 13,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "v.dmitriyev@innopolis.ru",
+      "first_name": "Vladislav",
+      "last_name": "Dmitriyev",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 14,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "y.kholodov@innopolis.ru",
+      "first_name": "Yaroslav",
+      "last_name": "Kholodov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 15,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "v.ivanov@innopolis.ru",
+      "first_name": "Vladimir",
+      "last_name": "Ivanov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 16,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "m.bahrami@innopolis.ru",
+      "first_name": "Mohammad",
+      "last_name": "Bahrami",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 17,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "i.konyukhov@innopolis.ru",
+      "first_name": "Ivan",
+      "last_name": "Konyukhov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 18,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "m.mingazov@innopolis.ru",
+      "first_name": "Marat",
+      "last_name": "Mingazov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 19,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "m.makhmutov@innopolis.ru",
+      "first_name": "Munir",
+      "last_name": "Makhmutov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 20,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "d.carvalho@innopolis.ru",
+      "first_name": "Daniel",
+      "last_name": "De Carvalho",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 21,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "o.bulichev@innopolis.ru",
+      "first_name": "Oleg",
+      "last_name": "Bulichev",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 22,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "s.gorodetskiy@innopolis.ru",
+      "first_name": "Sergey",
+      "last_name": "Gorodetskiy",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 23,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "s.masyagin@innopolis.ru",
+      "first_name": "Sergey",
+      "last_name": "Masyagin",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 24,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "v.ostankovich@innopolis.ru",
+      "first_name": "Vladislav",
+      "last_name": "Ostankovich",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 25,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "m.ostanin@innopolis.ru",
+      "first_name": "Mikhail",
+      "last_name": "Ostanin",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 26,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "n.kudasov@innopolis.ru",
+      "first_name": "Nikolay",
+      "last_name": "Kudasov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 27,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "n.zhuchkov@innopolis.ru",
+      "first_name": "Nikita",
+      "last_name": "Zhuchkov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 28,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "r.gafarov@innopolis.ru",
+      "first_name": "Rustam",
+      "last_name": "Gafarov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 29,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "a.tormasov@innopolis.ru",
+      "first_name": "Alexander",
+      "last_name": "Tormasov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 30,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "m.fahim@innopolis.ru",
+      "first_name": "Muhammad",
+      "last_name": "Fahim",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 31,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "n.bogomazov@innopolis.ru",
+      "first_name": "Nikita",
+      "last_name": "Bogomazov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 32,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "a.karachev@innopolis.ru",
+      "first_name": "Alexey",
+      "last_name": "Karachev",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 33,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "a.zubair@innopolis.ru",
+      "first_name": "Adam",
+      "last_name": "Zubair",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 34,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "a.burmyakov@innopolis.ru",
+      "first_name": "Artem",
+      "last_name": "Burmyakov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 35,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "p.khakimov@innopolis.ru",
+      "first_name": "Pavel",
+      "last_name": "Khakimov",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 36,
+    "fields": {
+      "password": "adminadmin",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "r.marouf@innopolis.ru",
+      "first_name": "Rabab",
+      "last_name": "Marouf",
+      "role": 2,
+      "group": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.yeargroup",
+    "pk": 1,
+    "fields": {
+      "year": 2017,
+      "type": 0
+    }
+  },
+  {
+    "model": "users.yeargroup",
+    "pk": 2,
+    "fields": {
+      "year": 2018,
+      "type": 0
+    }
+  },
+  {
+    "model": "users.yeargroup",
+    "pk": 3,
+    "fields": {
+      "year": 2016,
+      "type": 0
+    }
+  },
+  {
+    "model": "users.yeargroup",
+    "pk": 4,
+    "fields": {
+      "year": 2015,
+      "type": 0
+    }
+  },
+  {
+    "model": "users.group",
+    "pk": 1,
+    "fields": {
+      "number": 1,
+      "study_year": 2
+    }
+  },
+  {
+    "model": "users.group",
+    "pk": 2,
+    "fields": {
+      "number": 2,
+      "study_year": 2
+    }
+  },
+  {
+    "model": "users.group",
+    "pk": 3,
+    "fields": {
+      "number": 3,
+      "study_year": 2
+    }
+  },
+  {
+    "model": "users.group",
+    "pk": 4,
+    "fields": {
+      "number": 4,
+      "study_year": 2
+    }
+  },
+  {
+    "model": "users.group",
+    "pk": 5,
+    "fields": {
+      "number": 5,
+      "study_year": 2
+    }
+  },
+  {
+    "model": "users.group",
+    "pk": 6,
+    "fields": {
+      "number": 6,
+      "study_year": 2
+    }
+  },
+  {
+    "model": "users.group",
+    "pk": 7,
+    "fields": {
+      "number": 1,
+      "study_year": 1
+    }
+  },
+  {
+    "model": "users.group",
+    "pk": 8,
+    "fields": {
+      "number": 2,
+      "study_year": 1
+    }
+  },
+  {
+    "model": "users.group",
+    "pk": 9,
+    "fields": {
+      "number": 3,
+      "study_year": 1
+    }
+  },
+  {
+    "model": "users.group",
+    "pk": 10,
+    "fields": {
+      "number": 5,
+      "study_year": 1
+    }
+  },
+  {
+    "model": "users.group",
+    "pk": 11,
+    "fields": {
+      "number": 6,
+      "study_year": 1
+    }
+  },
+  {
+    "model": "users.group",
+    "pk": 12,
+    "fields": {
+      "number": 7,
+      "study_year": 1
+    }
+  },
+  {
+    "model": "users.group",
+    "pk": 13,
+    "fields": {
+      "number": 8,
+      "study_year": 1
+    }
+  },
+  {
+    "model": "classes.semester",
+    "pk": 1,
+    "fields": {
+      "year": 2019,
+      "type": 0
+    }
+  },
+  {
+    "model": "classes.course",
+    "pk": 1,
+    "fields": {
+      "title": "Discrete Math and Logic",
+      "description": "DML",
+      "semester": 1,
+      "year_group": 2
+    }
+  },
+  {
+    "model": "classes.course",
+    "pk": 2,
+    "fields": {
+      "title": "Analytic Geometry and Linear Algebra 2",
+      "description": "AG and LA 2",
+      "semester": 1,
+      "year_group": 2
+    }
+  },
+  {
+    "model": "classes.course",
+    "pk": 3,
+    "fields": {
+      "title": "Introduction to Programming 2",
+      "description": "ITP2",
+      "semester": 1,
+      "year_group": 2
+    }
+  },
+  {
+    "model": "classes.course",
+    "pk": 4,
+    "fields": {
+      "title": "Mathematical Analysis 2",
+      "description": "MA2",
+      "semester": 1,
+      "year_group": 2
+    }
+  },
+  {
+    "model": "classes.course",
+    "pk": 5,
+    "fields": {
+      "title": "Data Structures and Algorithms",
+      "description": "DSA",
+      "semester": 1,
+      "year_group": 2
+    }
+  },
+  {
+    "model": "classes.course",
+    "pk": 6,
+    "fields": {
+      "title": "Introduction to AI",
+      "description": "IAI",
+      "semester": 1,
+      "year_group": 1
+    }
+  },
+  {
+    "model": "classes.course",
+    "pk": 7,
+    "fields": {
+      "title": "Data Modeling and Databases 2",
+      "description": "DMD2",
+      "semester": 1,
+      "year_group": 1
+    }
+  },
+  {
+    "model": "classes.course",
+    "pk": 8,
+    "fields": {
+      "title": "Probability and Statistic",
+      "description": "ProbStat",
+      "semester": 1,
+      "year_group": 1
+    }
+  },
+  {
+    "model": "classes.course",
+    "pk": 9,
+    "fields": {
+      "title": "Networks",
+      "description": "Networks",
+      "semester": 1,
+      "year_group": 1
+    }
+  },
+  {
+    "model": "classes.course",
+    "pk": 10,
+    "fields": {
+      "title": "Software Project",
+      "description": "SWP",
+      "semester": 1,
+      "year_group": 1
+    }
+  },
+  {
+    "model": "classes.course",
+    "pk": 11,
+    "fields": {
+      "title": "English",
+      "description": "English Advanced",
+      "semester": 1,
+      "year_group": 2
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 1,
+    "fields": {
+      "course": 1,
+      "type": 3,
+      "per_week": 1,
+      "teacher": 2,
+      "groups": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 2,
+    "fields": {
+      "course": 1,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 3,
+      "groups": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 3,
+    "fields": {
+      "course": 1,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 17,
+      "groups": [
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 4,
+    "fields": {
+      "course": 5,
+      "type": 3,
+      "per_week": 1,
+      "teacher": 4,
+      "groups": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 5,
+    "fields": {
+      "course": 5,
+      "type": 2,
+      "per_week": 1,
+      "teacher": 5,
+      "groups": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 6,
+    "fields": {
+      "course": 2,
+      "type": 3,
+      "per_week": 1,
+      "teacher": 14,
+      "groups": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 7,
+    "fields": {
+      "course": 2,
+      "type": 2,
+      "per_week": 1,
+      "teacher": 15,
+      "groups": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 8,
+    "fields": {
+      "course": 2,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 16,
+      "groups": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 9,
+    "fields": {
+      "course": 2,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 21,
+      "groups": [
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 10,
+    "fields": {
+      "course": 3,
+      "type": 3,
+      "per_week": 1,
+      "teacher": 6,
+      "groups": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 11,
+    "fields": {
+      "course": 3,
+      "type": 1,
+      "per_week": 2,
+      "teacher": 18,
+      "groups": [
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 12,
+    "fields": {
+      "course": 3,
+      "type": 1,
+      "per_week": 2,
+      "teacher": 19,
+      "groups": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 13,
+    "fields": {
+      "course": 3,
+      "type": 1,
+      "per_week": 2,
+      "teacher": 20,
+      "groups": [
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 14,
+    "fields": {
+      "course": 4,
+      "type": 3,
+      "per_week": 1,
+      "teacher": 22,
+      "groups": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 15,
+    "fields": {
+      "course": 4,
+      "type": 2,
+      "per_week": 1,
+      "teacher": 22,
+      "groups": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 16,
+    "fields": {
+      "course": 4,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 22,
+      "groups": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 17,
+    "fields": {
+      "course": 4,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 32,
+      "groups": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 18,
+    "fields": {
+      "course": 4,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 23,
+      "groups": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 19,
+    "fields": {
+      "course": 4,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 17,
+      "groups": [
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 20,
+    "fields": {
+      "course": 5,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 24,
+      "groups": [
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 21,
+    "fields": {
+      "course": 5,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 25,
+      "groups": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 22,
+    "fields": {
+      "course": 5,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 26,
+      "groups": [
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 23,
+    "fields": {
+      "course": 6,
+      "type": 3,
+      "per_week": 1,
+      "teacher": 6,
+      "groups": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 24,
+    "fields": {
+      "course": 10,
+      "type": 1,
+      "per_week": 2,
+      "teacher": 10,
+      "groups": [
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 25,
+    "fields": {
+      "course": 6,
+      "type": 2,
+      "per_week": 1,
+      "teacher": 7,
+      "groups": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 26,
+    "fields": {
+      "course": 6,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 7,
+      "groups": [
+        8,
+        9,
+        10
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 27,
+    "fields": {
+      "course": 6,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 8,
+      "groups": [
+        11,
+        12,
+        13,
+        7
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 28,
+    "fields": {
+      "course": 11,
+      "type": 3,
+      "per_week": 8,
+      "teacher": 36,
+      "groups": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 29,
+    "fields": {
+      "course": 7,
+      "type": 3,
+      "per_week": 1,
+      "teacher": 9,
+      "groups": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 30,
+    "fields": {
+      "course": 10,
+      "type": 1,
+      "per_week": 2,
+      "teacher": 11,
+      "groups": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 31,
+    "fields": {
+      "course": 10,
+      "type": 1,
+      "per_week": 2,
+      "teacher": 12,
+      "groups": [
+        10,
+        11
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 32,
+    "fields": {
+      "course": 10,
+      "type": 1,
+      "per_week": 2,
+      "teacher": 13,
+      "groups": [
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 33,
+    "fields": {
+      "course": 7,
+      "type": 2,
+      "per_week": 1,
+      "teacher": 5,
+      "groups": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 34,
+    "fields": {
+      "course": 7,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 27,
+      "groups": [
+        8,
+        9,
+        13
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 35,
+    "fields": {
+      "course": 7,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 5,
+      "groups": [
+        10,
+        11,
+        12,
+        7
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 36,
+    "fields": {
+      "course": 8,
+      "type": 3,
+      "per_week": 1,
+      "teacher": 22,
+      "groups": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 37,
+    "fields": {
+      "course": 8,
+      "type": 2,
+      "per_week": 1,
+      "teacher": 28,
+      "groups": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 38,
+    "fields": {
+      "course": 8,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 32,
+      "groups": [
+        10,
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 39,
+    "fields": {
+      "course": 8,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 28,
+      "groups": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 40,
+    "fields": {
+      "course": 8,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 35,
+      "groups": [
+        8,
+        9
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 41,
+    "fields": {
+      "course": 9,
+      "type": 3,
+      "per_week": 1,
+      "teacher": 29,
+      "groups": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 42,
+    "fields": {
+      "course": 9,
+      "type": 2,
+      "per_week": 1,
+      "teacher": 30,
+      "groups": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 43,
+    "fields": {
+      "course": 9,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 33,
+      "groups": [
+        9
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 44,
+    "fields": {
+      "course": 9,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 34,
+      "groups": [
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 45,
+    "fields": {
+      "course": 9,
+      "type": 1,
+      "per_week": 1,
+      "teacher": 31,
+      "groups": [
+        8,
+        10,
+        11,
+        7
+      ]
+    }
+  },
+  {
+    "model": "classes.class",
+    "pk": 46,
+    "fields": {
+      "course": 10,
+      "type": 3,
+      "per_week": 1,
+      "teacher": 11,
+      "groups": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "schedule.schedule",
+    "pk": 1,
+    "fields": {
+      "semester": 1
+    }
+  },
+  {
+    "model": "schedule.event",
+    "pk": 1,
+    "fields": {
+      "timeslot": 3,
+      "current_class": 23,
+      "schedule": 1,
+      "room": 1,
+      "date": "2019-04-15",
+      "group": []
+    }
+  },
+  {
+    "model": "schedule.event",
+    "pk": 2,
+    "fields": {
+      "timeslot": 4,
+      "current_class": 25,
+      "schedule": 1,
+      "room": 1,
+      "date": "2019-04-15",
+      "group": []
+    }
+  },
+  {
+    "model": "schedule.event",
+    "pk": 3,
+    "fields": {
+      "timeslot": 5,
+      "current_class": 26,
+      "schedule": 1,
+      "room": 2,
+      "date": "2019-04-15",
+      "group": []
+    }
+  },
+  {
+    "model": "schedule.event",
+    "pk": 4,
+    "fields": {
+      "timeslot": 5,
+      "current_class": 27,
+      "schedule": 1,
+      "room": 3,
+      "date": "2019-04-15",
+      "group": []
+    }
+  },
+  {
+    "model": "schedule.event",
+    "pk": 5,
+    "fields": {
+      "timeslot": 2,
+      "current_class": 1,
+      "schedule": 1,
+      "room": 4,
+      "date": "2019-04-15",
+      "group": []
+    }
+  },
+  {
+    "model": "schedule.event",
+    "pk": 6,
+    "fields": {
+      "timeslot": 3,
+      "current_class": 2,
+      "schedule": 1,
+      "room": 5,
+      "date": "2019-04-15",
+      "group": []
+    }
+  },
+  {
+    "model": "schedule.event",
+    "pk": 7,
+    "fields": {
+      "timeslot": 4,
+      "current_class": 2,
+      "schedule": 1,
+      "room": 5,
+      "date": "2019-04-15",
+      "group": []
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 1,
+    "fields": {
+      "number": 105,
+      "type": 2,
+      "capacity": 200,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 2,
+    "fields": {
+      "number": 101,
+      "type": 1,
+      "capacity": 30,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 3,
+    "fields": {
+      "number": 314,
+      "type": 1,
+      "capacity": 40,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 4,
+    "fields": {
+      "number": 108,
+      "type": 2,
+      "capacity": 250,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 5,
+    "fields": {
+      "number": 321,
+      "type": 1,
+      "capacity": 60,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 7,
+    "fields": {
+      "number": 106,
+      "type": 2,
+      "capacity": 150,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 8,
+    "fields": {
+      "number": 107,
+      "type": 2,
+      "capacity": 150,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 9,
+    "fields": {
+      "number": 300,
+      "type": 1,
+      "capacity": 60,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 10,
+    "fields": {
+      "number": 301,
+      "type": 1,
+      "capacity": 40,
+      "is_yellow": true
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 11,
+    "fields": {
+      "number": 320,
+      "type": 1,
+      "capacity": 40,
+      "is_yellow": true
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 12,
+    "fields": {
+      "number": 303,
+      "type": 1,
+      "capacity": 40,
+      "is_yellow": true
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 13,
+    "fields": {
+      "number": 304,
+      "type": 1,
+      "capacity": 30,
+      "is_yellow": true
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 14,
+    "fields": {
+      "number": 305,
+      "type": 1,
+      "capacity": 30,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 15,
+    "fields": {
+      "number": 306,
+      "type": 1,
+      "capacity": 30,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 16,
+    "fields": {
+      "number": 307,
+      "type": 1,
+      "capacity": 60,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 17,
+    "fields": {
+      "number": 308,
+      "type": 1,
+      "capacity": 40,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 18,
+    "fields": {
+      "number": 312,
+      "type": 1,
+      "capacity": 30,
+      "is_yellow": true
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 19,
+    "fields": {
+      "number": 313,
+      "type": 1,
+      "capacity": 60,
+      "is_yellow": true
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 20,
+    "fields": {
+      "number": 316,
+      "type": 1,
+      "capacity": 30,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 21,
+    "fields": {
+      "number": 317,
+      "type": 1,
+      "capacity": 30,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 22,
+    "fields": {
+      "number": 318,
+      "type": 1,
+      "capacity": 30,
+      "is_yellow": true
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 23,
+    "fields": {
+      "number": 102,
+      "type": 1,
+      "capacity": 30,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 24,
+    "fields": {
+      "number": 103,
+      "type": 1,
+      "capacity": 30,
+      "is_yellow": false
+    }
+  },
+  {
+    "model": "rooms.room",
+    "pk": 25,
+    "fields": {
+      "number": 104,
+      "type": 1,
+      "capacity": 30,
+      "is_yellow": false
+    }
+  }
+]

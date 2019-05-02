@@ -2,7 +2,7 @@ version: '3'
 services:
 
   docsweb:
-    image: registry.gitlab.com/automatic-timetable-creation/backend:develop_docsweb
+    image: registry.gitlab.com/automatic-timetable-creation/backend:docs
     ports:
       - 9009:80
     restart: always
@@ -41,7 +41,20 @@ services:
       - project
       - redis-net
 
-
+  celery:
+    image: registry.gitlab.com/automatic-timetable-creation/backend:latest
+    command: /bin/bash -c "pip install -r requirements.txt && celery -A atc worker --beat --loglevel=info"
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      - redis
+    restart: always
+    environment:
+      DEBUG: 'True'
+    networks:
+      - project
+      - redis-net
 
   redis:
     image: redis:5.0.4-alpine

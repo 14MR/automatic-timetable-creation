@@ -35,7 +35,6 @@ class EventFactory(factory.django.DjangoModelFactory):
 
     timeslot = factory.SubFactory(TimeslotFactory)
     schedule = factory.SubFactory(ScheduleFactory)
-    group = factory.SubFactory(GroupFactory)
     current_class = factory.SubFactory(ClassFactory)
     date = FuzzyDate(datetime.datetime(2018, 1, 1), datetime.datetime(2100, 1, 1))
     room = factory.SubFactory(RoomFactory)
